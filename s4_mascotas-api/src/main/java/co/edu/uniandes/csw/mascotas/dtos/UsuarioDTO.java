@@ -148,7 +148,9 @@ public class UsuarioDTO implements Serializable{
     
     
     
-            
+    public String toString(){
+        return "UsuarioDTO{"+"usuario:"+usuario+", contrasenha:"+contrasenha+", correo:"+correo+", nombre:"+nombre+", telefono:"+telefono+", recibeNotificaciones:"+recibeNotificaciones+"}";
+    }
             
     
     
