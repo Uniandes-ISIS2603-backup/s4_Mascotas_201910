@@ -43,6 +43,12 @@ public class UsuarioDTO implements Serializable{
      */
     private boolean recibeNotificaciones;
 
+    /**
+     * Constructor
+     */
+    public UsuarioDTO(){
+        
+    }
     
     /**
      * 
