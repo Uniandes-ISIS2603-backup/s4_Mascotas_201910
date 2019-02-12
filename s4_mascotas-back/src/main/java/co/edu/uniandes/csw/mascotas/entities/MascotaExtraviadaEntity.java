@@ -34,7 +34,7 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     /**
      * Relación a una Recompensa de cardinalidad 1
      */
-    private RecompensaEntity recompensa;
+    //private RecompensaEntity recompensa;
     
     /**
      * Las siguientes dos constantes contienen los dos valores
@@ -43,7 +43,13 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     
     public static final String PENDIENTE = "PENDIENTE";
     public static final String ENCONTRADO = "ENCONTRADO";
-    
+
+    /**
+     * Constructor por defecto
+     */
+    public MascotaExtraviadaEntity() {
+        
+    }
     
     /**
      * 
@@ -93,21 +99,20 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
         this.estado = estado;
     }
 
-    /**
-     * 
-     * @return La recompensa del proceso
-     */
-    public RecompensaEntity getRecompensa() {
-        return recompensa;
-    }
+//    /**
+//     * 
+//     * @return La recompensa del proceso
+//     */
+//    public RecompensaEntity getRecompensa() {
+//        return recompensa;
+//    }
+//
+//    /**
+//     * Modifica la recompensa del proceso
+//     * @param recompensa 
+//     */
+//    public void setRecompensa(RecompensaEntity recompensa) {
+//        this.recompensa = recompensa;
+//    }
 
-    /**
-     * Modifica la recompensa del proceso
-     * @param recompensa 
-     */
-    public void setRecompensa(RecompensaEntity recompensa) {
-        this.recompensa = recompensa;
-    }
-    
-    
 }

@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mascotas.resources;
 
 import co.edu.uniandes.csw.mascotas.dtos.MascotaExtraviadaDTO;
-import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
@@ -26,12 +25,6 @@ import javax.ws.rs.Produces;
 public class MascotaExtraviadaResource {
     
     private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaResource.class.getName());
-    
-    /**
-     * Lógica de los procesos de mascota extraviada
-     */
-    @Inject
-    MascotaExtraviadaLogic mascotaExtraviadaLogic;
     
     
 }
