@@ -18,4 +18,5 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 public class RecompensaResource {
     
+    
 }
