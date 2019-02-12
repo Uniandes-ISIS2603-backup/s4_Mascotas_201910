@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mascotas.test.persistence;
 
-import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
-import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
+import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
+import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,13 +25,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @RunWith(Arquillian.class)
-public class MascotaExtraviadaPersistenceTest {
+public class RecompensaTest {
     
     /**
      * La clase de persistencia sobre la cual se realizan las pruebas
      */
     @Inject
-    private MascotaExtraviadaPersistence persistence;
+    private RecompensaPersistence persistence;
     
     /**
      * Manejador de persistencia para este conjunto de pruebas
@@ -42,30 +42,29 @@ public class MascotaExtraviadaPersistenceTest {
     @Deployment
     public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(MascotaExtraviadaEntity.class.getPackage())
-                .addPackage(MascotaExtraviadaPersistence.class.getPackage())
+                .addPackage(RecompensaEntity.class.getPackage())
+                .addPackage(RecompensaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
     /**
-     * Método que prueba el funcionamiento de persistir un nuevo proceso
-     * de mascota extraviada en la base de datos
+     * Método que prueba el funcionamiento de persistir una nueva
+     * recompensa en la base de datos
      */
     @Test
-    public void createMascotaExtraviadaTest(){
+    public void createRecompensaTest(){
         
         PodamFactory factory = new PodamFactoryImpl();
         
-        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class); 
-        MascotaExtraviadaEntity resultEntity = persistence.create(entity);
+        RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
+        RecompensaEntity resultEntity = persistence.create(entity);
         
         Assert.assertNotNull(resultEntity);
         
-        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, resultEntity.getId());
-        Assert.assertEquals(entity.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(entity.getDireccion(), foundEntity.getDireccion());
+        RecompensaEntity foundEntity = em.find(RecompensaEntity.class, resultEntity.getId());
         Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
+        Assert.assertEquals(entity.getValor(), foundEntity.getValor());
+        Assert.assertEquals(entity.getMedioDePago(), foundEntity.getMedioDePago());
     }
-    
 }
