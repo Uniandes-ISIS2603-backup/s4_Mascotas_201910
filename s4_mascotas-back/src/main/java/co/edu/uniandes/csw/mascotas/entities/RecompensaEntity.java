@@ -40,9 +40,16 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
     
     private static final String PENDIENTE = "PENDIENTE";
     private static final String PAGADO = "PAGADO";
+
+    /**
+     * Constructor por defecto
+     */
+    public RecompensaEntity() {
+        
+    }
     
     
-        /**
+    /**
      * 
      * @return El medio de pago para la recompensa
      */
