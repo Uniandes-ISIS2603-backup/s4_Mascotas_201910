@@ -39,7 +39,7 @@ public class MascotaExtraviadaDTO implements Serializable{
     /**
      * Relación a una Recompensa de cardinalidad 1
      */
-    private RecompensaDTO recompensa;
+    //private RecompensaDTO recompensa;
     
     /**
      * Las siguientes dos constantes contienen los dos valores
@@ -66,11 +66,11 @@ public class MascotaExtraviadaDTO implements Serializable{
             this.ciudad = e.getCiudad();
             this.estado = e.getEstado();
             
-            if(e.getRecompensa() != null){
-                this.recompensa = new RecompensaDTO(e.getRecompensa());
-            }else{
-                this.recompensa = null;
-            }
+//            if(e.getRecompensa() != null){
+//                this.recompensa = new RecompensaDTO(e.getRecompensa());
+//            }else{
+//                this.recompensa = null;
+//            }
         }
     }
    
@@ -139,21 +139,21 @@ public class MascotaExtraviadaDTO implements Serializable{
         this.estado = estado;
     }
 
-    /**
-     * 
-     * @return La recompensa ofrecida por el proceso
-     */
-    public RecompensaDTO getRecompensa() {
-        return recompensa;
-    }
-
-    /**
-     * Modifica la recompensa ofrecida por el proceso
-     * @param recompensa 
-     */
-    public void setRecompensa(RecompensaDTO recompensa) {
-        this.recompensa = recompensa;
-    }
+//    /**
+//     * 
+//     * @return La recompensa ofrecida por el proceso
+//     */
+//    public RecompensaDTO getRecompensa() {
+//        return recompensa;
+//    }
+//
+//    /**
+//     * Modifica la recompensa ofrecida por el proceso
+//     * @param recompensa 
+//     */
+//    public void setRecompensa(RecompensaDTO recompensa) {
+//        this.recompensa = recompensa;
+//    }
     
     /**
      * Convertir de DTO a Entity
