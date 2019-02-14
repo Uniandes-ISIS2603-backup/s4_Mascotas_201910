@@ -45,9 +45,9 @@ public class MascotaResource {
  //       
  //   }
     
-    @PUT
-    public void actualizarEstadoMascota( MascotaDTO mascota, String nuevoEstado )
-    {
-        mascota.setEstado_mascota(nuevoEstado);
-    }
+    //@PUT
+    //public void actualizarEstadoMascota( MascotaDTO mascota, String nuevoEstado )
+    //{
+    //    mascota.setEstado_mascota(nuevoEstado);
+    //}
 }
