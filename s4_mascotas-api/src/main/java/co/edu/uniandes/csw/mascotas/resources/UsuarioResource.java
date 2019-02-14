@@ -28,10 +28,48 @@ public class UsuarioResource {
     }
     
     @GET
-    @Path("{usuario: {[a-zA-Z][a-zA-Z]*}}")
-    public UsuarioDTO (@PathParam("usuario") String usuario){
-        return  null;
+    public UsuarioDTO darUsuuario(@PathParam("usuario") String usuario){      
+        
+        return null;
     }
-
+    
+    
+    @PUT
+    public UsuarioDTO actualizarContraseñaUsuario(UsuarioDTO usuario,@PathParam("contrasenha") String contrasenha){      
+        usuario.setContrasenha(contrasenha);
+        
+        return usuario;
+    }
+    
+    @PUT
+    public UsuarioDTO actualizarTelefono(UsuarioDTO usuario,@PathParam("telefono") int telefono){      
+        usuario.setTelefono(telefono);
+        
+        return usuario;
+    }
+    
+    @PUT
+    public UsuarioDTO actualizarNombre(UsuarioDTO usuario,@PathParam("nombre") String nombre){      
+        usuario.setNombre(nombre);
+        
+        return usuario;
+    }
+    
+    
+    
+    @PUT
+    public UsuarioDTO actualizar(UsuarioDTO usuario,@PathParam("recibeNotificaciones") boolean recibeNotificaciones){      
+        usuario.setRecibeNotificaciones(recibeNotificaciones);
+        
+        return usuario;
+    }
+    
+     @DELETE
+    public void eliminarUsuario(@PathParam("usuario") String usuario ){      
+      
+    
+    }
+    
+    
     
 }
