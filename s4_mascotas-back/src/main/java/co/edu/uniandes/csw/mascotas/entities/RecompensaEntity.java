@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -32,6 +34,13 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
      * valores únicamente: 'PENDIENTE' o 'PAGADO'
      */
     private String estado;
+    
+    /**
+     * Representa el proceso asociado a la recompensa
+     */
+    @PodamExclude
+    @OneToOne
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
     
     /**
      * Las siguientes dos constantes contienen los dos valores
@@ -96,5 +105,23 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    /**
+     * 
+     * @return El proceso asociado a la recompensa
+     */
+    public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+
+    /**
+     * Modifica el proceso asociado a la recompensa
+     * @param procesoMascotaExtraviada - proceso
+     */
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+    
+    
     
 }
