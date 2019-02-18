@@ -29,6 +29,8 @@ public class MascotaEntity extends BaseEntity implements Serializable
     private String descripcion;
     
     private String tipo;
+    
+    private int estado;
 
     // Constructor vacío por defecto
     public MascotaEntity( )
@@ -103,6 +105,20 @@ public class MascotaEntity extends BaseEntity implements Serializable
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
     
 }

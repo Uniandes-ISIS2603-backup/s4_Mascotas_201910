@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.mascotas.dtos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,17 +18,13 @@ public class MascotaDTO implements Serializable
     
     private String id;
     
-    private enum tipo{
-        PERRO, GATO
-    };
+    private String tipo;
     
-    private enum estados{
-        EN_ADOPCION, EXTRAVIADO, ENCONTRADO, ADOPTADO
-    }
+    private int estado;
     
     private String estado_mascota;
     
-    private ArrayList<String> fotos;
+    private List<String> fotos;
     
     private String raza;
     
@@ -60,14 +56,14 @@ public class MascotaDTO implements Serializable
     /**
      * @return the fotos
      */
-    public ArrayList<String> getFotos() {
+    public List<String> getFotos() {
         return fotos;
     }
 
     /**
      * @param fotos the fotos to set
      */
-    public void setFotos(ArrayList<String> fotos) {
+    public void setFotos(List<String> fotos) {
         this.fotos = fotos;
     }
 
@@ -111,6 +107,34 @@ public class MascotaDTO implements Serializable
      */
     public void setEstado_mascota(String estado_mascota) {
         this.estado_mascota = estado_mascota;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
     
     
