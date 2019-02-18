@@ -38,4 +38,12 @@ public class MascotaPersistence
         TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u", MascotaEntity.class);
         return query.getResultList();
     }
+    
+    public MascotaEntity actualizarEstadoMascota(Long mascotaId, int nuevoEstado)
+    {
+        MascotaEntity mascota = em.find(MascotaEntity.class, mascotaId);
+        mascota.setEstado(nuevoEstado);
+        em.refresh(mascota);
+        return mascota;
+    }
 }

@@ -20,9 +20,7 @@ public class MascotaDTO implements Serializable
     
     private String tipo;
     
-    private int estado;
-    
-    private String estado_mascota;
+    private Integer estado;
     
     private List<String> fotos;
     
@@ -96,20 +94,6 @@ public class MascotaDTO implements Serializable
     }
 
     /**
-     * @return the estado_mascota
-     */
-    public String getEstado_mascota() {
-        return estado_mascota;
-    }
-
-    /**
-     * @param estado_mascota the estado_mascota to set
-     */
-    public void setEstado_mascota(String estado_mascota) {
-        this.estado_mascota = estado_mascota;
-    }
-
-    /**
      * @return the tipo
      */
     public String getTipo() {
@@ -126,14 +110,14 @@ public class MascotaDTO implements Serializable
     /**
      * @return the estado
      */
-    public int getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(int estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
     
