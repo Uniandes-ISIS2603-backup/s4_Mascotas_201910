@@ -7,9 +7,6 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -37,9 +34,7 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     /**
      * Relación a una Recompensa de cardinalidad 1
      */
-    @PodamExclude
-    @OneToOne(mappedBy = "recompensa", fetch=FetchType.LAZY)
-    private RecompensaEntity recompensa;
+    //private RecompensaEntity recompensa;
     
     /**
      * Las siguientes dos constantes contienen los dos valores
@@ -104,20 +99,20 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
         this.estado = estado;
     }
 
-    /**
-     * 
-     * @return La recompensa del proceso
-     */
-    public RecompensaEntity getRecompensa() {
-        return recompensa;
-    }
-
-    /**
-     * Modifica la recompensa del proceso
-     * @param recompensa 
-     */
-    public void setRecompensa(RecompensaEntity recompensa) {
-        this.recompensa = recompensa;
-    }
+//    /**
+//     * 
+//     * @return La recompensa del proceso
+//     */
+//    public RecompensaEntity getRecompensa() {
+//        return recompensa;
+//    }
+//
+//    /**
+//     * Modifica la recompensa del proceso
+//     * @param recompensa 
+//     */
+//    public void setRecompensa(RecompensaEntity recompensa) {
+//        this.recompensa = recompensa;
+//    }
 
 }
