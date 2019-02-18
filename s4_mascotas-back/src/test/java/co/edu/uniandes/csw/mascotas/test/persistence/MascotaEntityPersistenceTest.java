@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
+import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,5 +57,23 @@ public class MascotaEntityPersistenceTest
         
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
+    }
+    
+    @Test
+    public void actualizarEstadoMascotaTest()
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEntity newEntity = factory.manufacturePojo(MascotaEntity.class);
+        MascotaEntity mascota = ep.create(newEntity);
+        
+        Assert.assertNotNull(mascota);
+        
+        Random random = new Random();
+        Integer randomInt = random.nextInt();
+        
+        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota.getId(), randomInt);
+        
+        mascota = em.find( MascotaEntity.class, mascota.getId());
+        Assert.assertEquals(entidadActualizada.getEstado(), mascota.getEstado());
     }
 }

@@ -19,9 +19,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class MascotaEntity extends BaseEntity implements Serializable 
-{
-    private String estado_mascota;
-    
+{   
     private ArrayList<String> fotos;
     
     private String raza;
@@ -30,25 +28,12 @@ public class MascotaEntity extends BaseEntity implements Serializable
     
     private String tipo;
     
-    private int estado;
+    private Integer estado;
 
     // Constructor vacío por defecto
     public MascotaEntity( )
     {
         
-    }
-    /**
-     * @return the estado_mascota
-     */
-    public String getEstado_mascota() {
-        return estado_mascota;
-    }
-
-    /**
-     * @param estado_mascota the estado_mascota to set
-     */
-    public void setEstado_mascota(String estado_mascota) {
-        this.estado_mascota = estado_mascota;
     }
 
     /**
@@ -117,7 +102,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
     /**
      * @param estado the estado to set
      */
-    public void setEstado(int estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
     
