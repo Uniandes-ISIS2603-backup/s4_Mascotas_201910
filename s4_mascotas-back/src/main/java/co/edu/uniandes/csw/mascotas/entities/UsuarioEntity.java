@@ -19,7 +19,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
       /**
      * Usuario con el que queda registrado
      */
-    @javax.persistence.Id
+   
     private String usuario;
     
     

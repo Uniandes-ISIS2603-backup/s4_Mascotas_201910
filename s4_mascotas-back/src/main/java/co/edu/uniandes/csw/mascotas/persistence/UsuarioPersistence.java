@@ -26,13 +26,19 @@ public class UsuarioPersistence {
      protected EntityManager em;
      
      
-     public UsuarioEntity crete(UsuarioEntity entityU){
+     public UsuarioEntity create(UsuarioEntity entityU){
          em.persist(entityU);
          return entityU;
      }
      
    
-    public UsuarioEntity find(String usuario){
-        return em.find(UsuarioEntity.class, usuario);
+    public UsuarioEntity find(long id){
+    return em.find(UsuarioEntity.class, id);
+    }
+    
+    public List<UsuarioEntity> findAll()
+    {
+        TypedQuery<UsuarioEntity> qu = em.createQuery("select u from UsuarioEntity u",UsuarioEntity.class );
+       return qu.getResultList();
     }
 }
