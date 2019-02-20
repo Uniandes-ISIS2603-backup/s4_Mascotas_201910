@@ -156,4 +156,34 @@ public class RecompensaPersistenceTest {
         }
     }
     
+    /**
+     * Método que prueba la funcionalidad de actualizar los
+     * valores de una recompensa
+     */
+    @Test
+    public void updateRecompensaTest(){
+        PodamFactory factory = new PodamFactoryImpl();
+        RecompensaEntity entity = listaPrueba.get(8);
+        RecompensaEntity newEntity = factory.manufacturePojo(RecompensaEntity.class);
+        newEntity.setId(entity.getId());
+        persistence.update(newEntity);
+        
+        RecompensaEntity foundEntity = em.find(RecompensaEntity.class, entity.getId());
+        Assert.assertEquals(newEntity.getEstado(), foundEntity.getEstado());
+        Assert.assertEquals(newEntity.getValor(), foundEntity.getValor());
+        Assert.assertEquals(newEntity.getMedioDePago(), foundEntity.getMedioDePago());
+        
+    }
+    
+    /**
+     * Método que prueba la eliminación de una recompensa
+     */
+    @Test
+    public void deleteRecompensaTest(){
+        RecompensaEntity entity = listaPrueba.get(5);
+        persistence.delete(entity.getId());
+        RecompensaEntity deleted = em.find(RecompensaEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    
 }

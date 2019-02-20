@@ -156,4 +156,22 @@ public class MascotaExtraviadaPersistenceTest {
             Assert.assertTrue(found);
         }
     }
+    
+    /**
+     * Método que prueba la funcionalidad de actualizar los
+     * valores de un proceso de mascota extraviada
+     */
+    @Test
+    public void updateMascotaExtraviadaTest(){
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaExtraviadaEntity entity = listaPrueba.get(8);
+        MascotaExtraviadaEntity newEntity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+        newEntity.setId(entity.getId());
+        persistence.update(newEntity);
+        
+        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, entity.getId());
+        Assert.assertEquals(newEntity.getCiudad(), foundEntity.getCiudad());
+        Assert.assertEquals(newEntity.getDireccion(), foundEntity.getDireccion());
+        Assert.assertEquals(newEntity.getEstado(), foundEntity.getEstado());
+    }
 }
