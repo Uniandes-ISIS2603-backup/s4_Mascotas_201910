@@ -33,6 +33,9 @@ public class RecompensaLogic {
         if (r.getEstado() != RecompensaEntity.PENDIENTE) {
             throw new BusinessLogicException("Una nueva recompensa debería estar en estado 'PENDIENTE'");
         }
+        if(r.getProcesoMascotaExtraviada() == null){
+            throw new BusinessLogicException("Un proceso no debería existir sin un proceso de mascota extraviada");
+        }
         persistence.create(r);
         return r;
     }

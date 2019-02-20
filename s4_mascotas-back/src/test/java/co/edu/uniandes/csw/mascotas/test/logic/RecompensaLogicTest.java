@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.test.logic;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
 import co.edu.uniandes.csw.mascotas.ejb.RecompensaLogic;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,13 @@ public class RecompensaLogicTest {
     /**
      * Lista de recompensas sobre la cual se realizan algunas pruebas
      */
-    private List<RecompensaEntity> listaPrueba = new ArrayList<>();
+    private List<RecompensaEntity> listaPruebaRecompensas = new ArrayList<>();
+    
+    /**
+     * Lista de procesos de mascota extraviada a las cuales se les van a asociar
+     * algunas recompensas
+     */
+    private List<MascotaExtraviadaEntity> listaPruebaMascotaExtraviada = new ArrayList<>();
     
     /**
      * Manejador de transacciones
@@ -75,11 +82,18 @@ public class RecompensaLogicTest {
      * Inicializa la lista de prueba
      */
     private void inicializacionListaPrueba(){
-        PodamFactory factory = new PodamFactoryImpl();
+        
+        for (int i = 0; i < 10; i++) {
+            MascotaExtraviadaEntity p = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+            em.persist(p);
+            listaPruebaMascotaExtraviada.add(p);
+        }
+        
         for(int i = 0; i < 10; i++){
-            RecompensaEntity e = factory.manufacturePojo(RecompensaEntity.class);
-            em.persist(e);
-            listaPrueba.add(e);
+            RecompensaEntity r = factory.manufacturePojo(RecompensaEntity.class);
+            r.setProcesoMascotaExtraviada(listaPruebaMascotaExtraviada.get(i));
+            em.persist(r);
+            listaPruebaRecompensas.add(r);
         }
     }
     
@@ -88,6 +102,7 @@ public class RecompensaLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from RecompensaEntity").executeUpdate();
+        em.createQuery("delete from MascotaExtraviadaEntity").executeUpdate();
     }
     
     /**
@@ -120,6 +135,7 @@ public class RecompensaLogicTest {
         RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
         entity.setEstado(RecompensaEntity.PENDIENTE);
         entity.setValor(Math.abs(entity.getValor()));
+        entity.setProcesoMascotaExtraviada(listaPruebaMascotaExtraviada.get(0));
         RecompensaEntity result = logic.createRecompensa(entity);
         Assert.assertNotNull(result);
         RecompensaEntity foundEntity = em.find(RecompensaEntity.class, entity.getId());
@@ -138,6 +154,7 @@ public class RecompensaLogicTest {
         RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
         entity.setEstado(RecompensaEntity.PENDIENTE);
         entity.setValor(-100.0);
+        entity.setProcesoMascotaExtraviada(listaPruebaMascotaExtraviada.get(0));
         logic.createRecompensa(entity);
     }
     
@@ -151,6 +168,21 @@ public class RecompensaLogicTest {
         RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
         entity.setEstado(RecompensaEntity.PAGADO);
         entity.setValor(Math.abs(entity.getValor()));
+        entity.setProcesoMascotaExtraviada(listaPruebaMascotaExtraviada.get(0));
+        logic.createRecompensa(entity);
+    }
+    
+    /**
+     * Prueba la creación de una recompensa sin un proceso asociado.
+     * Se espera que genere una Excepción.
+     * @throws Exception 
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createRecompensaSinProcesoMascotaExtraviada() throws Exception{
+        RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
+        entity.setEstado(RecompensaEntity.PENDIENTE);
+        entity.setValor(Math.abs(entity.getValor()));
+        entity.setProcesoMascotaExtraviada(null);
         logic.createRecompensa(entity);
     }
 }

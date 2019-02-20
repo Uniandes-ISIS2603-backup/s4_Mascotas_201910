@@ -75,7 +75,6 @@ public class MascotaExtraviadaLogicTest {
      * Inicializa la lista de prueba
      */
     private void inicializacionListaPrueba(){
-        PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 10; i++){
             MascotaExtraviadaEntity e = factory.manufacturePojo(MascotaExtraviadaEntity.class);
             em.persist(e);
