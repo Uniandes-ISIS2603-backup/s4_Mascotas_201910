@@ -56,4 +56,24 @@ public class RecompensaPersistence {
         TypedQuery<RecompensaEntity> q = em.createQuery("select u from RecompensaEntity u", RecompensaEntity.class);
         return q.getResultList();
     }
+    
+    /**
+     * Actualiza una recompensa de acuerdo a los valores
+     * dados por el Entity
+     * @param entity - Entity de la recompensa
+     * @return Entity de la recompensa
+     */
+    public RecompensaEntity update(RecompensaEntity entity){
+        return em.merge(entity);
+    }
+    
+    /**
+     * Borra una tupla de una recompensa en la base de datos
+     * de acuerdo al id dado
+     * @param id - Id de la recompensa a eliminar 
+     */
+    public void delete(Long id){
+        RecompensaEntity r = em.find(RecompensaEntity.class, id);
+        em.remove(r);
+    }
 }

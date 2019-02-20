@@ -58,4 +58,13 @@ public class MascotaExtraviadaPersistence {
         return q.getResultList();
     }
     
+    /**
+     * Actualiza una proceso de mascota extraviada de acuerdo a los valores
+     * dados por el Entity
+     * @param entity - Entity del proceso de mascota extraviada
+     * @return Entity del proceso de mascota extraviada
+     */
+    public MascotaExtraviadaEntity update(MascotaExtraviadaEntity entity){
+        return em.merge(entity);
+    }
 }
