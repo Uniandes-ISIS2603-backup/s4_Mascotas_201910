@@ -48,8 +48,8 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
      * que puede tener el atributo 'estado'
      */
     
-    private static final String PENDIENTE = "PENDIENTE";
-    private static final String PAGADO = "PAGADO";
+    public static final String PENDIENTE = "PENDIENTE";
+    public static final String PAGADO = "PAGADO";
 
     /**
      * Constructor por defecto

@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mascotas.test.persistence;
+package co.edu.uniandes.csw.mascotas.test.logic;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,15 +31,20 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @RunWith(Arquillian.class)
-public class MascotaExtraviadaPersistenceTest {
+public class MascotaExtraviadaLogicTest {
     
     /**
-     * La clase de persistencia sobre la cual se realizan las pruebas
+     * La lógica sobre la cual se ejecutan las pruebas
      */
     @Inject
-    private MascotaExtraviadaPersistence persistence;
+    private MascotaExtraviadaLogic logic;
     
     /**
+     * El objeto con el cuál se crean entidades con valores de atributo aleatorios
+     */
+    private PodamFactory factory = new PodamFactoryImpl();
+    
+        /**
      * Manejador de persistencia para este conjunto de pruebas
      */
     @PersistenceContext
@@ -58,12 +65,13 @@ public class MascotaExtraviadaPersistenceTest {
     public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(MascotaExtraviadaEntity.class.getPackage())
+                .addPackage(MascotaExtraviadaLogic.class.getPackage())
                 .addPackage(MascotaExtraviadaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
-    /**
+        /**
      * Inicializa la lista de prueba
      */
     private void inicializacionListaPrueba(){
@@ -103,57 +111,32 @@ public class MascotaExtraviadaPersistenceTest {
         }
     }
     
-    
     /**
-     * Método que prueba el funcionamiento de persistir un nuevo proceso
-     * de mascota extraviada en la base de datos
+     * Prueba la creación de un proceso de mascota extraviada desde la lógica
+     * @throws Exception 
      */
     @Test
-    public void createMascotaExtraviadaTest(){
+    public void createMascotaExtraviadaTest()throws Exception{
+        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+        entity.setEstado(MascotaExtraviadaEntity.PENDIENTE);
+        MascotaExtraviadaEntity result = logic.createMascotaExtraviada(entity);
+        Assert.assertNotNull(result);
+        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, entity.getId());
+        Assert.assertEquals(result.getCiudad(), foundEntity.getCiudad());
+        Assert.assertEquals(result.getDireccion(), foundEntity.getDireccion());
+        Assert.assertEquals(result.getEstado(), foundEntity.getEstado());
         
-        PodamFactory factory = new PodamFactoryImpl();
-        
-        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class); 
-        MascotaExtraviadaEntity resultEntity = persistence.create(entity);
-        
-        Assert.assertNotNull(resultEntity);
-        
-        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, resultEntity.getId());
-        Assert.assertEquals(entity.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(entity.getDireccion(), foundEntity.getDireccion());
-        Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
     }
     
     /**
-     * Método que prueba la funcionalidad de consultar una tupla
-     * de la tabla MascotaExtraviadaEntity 
+     * Prueba la creación de un proceso de mascota extraviada
+     * con un estado diferente a 'PENDIENTE'. Se espera que genere una Excepción
+     * @throws Exception 
      */
-    @Test
-    public void getRecompensaTest(){
-        MascotaExtraviadaEntity entity = listaPrueba.get(5);
-        MascotaExtraviadaEntity foundEntity = persistence.find(entity.getId());
-        
-        Assert.assertNotNull(foundEntity);
-        Assert.assertEquals(entity.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(entity.getDireccion(), foundEntity.getDireccion());
-        Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
-    }
-    
-    /**
-     * Método que prueba la funcionalidad de consultar todas las tuplas
-     * de la tabla MascotaExtraviadaEntity 
-     */
-    @Test
-    public void getRecompensasTest(){
-        List<MascotaExtraviadaEntity> xs = persistence.findAll();
-        Assert.assertEquals(listaPrueba.size(), xs.size());
-        for(MascotaExtraviadaEntity m : listaPrueba){
-            boolean found = false;
-            for(MascotaExtraviadaEntity x : xs){
-                if(m.getId().equals(x.getId()));
-                found = true;
-            }
-            Assert.assertTrue(found);
-        }
+    @Test(expected = BusinessLogicException.class)
+    public void createMascotaExtraviadaConEstadoInvalidoTest() throws Exception{
+        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+        entity.setEstado(MascotaExtraviadaEntity.ENCONTRADO);
+        logic.createMascotaExtraviada(entity);
     }
 }

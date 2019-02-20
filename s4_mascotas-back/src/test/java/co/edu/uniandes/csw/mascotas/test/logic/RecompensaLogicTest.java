@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mascotas.test.persistence;
+package co.edu.uniandes.csw.mascotas.test.logic;
 
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
+import co.edu.uniandes.csw.mascotas.ejb.RecompensaLogic;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,13 +31,18 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @RunWith(Arquillian.class)
-public class RecompensaTest {
+public class RecompensaLogicTest {
     
     /**
-     * La clase de persistencia sobre la cual se realizan las pruebas
+     * La lógica sobre la cual se ejecutan las pruebas
      */
     @Inject
-    private RecompensaPersistence persistence;
+    private RecompensaLogic logic;
+    
+    /**
+     * El objeto con el cuál se crean entidades con valores de atributo aleatorios
+     */
+    private PodamFactory factory = new PodamFactoryImpl();
     
     /**
      * Manejador de persistencia para este conjunto de pruebas
@@ -58,6 +65,7 @@ public class RecompensaTest {
     public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(RecompensaEntity.class.getPackage())
+                .addPackage(RecompensaLogic.class.getPackage())
                 .addPackage(RecompensaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -82,7 +90,7 @@ public class RecompensaTest {
         em.createQuery("delete from RecompensaEntity").executeUpdate();
     }
     
-        /**
+    /**
      * Configuración inicial de la prueba.
      */
     @Before
@@ -104,56 +112,45 @@ public class RecompensaTest {
     }
     
     /**
-     * Método que prueba el funcionamiento de persistir una nueva
-     * recompensa en la base de datos
+     * Prueba la creación de una recompensa desde la lógica
+     * @throws Exception 
      */
     @Test
-    public void createRecompensaTest(){
-        
-        PodamFactory factory = new PodamFactoryImpl();
-        
+    public void createRecompensaTest() throws Exception{
         RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
-        RecompensaEntity resultEntity = persistence.create(entity);
-        
-        Assert.assertNotNull(resultEntity);
-        
-        RecompensaEntity foundEntity = em.find(RecompensaEntity.class, resultEntity.getId());
-        Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
-        Assert.assertEquals(entity.getValor(), foundEntity.getValor());
-        Assert.assertEquals(entity.getMedioDePago(), foundEntity.getMedioDePago());
+        entity.setEstado(RecompensaEntity.PENDIENTE);
+        entity.setValor(Math.abs(entity.getValor()));
+        RecompensaEntity result = logic.createRecompensa(entity);
+        Assert.assertNotNull(result);
+        RecompensaEntity foundEntity = em.find(RecompensaEntity.class, entity.getId());
+        Assert.assertEquals(result.getEstado(), foundEntity.getEstado());
+        Assert.assertEquals(result.getValor(), foundEntity.getValor());
+        Assert.assertEquals(result.getMedioDePago(), foundEntity.getMedioDePago());
     }
     
     /**
-     * Método que prueba la funcionalidad de consultar una tupla
-     * de la tabla RecompensaEntity 
+     * Prueba la creación de una recompensa con un valor inválido (negativo).
+     * Se espera que genere una Excepción.
+     * @throws Exception 
      */
-    @Test
-    public void getRecompensaTest(){
-        RecompensaEntity entity = listaPrueba.get(5);
-        RecompensaEntity foundEntity = persistence.find(entity.getId());
-        
-        Assert.assertNotNull(foundEntity);
-        Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
-        Assert.assertEquals(entity.getValor(), foundEntity.getValor());
-        Assert.assertEquals(entity.getMedioDePago(), foundEntity.getMedioDePago());
+    @Test(expected = BusinessLogicException.class)
+    public void createRecompensaConValorInvalidoTest() throws Exception{
+        RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
+        entity.setEstado(RecompensaEntity.PENDIENTE);
+        entity.setValor(-100.0);
+        logic.createRecompensa(entity);
     }
     
     /**
-     * Método que prueba la funcionalidad de consultar todas las tuplas
-     * de la tabla RecompensaEntity 
+     * Prueba la creación de una recompensa
+     * con un estado diferente a 'PENDIENTE'. Se espera que genere una Excepción.
+     * @throws Exception 
      */
-    @Test
-    public void getRecompensasTest(){
-        List<RecompensaEntity> xs = persistence.findAll();
-        Assert.assertEquals(listaPrueba.size(), xs.size());
-        for(RecompensaEntity r : listaPrueba){
-            boolean found = false;
-            for(RecompensaEntity x : xs){
-                if(r.getId().equals(x.getId()));
-                found = true;
-            }
-            Assert.assertTrue(found);
-        }
+    @Test(expected = BusinessLogicException.class)
+    public void createRecompensaConEstadoInvalidoTest() throws Exception{
+        RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
+        entity.setEstado(RecompensaEntity.PAGADO);
+        entity.setValor(Math.abs(entity.getValor()));
+        logic.createRecompensa(entity);
     }
-    
 }

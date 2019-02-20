@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mascotas.test.persistence;
 
-import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
-import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
+import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
+import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,13 +29,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @RunWith(Arquillian.class)
-public class MascotaExtraviadaPersistenceTest {
+public class RecompensaPersistenceTest {
     
     /**
      * La clase de persistencia sobre la cual se realizan las pruebas
      */
     @Inject
-    private MascotaExtraviadaPersistence persistence;
+    private RecompensaPersistence persistence;
     
     /**
      * Manejador de persistencia para este conjunto de pruebas
@@ -44,9 +44,9 @@ public class MascotaExtraviadaPersistenceTest {
     private EntityManager em;
     
     /**
-     * Lista de procesos de mascota extraviada sobre la cual se realizan algunas pruebas
+     * Lista de recompensas sobre la cual se realizan algunas pruebas
      */
-    private List<MascotaExtraviadaEntity> listaPrueba = new ArrayList<>();
+    private List<RecompensaEntity> listaPrueba = new ArrayList<>();
     
     /**
      * Manejador de transacciones
@@ -57,8 +57,8 @@ public class MascotaExtraviadaPersistenceTest {
     @Deployment
     public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(MascotaExtraviadaEntity.class.getPackage())
-                .addPackage(MascotaExtraviadaPersistence.class.getPackage())
+                .addPackage(RecompensaEntity.class.getPackage())
+                .addPackage(RecompensaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -69,7 +69,7 @@ public class MascotaExtraviadaPersistenceTest {
     private void inicializacionListaPrueba(){
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 10; i++){
-            MascotaExtraviadaEntity e = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+            RecompensaEntity e = factory.manufacturePojo(RecompensaEntity.class);
             em.persist(e);
             listaPrueba.add(e);
         }
@@ -79,7 +79,7 @@ public class MascotaExtraviadaPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from MascotaExtraviadaEntity").executeUpdate();
+        em.createQuery("delete from RecompensaEntity").executeUpdate();
     }
     
         /**
@@ -103,57 +103,57 @@ public class MascotaExtraviadaPersistenceTest {
         }
     }
     
-    
     /**
-     * Método que prueba el funcionamiento de persistir un nuevo proceso
-     * de mascota extraviada en la base de datos
+     * Método que prueba el funcionamiento de persistir una nueva
+     * recompensa en la base de datos
      */
     @Test
-    public void createMascotaExtraviadaTest(){
+    public void createRecompensaTest(){
         
         PodamFactory factory = new PodamFactoryImpl();
         
-        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class); 
-        MascotaExtraviadaEntity resultEntity = persistence.create(entity);
+        RecompensaEntity entity = factory.manufacturePojo(RecompensaEntity.class);
+        RecompensaEntity resultEntity = persistence.create(entity);
         
         Assert.assertNotNull(resultEntity);
         
-        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, resultEntity.getId());
-        Assert.assertEquals(entity.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(entity.getDireccion(), foundEntity.getDireccion());
+        RecompensaEntity foundEntity = em.find(RecompensaEntity.class, resultEntity.getId());
         Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
+        Assert.assertEquals(entity.getValor(), foundEntity.getValor());
+        Assert.assertEquals(entity.getMedioDePago(), foundEntity.getMedioDePago());
     }
     
     /**
      * Método que prueba la funcionalidad de consultar una tupla
-     * de la tabla MascotaExtraviadaEntity 
+     * de la tabla RecompensaEntity 
      */
     @Test
     public void getRecompensaTest(){
-        MascotaExtraviadaEntity entity = listaPrueba.get(5);
-        MascotaExtraviadaEntity foundEntity = persistence.find(entity.getId());
+        RecompensaEntity entity = listaPrueba.get(5);
+        RecompensaEntity foundEntity = persistence.find(entity.getId());
         
         Assert.assertNotNull(foundEntity);
-        Assert.assertEquals(entity.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(entity.getDireccion(), foundEntity.getDireccion());
         Assert.assertEquals(entity.getEstado(), foundEntity.getEstado());
+        Assert.assertEquals(entity.getValor(), foundEntity.getValor());
+        Assert.assertEquals(entity.getMedioDePago(), foundEntity.getMedioDePago());
     }
     
     /**
      * Método que prueba la funcionalidad de consultar todas las tuplas
-     * de la tabla MascotaExtraviadaEntity 
+     * de la tabla RecompensaEntity 
      */
     @Test
     public void getRecompensasTest(){
-        List<MascotaExtraviadaEntity> xs = persistence.findAll();
+        List<RecompensaEntity> xs = persistence.findAll();
         Assert.assertEquals(listaPrueba.size(), xs.size());
-        for(MascotaExtraviadaEntity m : listaPrueba){
+        for(RecompensaEntity r : listaPrueba){
             boolean found = false;
-            for(MascotaExtraviadaEntity x : xs){
-                if(m.getId().equals(x.getId()));
+            for(RecompensaEntity x : xs){
+                if(r.getId().equals(x.getId()));
                 found = true;
             }
             Assert.assertTrue(found);
         }
     }
+    
 }
