@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.mascotas.dtos;
+
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.io.Serializable;
 
 /**
@@ -49,6 +51,19 @@ public class UsuarioDTO implements Serializable{
     public UsuarioDTO(){
         
     }
+    
+    public UsuarioDTO(UsuarioEntity e)
+    {
+        if (e!=null){
+            this.usuario= e.getUsuario();
+            this.contrasenha = e.getContrasenha();
+            this.correo = e.getCorreo();
+            this.recibeNotificaciones = e.isRecibeNotificaciones();
+            this.telefono = e.getTelefono();
+            this.nombre = e.getContrasenha();
+        }
+    }
+    
     
     /**
      * 
@@ -146,6 +161,17 @@ public class UsuarioDTO implements Serializable{
         return recibeNotificaciones;
     }
     
+    
+    public UsuarioEntity toEntity(){
+        UsuarioEntity entity = new UsuarioEntity();
+        entity.setUsuario(this.usuario);
+        entity.setNombre(this.nombre);
+        entity.setCorreo(this.correo);
+        entity.setTelefono(this.telefono);
+        entity.setRecibeNotificaciones(this.recibeNotificaciones);
+        entity.setContrasenha(this.contrasenha);
+     return entity;         
+    }
     
     
     public String toString(){

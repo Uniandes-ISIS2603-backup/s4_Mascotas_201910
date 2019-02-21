@@ -142,7 +142,7 @@ public class MascotaExtraviadaDTO implements Serializable{
 //    /**
 //     * 
 //     * @return La recompensa ofrecida por el proceso
-//     */
+//     */ 
 //    public RecompensaDTO getRecompensa() {
 //        return recompensa;
 //    }
