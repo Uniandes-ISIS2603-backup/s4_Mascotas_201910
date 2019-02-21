@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.Id;
 @Entity
 public class MascotaEntity extends BaseEntity implements Serializable 
 {   
-    private ArrayList<String> fotos;
+    private List<String> fotos;
     
     private String raza;
     
@@ -39,14 +40,14 @@ public class MascotaEntity extends BaseEntity implements Serializable
     /**
      * @return the fotos
      */
-    public ArrayList<String> getFotos() {
+    public List<String> getFotos() {
         return fotos;
     }
 
     /**
      * @param fotos the fotos to set
      */
-    public void setFotos(ArrayList<String> fotos) {
+    public void setFotos(List<String> fotos) {
         this.fotos = fotos;
     }
 
