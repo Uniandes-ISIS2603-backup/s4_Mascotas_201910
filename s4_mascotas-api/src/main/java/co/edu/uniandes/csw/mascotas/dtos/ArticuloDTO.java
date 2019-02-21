@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
 import java.io.Serializable;
 
 /**
@@ -92,5 +93,20 @@ public class ArticuloDTO implements Serializable{
     public void setAutor(UsuarioDTO elAutor) {
          this.autor = elAutor;
     }
+
+        /**
+     * Convertir de DTO a Entity
+     * @return Un ArticuloEntity con los valores del DTO
+     */
+    public ArticuloEntity toEntity(){
+        ArticuloEntity entity = new ArticuloEntity();
+        entity.setTitulo(this.titulo);
+        entity.setTema(this.tema);
+        entity.setContenido(this.contenido);
+        entity.setAutor(this.autor.toEntity());
+        
+        return entity;
+    }
+    
     
 }

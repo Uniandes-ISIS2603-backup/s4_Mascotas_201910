@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -123,5 +124,22 @@ public class EventoDTO implements Serializable{
     public void setOrganizador(UsuarioDTO elOrganizador) {
        this.organizador = elOrganizador;
     }
+ 
+          /**
+     * Convertir de DTO a Entity
+     * @return Un EventoEntity con los valores del DTO
+     */
+    public EventoEntity toEntity(){
+        EventoEntity entity = new EventoEntity();
+        entity.setNombre(this.nombre);
+        entity.setDescripcion(this.descripcion);
+        entity.setImagen(this.imagen);
+        entity.setFechaInicio(this.fechaInicio);
+        entity.setFechaFin(this.fechaFin);
+        entity.setOrganizador(this.organizador.toEntity());
+        
+        return entity;
+    }
+    
     
 }
