@@ -107,10 +107,18 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
         this.estado = estado;
     }
 
+    /**
+     * 
+     * @return El proceso de mascota extraviada asociado a la recompensa
+     */
     public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {
         return procesoMascotaExtraviada;
     }
 
+    /**
+     * Modifica el proceso de mascota extraviada asociado a la recompensa
+     * @param procesoMascotaExtraviada 
+     */
     public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
         this.procesoMascotaExtraviada = procesoMascotaExtraviada;
     }
