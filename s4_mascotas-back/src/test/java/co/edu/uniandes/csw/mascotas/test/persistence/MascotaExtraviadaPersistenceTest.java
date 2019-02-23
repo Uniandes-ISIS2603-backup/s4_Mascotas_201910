@@ -174,4 +174,16 @@ public class MascotaExtraviadaPersistenceTest {
         Assert.assertEquals(newEntity.getDireccion(), foundEntity.getDireccion());
         Assert.assertEquals(newEntity.getEstado(), foundEntity.getEstado());
     }
+    
+    /**
+     * Método que prueba la funcionalidad de borrar un proceso 
+     * de mascota extraviada
+     */
+    @Test
+    public void deleteMascotaExtraviadaTest(){
+        MascotaExtraviadaEntity entity = listaPrueba.get(5);
+        persistence.delete(entity.getId());
+        MascotaExtraviadaEntity deleted = em.find(MascotaExtraviadaEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
 }

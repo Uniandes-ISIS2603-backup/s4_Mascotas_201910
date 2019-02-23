@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.ejb;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
+import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
 import java.util.List;
@@ -65,4 +66,19 @@ public class MascotaExtraviadaLogic {
         }
         return p;
     }
+    
+    /**
+     * Elimina el proceso de mascota extraviada asociado al id
+     * @param id - id del proceso a borrar
+     * @throws Exception 
+     */
+    public void deleteProcesoMascotaExtraviada(Long id) throws Exception{
+        RecompensaEntity recompensa = getProcesoMascotaExtraviada(id).getRecompensa();
+        if (recompensa != null) {
+            throw new BusinessLogicException("No de puede borrar el proceso de mascota extraviada con id = " + id + " ya que tiene una recompensa asociada");
+        }
+        persistence.delete(id);
+    }
+    
+    
 }

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.test.logic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
+import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,12 @@ public class MascotaExtraviadaLogicTest {
     /**
      * Lista de procesos de mascota extraviada sobre la cual se realizan algunas pruebas
      */
-    private List<MascotaExtraviadaEntity> listaPrueba = new ArrayList<>();
+    private List<MascotaExtraviadaEntity> listaPruebaProcesosMascotaExtraviada = new ArrayList<>();
+    
+        /**
+     * Lista de recompensas sobre la cual se realizan algunas pruebas
+     */
+    private List<RecompensaEntity> listaPruebaRecompensas = new ArrayList<>();
     
     /**
      * Manejador de transacciones
@@ -75,11 +81,19 @@ public class MascotaExtraviadaLogicTest {
      * Inicializa la lista de prueba
      */
     private void inicializacionListaPrueba(){
-        for(int i = 0; i < 10; i++){
-            MascotaExtraviadaEntity e = factory.manufacturePojo(MascotaExtraviadaEntity.class);
-            em.persist(e);
-            listaPrueba.add(e);
+        for (int i = 0; i < 10; i++) {
+            MascotaExtraviadaEntity p = factory.manufacturePojo(MascotaExtraviadaEntity.class);
+            em.persist(p);
+            listaPruebaProcesosMascotaExtraviada.add(p);
         }
+        
+        for(int i = 0; i < 10; i++){
+            RecompensaEntity r = factory.manufacturePojo(RecompensaEntity.class);
+            r.setProcesoMascotaExtraviada(listaPruebaProcesosMascotaExtraviada.get(i));
+            em.persist(r);
+            listaPruebaRecompensas.add(r);
+        }
+        listaPruebaProcesosMascotaExtraviada.get(0).setRecompensa(listaPruebaRecompensas.get(0));
     }
     
     /**
@@ -137,5 +151,15 @@ public class MascotaExtraviadaLogicTest {
         MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
         entity.setEstado(MascotaExtraviadaEntity.ENCONTRADO);
         logic.createMascotaExtraviada(entity);
+    }
+    
+    /**
+     * Prueba la eliminación de un proceso de mascota extraviada 
+     * si tiene una recompensa asociada. Se espera que genere una Excepción
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteMascotaExtraviadaConRecompensa() throws Exception{
+        MascotaExtraviadaEntity entiy = listaPruebaProcesosMascotaExtraviada.get(0);
+        logic.deleteProcesoMascotaExtraviada(entiy.getId());
     }
 }
