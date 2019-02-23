@@ -102,5 +102,9 @@ public class EventoEntity extends BaseEntity implements Serializable{
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    public void setOrganizador(UsuarioEntity toEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
