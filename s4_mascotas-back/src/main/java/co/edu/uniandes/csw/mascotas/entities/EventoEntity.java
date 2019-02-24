@@ -105,9 +105,12 @@ public class EventoEntity extends BaseEntity implements Serializable{
         this.fechaFin = fechaFin;
     }
 
-    public void setOrganizador(UsuarioEntity toEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+     /**
+     * @param organizador the organizador to set
+     */
+    public void setOrganizador(UsuarioEntity organizador) {
+        this.organizador = organizador;    }
     
         /**
      * @return the organizador
@@ -116,11 +119,5 @@ public class EventoEntity extends BaseEntity implements Serializable{
         return organizador;
     }
 
-    /**
-     * @param organizador the organizador to set
-     */
-    public void setOrganizador(UsuarioEntity organizador) {
-        this.organizador = organizador;
-    }
     
 }
