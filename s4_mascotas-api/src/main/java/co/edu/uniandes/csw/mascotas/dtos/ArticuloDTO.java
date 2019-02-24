@@ -18,7 +18,7 @@ public class ArticuloDTO implements Serializable{
     private String titulo;
     private String tema;
     private String contenido;
-    private UsuarioDTO autor;
+   // private UsuarioDTO autor;
 
     public ArticuloDTO () { 
     
@@ -83,16 +83,16 @@ public class ArticuloDTO implements Serializable{
     /**
      * @return the autor
      */
-    public UsuarioDTO getAutor() {
-         return autor;
-    }
+   // public UsuarioDTO getAutor() {
+     //    return autor;
+    //}
 
     /**
      * @param elAutor the autor to set
      */
-    public void setAutor(UsuarioDTO elAutor) {
-         this.autor = elAutor;
-    }
+   // public void setAutor(UsuarioDTO elAutor) {
+   //      this.autor = elAutor;
+   // }
 
         /**
      * Convertir de DTO a Entity
@@ -103,7 +103,7 @@ public class ArticuloDTO implements Serializable{
         entity.setTitulo(this.titulo);
         entity.setTema(this.tema);
         entity.setContenido(this.contenido);
-        entity.setAutor(this.autor.toEntity());
+       // entity.setAutor(this.autor.toEntity());
         
         return entity;
     }

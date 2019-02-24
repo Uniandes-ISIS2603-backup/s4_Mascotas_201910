@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.persistence.EventoPersistence;
 import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,7 +41,7 @@ public class EventoPersistenteTest {
      /**
      * Lista de eventos sobre la cual se realizan algunas pruebas
      */
-    private ArrayList<EventoEntity> listaPrueba = new ArrayList<>();
+    private List<EventoEntity> listaPrueba = new ArrayList<>();
     
     /**
      * Variable para marcar las transacciones del em anterior cuando se
