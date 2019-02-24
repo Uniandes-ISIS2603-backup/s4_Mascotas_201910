@@ -50,6 +50,8 @@ public class ArticuloPersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
+    
+    
       /**
      * Prueba para crear un Articulo.
      *

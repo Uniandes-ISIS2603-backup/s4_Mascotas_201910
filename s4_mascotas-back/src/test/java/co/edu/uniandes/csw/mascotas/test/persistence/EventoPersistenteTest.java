@@ -7,15 +7,18 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.persistence.EventoPersistence;
+import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -33,6 +36,19 @@ public class EventoPersistenteTest {
     
     @PersistenceContext
     private EntityManager em;
+    
+     /**
+     * Lista de eventos sobre la cual se realizan algunas pruebas
+     */
+    private ArrayList<EventoEntity> listaPrueba = new ArrayList<>();
+    
+    /**
+     * Variable para marcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    private UserTransaction utx;
+    
     
     /**
      *
@@ -52,6 +68,48 @@ public class EventoPersistenteTest {
     
     
      /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            em.joinTransaction();
+            clearData();
+            inicializacionListaPrueba();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     *
+     *
+     */
+    private void clearData() {
+        em.createQuery("delete from EventoEntity").executeUpdate();
+    }
+    
+    /**
+     * Inicializa la lista de prueba
+     */
+    private void inicializacionListaPrueba(){
+        PodamFactory factory = new PodamFactoryImpl();
+        for(int i = 0; i < 10; i++){
+            EventoEntity e = factory.manufacturePojo(EventoEntity.class);
+            em.persist(e);
+            listaPrueba.add(e);
+        }
+    }
+    
+     /**
      * Prueba para crear un Evento.
      *
      *
@@ -69,5 +127,8 @@ public class EventoPersistenteTest {
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
+    
+    
+    
     
 }

@@ -23,6 +23,8 @@ public class EventoEntity extends BaseEntity implements Serializable{
     private String descripcion;
     private String imagen;
     
+    private UsuarioEntity organizador;
+    
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     
@@ -101,6 +103,20 @@ public class EventoEntity extends BaseEntity implements Serializable{
      */
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+    
+        /**
+     * @return the organizador
+     */
+    public UsuarioEntity getOrganizador() {
+        return organizador;
+    }
+
+    /**
+     * @param organizador the organizador to set
+     */
+    public void setOrganizador(UsuarioEntity organizador) {
+        this.organizador = organizador;
     }
     
 }

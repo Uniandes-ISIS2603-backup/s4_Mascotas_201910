@@ -39,4 +39,6 @@ public class EventoPersistence {
         return query.getResultList();
     }
     
+   // public EventoEntity 
+    
 }
