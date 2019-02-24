@@ -75,7 +75,7 @@ public class RecompensaLogic {
         if (r.getValor() < 0) {
             throw new BusinessLogicException("El valor nuevo de la recompensa no es correcto; no puede ser negativo");
         }
-        if(r.getEstado() != RecompensaEntity.PAGADO || r.getEstado() != RecompensaEntity.PENDIENTE){
+        if(!r.getEstado().equals(RecompensaEntity.PAGADO) || !r.getEstado().equals(RecompensaEntity.PENDIENTE)){
            throw new BusinessLogicException("El estado de la recompensa solo puede ser 'PENDIENTE' o 'PAGADO'");
         }
         if(!r.getProcesoMascotaExtraviada().equals(entity.getProcesoMascotaExtraviada())){
