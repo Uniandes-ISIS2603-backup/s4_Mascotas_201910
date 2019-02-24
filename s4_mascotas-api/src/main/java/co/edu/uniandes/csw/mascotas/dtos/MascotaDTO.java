@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 public class MascotaDTO implements Serializable
 {
