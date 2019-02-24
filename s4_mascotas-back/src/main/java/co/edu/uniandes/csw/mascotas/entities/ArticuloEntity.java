@@ -67,6 +67,10 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
+    public void setAutor(UsuarioEntity toEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
        /**
      * @return the autor

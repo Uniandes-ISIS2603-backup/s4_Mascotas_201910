@@ -185,4 +185,5 @@ public class RecompensaLogicTest {
         entity.setProcesoMascotaExtraviada(null);
         logic.createRecompensa(entity);
     }
+
 }

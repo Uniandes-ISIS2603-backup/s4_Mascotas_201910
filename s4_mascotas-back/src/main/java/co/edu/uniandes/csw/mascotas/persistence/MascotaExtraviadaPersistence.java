@@ -67,4 +67,13 @@ public class MascotaExtraviadaPersistence {
     public MascotaExtraviadaEntity update(MascotaExtraviadaEntity entity){
         return em.merge(entity);
     }
+    
+    /**
+     * Elimina el proceso de mascota extraviada asociado al id
+     * @param id - El id del proceso a borrar
+     */
+    public void delete(Long id){
+        MascotaExtraviadaEntity entity = em.find(MascotaExtraviadaEntity.class, id);
+        em.remove(entity);
+    }
 }
