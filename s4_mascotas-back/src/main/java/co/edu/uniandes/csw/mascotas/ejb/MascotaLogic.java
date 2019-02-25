@@ -84,10 +84,16 @@ public class MascotaLogic
         
     }
     
-    public boolean cambiarEstadoMascota(Long pId, int pEstado)
+    public MascotaEntity cambiarEstadoMascota(Long pId, int pEstado)
     {
         // Validar reglas de negocio
         MascotaEntity mascota = persistencia.actualizarEstadoMascota(pId, pEstado);
-        return mascota.getEstado() == pEstado;
+        return mascota;
+    }
+    
+    public List<MascotaEntity> darMascotasPorEstado(int pEstado)
+    {
+        // Validar reglas de negocio (estado pertenece a los posibles estados)
+        return persistencia.darMascotasPorEstado(pEstado);
     }
 }

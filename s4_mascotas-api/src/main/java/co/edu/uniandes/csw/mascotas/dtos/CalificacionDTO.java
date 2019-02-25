@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.CalificacionEntity;
 import java.io.Serializable;
 
 /**
@@ -72,4 +73,11 @@ public class CalificacionDTO implements Serializable{
         this.comentario = comentario;
     }
     
+    public CalificacionEntity toEntity(){
+        
+        CalificacionEntity entidad = new CalificacionEntity();
+        entidad.setComentario(comentario);
+        entidad.setCalificacion(calificacion);
+        return entidad;
+    }
 }

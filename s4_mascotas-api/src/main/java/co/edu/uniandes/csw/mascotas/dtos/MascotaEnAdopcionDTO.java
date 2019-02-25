@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -124,6 +125,18 @@ public class MascotaEnAdopcionDTO implements Serializable{
      */
     public void setAdoptada(boolean adoptada) {
         this.adoptada = adoptada;
+    }
+    
+    public MascotaEnAdopcionEntity toEntity(){
+        
+        MascotaEnAdopcionEntity entity = new MascotaEnAdopcionEntity();
+        entity.setAdoptada(adoptada);
+        entity.setFechaFinal(fechaFinal);
+        entity.setFechaInicio(fechaInicio);
+        entity.setPasado(pasado);
+        entity.setRazonAdopcion(razonAdopcion);
+        
+        return entity;
     }
     
 }
