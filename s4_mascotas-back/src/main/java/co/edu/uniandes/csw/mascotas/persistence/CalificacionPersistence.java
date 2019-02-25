@@ -36,5 +36,14 @@ public class CalificacionPersistence {
        TypedQuery<CalificacionEntity> query = em.createQuery("select u from UsuarioEntity u",CalificacionEntity.class );
        return query.getResultList();
    }
+   
+   public CalificacionEntity update(CalificacionEntity nueva){
+       
+       return em.merge(nueva);
+   }
     
+   public void delete(Long id){
+       
+       em.remove(em.find(  CalificacionEntity.class , id));
+   }
 }
