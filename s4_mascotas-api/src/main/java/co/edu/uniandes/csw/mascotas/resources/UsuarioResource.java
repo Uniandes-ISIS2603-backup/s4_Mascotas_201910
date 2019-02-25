@@ -28,44 +28,61 @@ public class UsuarioResource {
     }
     
     @GET
-    public UsuarioDTO darUsuuario(@PathParam("usuario") String usuario){      
+    @Path("{id: \\d+}")
+    public UsuarioDTO darUsuuario(@PathParam("id") Long id){      
         
         return null;
     }
     
+// Realizar solo un mètodo put para todas las posibles actualizaciones del usuario   
+//    @PUT
+//    @Path("{id: \\d+}")
+//    public UsuarioDTO actualizarContraseñaUsuario(@PathParam("id") Long id, String contrasenha){      
+//        
+//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
+//        // Corregir.
+//        //usuario.setContrasenha(contrasenha);
+//        
+//        //return usuario;
+//        return null;
+//    }
+//    
+//    @PUT
+//    @Path("{id: \\d+}")
+//    public UsuarioDTO actualizarTelefono(@PathParam("id") Long id, int telefono){      
+//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
+//        // Corregir.
+//        //usuario.setTelefono(telefono);
+//        
+//        //return usuario;
+//        return null;
+//    }
+//    
+//    @PUT
+//    @Path("{id: \\d+}")
+//    public UsuarioDTO actualizarNombre(@PathParam("id") Long id, String nombre){      
+//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
+//        // Corregir.
+//        //usuario.setNombre(nombre);
+//        
+//        return null;
+//    }
+    
+    
     
     @PUT
-    public UsuarioDTO actualizarContraseñaUsuario(UsuarioDTO usuario,@PathParam("contrasenha") String contrasenha){      
-        usuario.setContrasenha(contrasenha);
+    @Path("{id: \\d+}")
+    public UsuarioDTO actualizar(@PathParam("id") Long id,  boolean recibeNotificaciones){      
+        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
+        // Corregir.
+        //usuario.setRecibeNotificaciones(recibeNotificaciones);
         
-        return usuario;
+        return null;
     }
     
-    @PUT
-    public UsuarioDTO actualizarTelefono(UsuarioDTO usuario,@PathParam("telefono") int telefono){      
-        usuario.setTelefono(telefono);
-        
-        return usuario;
-    }
-    
-    @PUT
-    public UsuarioDTO actualizarNombre(UsuarioDTO usuario,@PathParam("nombre") String nombre){      
-        usuario.setNombre(nombre);
-        
-        return usuario;
-    }
-    
-    
-    
-    @PUT
-    public UsuarioDTO actualizar(UsuarioDTO usuario,@PathParam("recibeNotificaciones") boolean recibeNotificaciones){      
-        usuario.setRecibeNotificaciones(recibeNotificaciones);
-        
-        return usuario;
-    }
-    
-     @DELETE
-    public void eliminarUsuario(@PathParam("usuario") String usuario ){      
+    @DELETE
+    @Path("{id: \\d+}")
+    public void eliminarUsuario(@PathParam("id") Long id ){      
       
     
     }
