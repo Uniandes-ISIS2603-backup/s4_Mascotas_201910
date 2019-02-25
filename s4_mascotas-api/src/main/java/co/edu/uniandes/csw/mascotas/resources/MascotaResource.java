@@ -20,6 +20,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 /**
  *
@@ -51,15 +52,18 @@ public class MascotaResource {
         entidad = logica.buscarMascotaPorId(entidad.getId());
         return new MascotaDTO(entidad);
     }
-    
-    @GET
-    public List<MascotaDTO> darMascotasPorEstado( int pEstado )
-    {
-        List<MascotaDTO> mascotas = new ArrayList<>();
-        List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
-        entidades.forEach((entidad) -> { mascotas.add(new MascotaDTO(entidad));});
-        return mascotas;
-    }
+
+// Esta operaciòn GET es ambigûa con respecto al GET de darMascota
+// Para diferenciar las operaciones deben tener @Path diferente, si no no funciona
+// Sugerencia: para las consultas del estado, se deberìa realiza la consulta (select) en la persistencia donde se busque el estado
+//    @GET
+//    public List<MascotaDTO> darMascotasPorEstado( int pEstado )
+//    {
+//        List<MascotaDTO> mascotas = new ArrayList<>();
+//        List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
+//        entidades.forEach((entidad) -> { mascotas.add(new MascotaDTO(entidad));});
+//        return mascotas;
+//    }
 
     /**
      * Actualiza el estado de una mascota con el estado dado por parámetro
@@ -68,10 +72,22 @@ public class MascotaResource {
      * @return mascotaDTO mascota con el estado actualizado
      */
     @PUT
-    public MascotaDTO actualizarEstadoMascota( MascotaDTO mascota, Integer nuevoEstado )
+    @Path("{id: \\d+}")
+    public MascotaDTO actualizarEstadoMascota( @PathParam("id") Long id, MascotaDTO mascota /*, Integer nuevoEstado*/ )
     {
+        // Mètodo necesita correcciones
+        /**
+         * El atributo de nuevoEstado por dònde se recibe? este atributo es inecesario
+         * puesto a que esa informaciòn deberìa estar contenida en el DTO (JSON) que se le pasò desde 
+         * la aplicaciòn; por tanto dicho atributo no tiene ningùn valor.
+         * 
+         * Adicionalmente cualquier atributo (que no sea un DTO) debe ir anotado (por ejemplo @PathParam),
+         * de lo contrario no funciona.
+         * 
+         * 
+         */
        MascotaEntity entidad = mascota.toEntity();
-       entidad = logica.cambiarEstadoMascota(entidad.getId(), nuevoEstado);
+       //entidad = logica.cambiarEstadoMascota(entidad.getId(), nuevoEstado);
        return new MascotaDTO(entidad);
     }
 }
