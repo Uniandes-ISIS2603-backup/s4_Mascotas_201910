@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,5 +46,12 @@ public class MascotaPersistence
         mascota.setEstado(nuevoEstado);
         em.refresh(mascota);
         return mascota;
+    }
+    
+    public List<MascotaEntity> darMascotasPorEstado(int estado)
+    {
+        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado = :estado", MascotaEntity.class);
+        query.setParameter("estado", estado);
+        return query.getResultList();
     }
 }
