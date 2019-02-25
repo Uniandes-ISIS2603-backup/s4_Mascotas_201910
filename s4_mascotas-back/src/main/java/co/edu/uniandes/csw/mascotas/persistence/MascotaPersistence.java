@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @Stateless
 public class MascotaPersistence 
