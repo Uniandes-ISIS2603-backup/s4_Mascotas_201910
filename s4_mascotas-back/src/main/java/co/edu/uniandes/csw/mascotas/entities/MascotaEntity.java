@@ -16,7 +16,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @Entity
 public class MascotaEntity extends BaseEntity implements Serializable 

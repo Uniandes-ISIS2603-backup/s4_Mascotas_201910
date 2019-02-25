@@ -28,8 +28,13 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
      */
     private String pasado;
     /**
+     * la razón por la cual se quiere poner en adopción la mascota
+     */
+    private String razonAdopcion;
+    /**
      * fecha en la que comienza el proceso y en la que termina
      */
+    
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
@@ -37,11 +42,21 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * calificación asignada al proceso de adopción
      */
-    //private CalificacionEntity calificacion;
-    
-    /**
-     * nombre de ususarios postulados para adoptar la mascota
-     */
+//    private CalificacionEntity calificacion;
+//    
+//    /**
+//     * la mascota asociada al proceso
+//     */
+//    private MascotaEntity mascota;
+//    
+//    /**
+//     * el usuario que puso la mascota en adopción
+//     */
+//    private UsuarioEntity usuario;
+//    
+//    /**
+//     * nombre de ususarios postulados para adoptar la mascota
+//     */
     //private PostuladoEntity postulados;
     
     /**
@@ -108,6 +123,20 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     }
 
     /**
+     * @return the razonAdopcion
+     */
+    public String getRazonAdopcion() {
+        return razonAdopcion;
+    }
+
+    /**
+     * @param razonAdopcion the razonAdopcion to set
+     */
+    public void setRazonAdopcion(String razonAdopcion) {
+        this.razonAdopcion = razonAdopcion;
+    }
+
+    /**
      * @return the calificacion
      */
 //    public CalificacionEntity getCalificacion() {
@@ -133,5 +162,33 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
 //     */
 //    public void setPostulados(PostuladoEntity postulados) {
 //        this.postulados = postulados;
+//    }
+
+//    /**
+//     * @return the mascota
+//     */
+//    public MascotaEntity getMascota() {
+//        return mascota;
+//    }
+//
+//    /**
+//     * @param mascota the mascota to set
+//     */
+//    public void setMascota(MascotaEntity mascota) {
+//        this.mascota = mascota;
+//    }
+//
+//    /**
+//     * @return the usuario
+//     */
+//    public UsuarioEntity getUsuario() {
+//        return usuario;
+//    }
+//
+//    /**
+//     * @param usuario the usuario to set
+//     */
+//    public void setUsuario(UsuarioEntity usuario) {
+//        this.usuario = usuario;
 //    }
 }

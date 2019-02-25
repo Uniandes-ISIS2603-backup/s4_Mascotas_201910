@@ -45,7 +45,7 @@ public class CalificacionPersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
      @Test
-    public void createPostuladoTest(){
+    public void createCalificacionTest(){
         
         
         PodamFactory factory = new PodamFactoryImpl();

@@ -56,8 +56,11 @@ public class MascotaEnAdopcionPersistenceTest {
         MascotaEnAdopcionEntity e = em.find(MascotaEnAdopcionEntity.class , me.getId());
         
         Assert.assertEquals(entity.getPasado() , e.getPasado() );
-        //Assert.assertEquals(entity.getFechaFinal() , e.getFechaFinal());
-        //Assert.assertEquals(entity.getFechaInicio(), e.getFechaInicio());
+        
+//        mp.delete(e.getId());
+//        mp.delete(me.getId());
+//        Assert.assertNull(em.find(MascotaEnAdopcionEntity.class , e.getId()));
+       // Assert.assertEquals(entity.getMascota() , e.getMascota() );
         
     }
 }

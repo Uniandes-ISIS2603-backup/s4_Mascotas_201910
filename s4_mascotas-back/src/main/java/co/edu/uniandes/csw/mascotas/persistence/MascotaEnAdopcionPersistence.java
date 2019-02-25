@@ -29,14 +29,23 @@ public class MascotaEnAdopcionPersistence {
        return mascotaEnAdopcionEntity;
    }
    
-   public MascotaEnAdopcionEntity find(Long mascotaEnAdopcionEntity){
+   public MascotaEnAdopcionEntity find(Long id){
        
-       return em.find(MascotaEnAdopcionEntity.class, mascotaEnAdopcionEntity);
+       return em.find(MascotaEnAdopcionEntity.class, id);
    }
    public List<MascotaEnAdopcionEntity> findAll(){
        
        TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("select u from UsuarioEntity u",MascotaEnAdopcionEntity.class );
        return query.getResultList();
+   }
+   public MascotaEnAdopcionEntity update(MascotaEnAdopcionEntity entity){
+       
+       return em.merge(entity);
+   }
+   
+   public void delete(long id){
+       
+         em.remove(em.find(MascotaEnAdopcionEntity.class , id));
    }
 
 }

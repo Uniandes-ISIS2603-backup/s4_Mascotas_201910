@@ -24,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @RunWith(Arquillian.class)
 public class MascotaEntityPersistenceTest 
@@ -35,6 +35,9 @@ public class MascotaEntityPersistenceTest
     @PersistenceContext
     private EntityManager em;
     
+    /**
+     * @return Devuelve el JAR que Arquillian va a desplegar en Payara embebido.
+     */
     @Deployment
     public static JavaArchive deployment( )
     {
