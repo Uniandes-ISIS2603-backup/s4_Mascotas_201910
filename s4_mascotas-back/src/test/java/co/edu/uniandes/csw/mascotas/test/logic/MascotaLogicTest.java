@@ -21,6 +21,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,7 @@ public class MascotaLogicTest {
     
     private static final Logger LOGGER = Logger.getLogger(MascotaLogic.class.getName(), MascotaLogic.class);
     
+    private PodamFactory factory = new PodamFactoryImpl();
     /**
      * Inyección de la dependencia de la clase de lógica, cuyos métodos se van a probar
      */
@@ -105,20 +107,45 @@ public class MascotaLogicTest {
      */
     private void insertData()
     {
-        PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i< 3; i++)
         {
             MascotaEntity entidad = factory.manufacturePojo(MascotaEntity.class);
-            
+            if(i % 2 == 0)
+            {
+                entidad.setTipo(MascotaLogic.PERRO);
+            }
+            else
+            {
+                entidad.setTipo(MascotaLogic.GATO);
+            }
             em.persist(entidad);
             data.add(entidad);
         }
     }
     
-    
     @Test
     public void createMascotaTest() throws BusinessLogicException
     {
+        MascotaEntity nuevaEntidad = factory.manufacturePojo(MascotaEntity.class);
+        nuevaEntidad.setTipo(MascotaLogic.PERRO);
+        MascotaEntity resultado = logica.crearMascota(nuevaEntidad);
         
+        Assert.assertNotNull(resultado);
+        MascotaEntity entidad = em.find(MascotaEntity.class, resultado.getId());
+        
+        Assert.assertEquals(entidad.getId(), resultado.getId());
+        Assert.assertEquals(entidad.getDescripcion(), resultado.getDescripcion());
+        Assert.assertEquals(entidad.getEstado(), resultado.getEstado());
+        Assert.assertEquals(entidad.getRaza(), resultado.getRaza());
+        Assert.assertEquals(entidad.getTipo(), resultado.getTipo());
+        
+        ArrayList<String> fotosEntidad = (ArrayList)entidad.getFotos();
+        ArrayList<String> fotosResultado = (ArrayList) resultado.getFotos();
+        Assert.assertEquals(fotosEntidad.size(), fotosResultado.size());
+        
+        for(int i = 0; i< fotosEntidad.size(); i++)
+        {
+            Assert.assertEquals(fotosEntidad.get(i), fotosResultado.get(i));
+        }
     }
 }
