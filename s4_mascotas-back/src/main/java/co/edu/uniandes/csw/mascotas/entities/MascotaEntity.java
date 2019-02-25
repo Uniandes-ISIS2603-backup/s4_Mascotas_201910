@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -30,6 +33,14 @@ public class MascotaEntity extends BaseEntity implements Serializable
     private String tipo;
     
     private Integer estado;
+    
+    /**
+     * El proceso de mascota extraviada que contiene la 
+     * informaciòn de la mascota (solo si existe dicho proceso)
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "mascota", fetch=FetchType.LAZY)
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
 
     // Constructor vacío por defecto
     public MascotaEntity( )
@@ -106,5 +117,22 @@ public class MascotaEntity extends BaseEntity implements Serializable
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
+
+    /**
+     * 
+     * @return El proceso de mascota extraviada asociado (si existe)
+     */
+    public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+    
+    /**
+     * Modifica el proceso de mascota extraviada asociado 
+     * @param procesoMascotaExtraviada 
+     */
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+    
     
 }

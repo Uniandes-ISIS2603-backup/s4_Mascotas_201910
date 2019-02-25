@@ -41,6 +41,13 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     private RecompensaEntity recompensa;
     
     /**
+     * La informaciòn de la mascota relacionada al proceso
+     */
+    @PodamExclude
+    @OneToOne
+    private MascotaEntity mascota;
+    
+    /**
      * Las siguientes dos constantes contienen los dos valores
      * que puede tener el atributo 'estado'
      */
@@ -117,6 +124,22 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
      */
     public void setRecompensa(RecompensaEntity recompensa) {
         this.recompensa = recompensa;
+    }
+
+    /**
+     * 
+     * @return La mascota asociada al proceso
+     */
+    public MascotaEntity getMascota() {
+        return mascota;
+    }
+    
+    /**
+     * Modifica la mascota asociada al proceso
+     * @param mascota 
+     */
+    public void setMascota(MascotaEntity mascota) {
+        this.mascota = mascota;
     }
     
     
