@@ -30,7 +30,7 @@ public class MascotaDTO implements Serializable
     /**
      * Describe el estado de la mascota
      */
-    private Integer estado;
+    private MascotaEntity.Estados_mascota estado;
     
     /**
      * Considera una lista con las fotos o videos de la mascota
@@ -145,14 +145,14 @@ public class MascotaDTO implements Serializable
     /**
      * @return the estado
      */
-    public Integer getEstado() {
+    public MascotaEntity.Estados_mascota getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(Integer estado) {
+    public void setEstado(MascotaEntity.Estados_mascota estado) {
         this.estado = estado;
     }
     

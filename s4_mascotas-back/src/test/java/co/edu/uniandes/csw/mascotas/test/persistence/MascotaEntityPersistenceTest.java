@@ -70,11 +70,10 @@ public class MascotaEntityPersistenceTest
         MascotaEntity mascota = ep.create(newEntity);
         
         Assert.assertNotNull(mascota);
+        int random = (int) (Math.random() * 4);
+        MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
         
-        Random random = new Random();
-        Integer randomInt = random.nextInt();
-        
-        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota.getId(), randomInt);
+        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota.getId(), estados[random]);
         
         mascota = em.find( MascotaEntity.class, mascota.getId());
         Assert.assertEquals(entidadActualizada.getEstado(), mascota.getEstado());
