@@ -40,7 +40,7 @@ public class MascotaPersistence
         return query.getResultList();
     }
     
-    public MascotaEntity actualizarEstadoMascota(Long mascotaId, int nuevoEstado)
+    public MascotaEntity actualizarEstadoMascota(Long mascotaId, MascotaEntity.Estados_mascota nuevoEstado)
     {
         MascotaEntity mascota = em.find(MascotaEntity.class, mascotaId);
         mascota.setEstado(nuevoEstado);

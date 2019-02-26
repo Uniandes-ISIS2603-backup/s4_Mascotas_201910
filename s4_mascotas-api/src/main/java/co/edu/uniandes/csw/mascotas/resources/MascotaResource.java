@@ -46,6 +46,7 @@ public class MascotaResource {
     }
     
     @GET
+    @Path("getMascota")
     public MascotaDTO darMascota( MascotaDTO mascota )
     {
         MascotaEntity entidad = mascota.toEntity();
@@ -53,27 +54,29 @@ public class MascotaResource {
         return new MascotaDTO(entidad);
     }
 
-// Esta operaciòn GET es ambigûa con respecto al GET de darMascota
+// Esta operaciòn GET es ambigua con respecto al GET de darMascota
 // Para diferenciar las operaciones deben tener @Path diferente, si no no funciona
 // Sugerencia: para las consultas del estado, se deberìa realiza la consulta (select) en la persistencia donde se busque el estado
-//    @GET
-//    public List<MascotaDTO> darMascotasPorEstado( int pEstado )
-//    {
-//        List<MascotaDTO> mascotas = new ArrayList<>();
-//        List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
-//        entidades.forEach((entidad) -> { mascotas.add(new MascotaDTO(entidad));});
-//        return mascotas;
-//    }
+    @GET
+    @Path("getMascotaPorEstado")
+    public List<MascotaDTO> darMascotasPorEstado( int pEstado )
+    {
+        List<MascotaDTO> mascotas = new ArrayList<>();
+        List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
+        entidades.forEach((entidad) -> { mascotas.add(new MascotaDTO(entidad));});
+        return mascotas;
+    }
 
     /**
      * Actualiza el estado de una mascota con el estado dado por parámetro
+     * @param id
      * @param mascota Mascota a la cual se le actualizará el estado
      * @param nuevoEstado Nuevo estado de la mascota
      * @return mascotaDTO mascota con el estado actualizado
      */
     @PUT
     @Path("{id: \\d+}")
-    public MascotaDTO actualizarEstadoMascota( @PathParam("id") Long id, MascotaDTO mascota /*, Integer nuevoEstado*/ )
+    public MascotaDTO actualizarEstadoMascota( @PathParam("id") Long id, MascotaDTO mascota )
     {
         // Mètodo necesita correcciones
         /**

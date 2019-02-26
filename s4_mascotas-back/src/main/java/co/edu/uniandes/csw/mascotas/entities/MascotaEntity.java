@@ -24,6 +24,35 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class MascotaEntity extends BaseEntity implements Serializable 
 {   
+    
+     /**
+     * Constante que define el tipo de mascota perro 
+     */
+    public final static String PERRO = "PERRO";
+    
+    /**
+     * Constante que define el tipo de mascota gato
+     */
+    public final static String GATO = "GATO";
+    
+    public enum Estados_mascota
+    {
+        EN_ADOPCION, EXTRAVIADO, ENCONTRADO, ADOPTADO;  
+        
+        /**
+         * Verifica si la enumeración contiene un valor
+         * @param s Valor a verificar
+         * @return True si el valor existe dentro de la enumeración, false de lo contrario
+         */
+        public boolean contains(String s){
+            for(Estados_mascota estado:values())
+                if (estado.name().equals(s)) 
+                    return true;
+             return false;
+        }
+        
+    }
+    
     private List<String> fotos;
     
     private String raza;
@@ -32,17 +61,19 @@ public class MascotaEntity extends BaseEntity implements Serializable
     
     private String tipo;
     
-    private Integer estado;
+    private Estados_mascota estado;
+    
+    
     
     /**
      * El proceso de mascota extraviada que contiene la 
-     * informaciòn de la mascota (solo si existe dicho proceso)
+     * información de la mascota (solo si existe dicho proceso)
      */
     @PodamExclude
     @OneToOne(mappedBy = "mascota", fetch=FetchType.LAZY)
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
 
-    // Constructor vacío por defecto
+    /** Constructor vacío por defecto */
     public MascotaEntity( )
     {
         
@@ -107,19 +138,18 @@ public class MascotaEntity extends BaseEntity implements Serializable
     /**
      * @return the estado
      */
-    public int getEstado() {
+    public Estados_mascota getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(Integer estado) {
+    public void setEstado(Estados_mascota estado) {
         this.estado = estado;
     }
 
     /**
-     * 
      * @return El proceso de mascota extraviada asociado (si existe)
      */
     public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {

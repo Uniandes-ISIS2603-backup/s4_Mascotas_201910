@@ -36,12 +36,7 @@ public class MascotaLogic
      * Constante que define el tipo de mascota gato
      */
     public final static String GATO = "GATO";
-    
-    public enum estados_mascota
-    {
-        EN_ADOPCION, EXTRAVIADO, ENCONTRADO, ADOPTADO        
-    }
-    
+        
     @Inject
     private MascotaPersistence persistencia;
     
@@ -84,11 +79,18 @@ public class MascotaLogic
         
     }
     
-    public MascotaEntity cambiarEstadoMascota(Long pId, int pEstado)
+    public MascotaEntity cambiarEstadoMascota(Long pId, String pEstado) throws BusinessLogicException
     {
         // Validar reglas de negocio
-        MascotaEntity mascota = persistencia.actualizarEstadoMascota(pId, pEstado);
-        return mascota;
+        try
+        {
+            MascotaEntity mascota = persistencia.actualizarEstadoMascota(pId,MascotaEntity.Estados_mascota.valueOf(pEstado));
+            return mascota;
+        }
+        catch(Exception e)
+        {
+            throw new BusinessLogicException("El estado de la mascota no corresponde a un estado válido.");
+        }
     }
     
     public List<MascotaEntity> darMascotasPorEstado(int pEstado)
