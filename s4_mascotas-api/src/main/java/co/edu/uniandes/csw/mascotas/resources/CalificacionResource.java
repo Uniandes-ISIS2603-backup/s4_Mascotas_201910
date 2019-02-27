@@ -88,17 +88,17 @@ public class CalificacionResource {
         logic.deleteCalificacion(id);
     }
     
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public CalificacionDTO uptaCalificacionDTO(@PathParam("id"), Long id , String comentario, Integer calificacion) throws BusinessLogicException{
-//        
-//        CalificacionDTO dto = new CalificacionDTO();
-//        CalificacionEntity entity = logic.updateCalificacion(id, comentario, calificacion);
-//        dto.setCalificacion(entity.getCalificacion());
-//        dto.setComentario(entity.getComentario());
-//        
-//        return dto;
-//    }
+    @PUT
+    @Path("{id: \\d+}")
+    public CalificacionDTO uptaCalificacionDTO(@PathParam("id") Long id , String comentario, Integer calificacion) throws BusinessLogicException{
+        
+        CalificacionDTO dto = new CalificacionDTO();
+        CalificacionEntity entity = logic.updateCalificacion(id, comentario, calificacion);
+        dto.setCalificacion(entity.getCalificacion());
+        dto.setComentario(entity.getComentario());
+        
+        return dto;
+    }
     
     
     
