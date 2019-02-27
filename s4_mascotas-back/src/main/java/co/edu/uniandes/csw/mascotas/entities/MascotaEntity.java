@@ -7,22 +7,53 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @Entity
 public class MascotaEntity extends BaseEntity implements Serializable 
-{
-    private String estado_mascota;
+{   
     
-    private ArrayList<String> fotos;
+     /**
+     * Constante que define el tipo de mascota perro 
+     */
+    public final static String PERRO = "PERRO";
+    
+    /**
+     * Constante que define el tipo de mascota gato
+     */
+    public final static String GATO = "GATO";
+    
+    public enum Estados_mascota
+    {
+        EN_ADOPCION, EXTRAVIADO, ENCONTRADO, ADOPTADO;  
+        
+        /**
+         * Verifica si la enumeración contiene un valor
+         * @param s Valor a verificar
+         * @return True si el valor existe dentro de la enumeración, false de lo contrario
+         */
+        public boolean contains(String s){
+            for(Estados_mascota estado:values())
+                if (estado.name().equals(s)) 
+                    return true;
+             return false;
+        }
+        
+    }
+    
+    private List<String> fotos;
     
     private String raza;
     
@@ -30,38 +61,35 @@ public class MascotaEntity extends BaseEntity implements Serializable
     
     private String tipo;
     
-    private int estado;
+    private Estados_mascota estado;
+    
+    
+    
+    /**
+     * El proceso de mascota extraviada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "mascota", fetch=FetchType.LAZY)
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
 
-    // Constructor vacío por defecto
+    /** Constructor vacío por defecto */
     public MascotaEntity( )
     {
         
-    }
-    /**
-     * @return the estado_mascota
-     */
-    public String getEstado_mascota() {
-        return estado_mascota;
-    }
-
-    /**
-     * @param estado_mascota the estado_mascota to set
-     */
-    public void setEstado_mascota(String estado_mascota) {
-        this.estado_mascota = estado_mascota;
     }
 
     /**
      * @return the fotos
      */
-    public ArrayList<String> getFotos() {
+    public List<String> getFotos() {
         return fotos;
     }
 
     /**
      * @param fotos the fotos to set
      */
-    public void setFotos(ArrayList<String> fotos) {
+    public void setFotos(List<String> fotos) {
         this.fotos = fotos;
     }
 
@@ -110,15 +138,31 @@ public class MascotaEntity extends BaseEntity implements Serializable
     /**
      * @return the estado
      */
-    public int getEstado() {
+    public Estados_mascota getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(int estado) {
+    public void setEstado(Estados_mascota estado) {
         this.estado = estado;
     }
+
+    /**
+     * @return El proceso de mascota extraviada asociado (si existe)
+     */
+    public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+    
+    /**
+     * Modifica el proceso de mascota extraviada asociado 
+     * @param procesoMascotaExtraviada 
+     */
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+    
     
 }

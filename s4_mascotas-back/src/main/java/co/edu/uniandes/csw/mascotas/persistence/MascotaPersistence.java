@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,7 +15,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @Stateless
 public class MascotaPersistence 
@@ -36,6 +37,21 @@ public class MascotaPersistence
     public List<MascotaEntity> findAll()
     {
         TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u", MascotaEntity.class);
+        return query.getResultList();
+    }
+    
+    public MascotaEntity actualizarEstadoMascota(Long mascotaId, MascotaEntity.Estados_mascota nuevoEstado)
+    {
+        MascotaEntity mascota = em.find(MascotaEntity.class, mascotaId);
+        mascota.setEstado(nuevoEstado);
+        em.refresh(mascota);
+        return mascota;
+    }
+    
+    public List<MascotaEntity> darMascotasPorEstado(int estado)
+    {
+        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado = :estado", MascotaEntity.class);
+        query.setParameter("estado", estado);
         return query.getResultList();
     }
 }

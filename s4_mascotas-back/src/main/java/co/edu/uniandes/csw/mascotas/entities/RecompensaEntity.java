@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -34,12 +37,19 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
     private String estado;
     
     /**
+     * El proceso de mascota extraviada asociado
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "recompensa", fetch=FetchType.LAZY)
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
+    
+    /**
      * Las siguientes dos constantes contienen los dos valores
      * que puede tener el atributo 'estado'
      */
     
-    private static final String PENDIENTE = "PENDIENTE";
-    private static final String PAGADO = "PAGADO";
+    public static final String PENDIENTE = "PENDIENTE";
+    public static final String PAGADO = "PAGADO";
 
     /**
      * Constructor por defecto
@@ -96,5 +106,23 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    /**
+     * 
+     * @return El proceso de mascota extraviada asociado a la recompensa
+     */
+    public MascotaExtraviadaEntity getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+
+    /**
+     * Modifica el proceso de mascota extraviada asociado a la recompensa
+     * @param procesoMascotaExtraviada 
+     */
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+    
+    
     
 }

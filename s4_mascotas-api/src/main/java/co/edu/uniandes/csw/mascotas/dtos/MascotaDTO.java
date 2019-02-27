@@ -5,36 +5,69 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 public class MascotaDTO implements Serializable
 {
     // ATRIBUTOS
     
-    private String id;
+    /**
+     * Identificador único de la mascota
+     */
+    private Long id;
     
+    /**
+     * Tipo de la mascota. Solo admite elementos de {PERRO, GATO}
+     */
     private String tipo;
     
-    private int estado;
+    /**
+     * Describe el estado de la mascota
+     */
+    private MascotaEntity.Estados_mascota estado;
     
-    private String estado_mascota;
-    
+    /**
+     * Considera una lista con las fotos o videos de la mascota
+     */
     private List<String> fotos;
     
+    /**
+     * Raza de la mascota
+     */
     private String raza;
     
+    /**
+     * Descripción de la mascota
+     */
     private String descripcion;
 
     // COSNTRUCTOR
     
+    /**
+     * Constructor vacío
+     */
     public MascotaDTO( )
     {
         
+    }
+    
+    public MascotaDTO(MascotaEntity entity)
+    {
+        if(entity!= null)
+        {
+            this.id = entity.getId();
+            this.raza = entity.getRaza();
+            this.tipo = entity.getTipo();
+            this.estado = entity.getEstado();
+            this.descripcion = entity.getDescripcion();
+            this.fotos = entity.getFotos();
+        }
     }
     
     // METODOS
@@ -42,14 +75,14 @@ public class MascotaDTO implements Serializable
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,20 +129,6 @@ public class MascotaDTO implements Serializable
     }
 
     /**
-     * @return the estado_mascota
-     */
-    public String getEstado_mascota() {
-        return estado_mascota;
-    }
-
-    /**
-     * @param estado_mascota the estado_mascota to set
-     */
-    public void setEstado_mascota(String estado_mascota) {
-        this.estado_mascota = estado_mascota;
-    }
-
-    /**
      * @return the tipo
      */
     public String getTipo() {
@@ -126,16 +145,28 @@ public class MascotaDTO implements Serializable
     /**
      * @return the estado
      */
-    public int getEstado() {
+    public MascotaEntity.Estados_mascota getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(int estado) {
+    public void setEstado(MascotaEntity.Estados_mascota estado) {
         this.estado = estado;
     }
     
+    public MascotaEntity toEntity( )
+    {
+        MascotaEntity entity = new MascotaEntity( );
+        entity.setId(this.id);
+        entity.setEstado(this.estado);
+        entity.setRaza(this.raza);
+        entity.setDescripcion(this.descripcion);
+        entity.setTipo(this.tipo);
+        entity.setFotos(this.fotos);
+        
+        return entity;
+    }
     
 }

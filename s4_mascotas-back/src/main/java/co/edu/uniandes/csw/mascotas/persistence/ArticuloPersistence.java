@@ -41,4 +41,20 @@ public class ArticuloPersistence {
         return query.getResultList();
     }
     
+     public ArticuloEntity actualizarTitulo(Long articuloId, String titulo)
+     {
+         ArticuloEntity articulo = em.find(ArticuloEntity.class, articuloId);
+         articulo.setTitulo(titulo);
+         em.refresh(articulo);
+         return articulo;
+     }
+     
+      public ArticuloEntity actualizarContenido(Long articuloId, String contenido)
+     {
+         ArticuloEntity articulo = em.find(ArticuloEntity.class, articuloId);
+         articulo.setContenido(contenido);
+         em.refresh(articulo);
+         return articulo;
+     }
+     
 }

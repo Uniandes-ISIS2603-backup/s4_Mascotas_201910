@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
+import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Natalia Sanabria Forero
+ * @author Natalia Sanabria Forero (n.sanabria)
  */
 @RunWith(Arquillian.class)
 public class MascotaEntityPersistenceTest 
@@ -34,6 +35,9 @@ public class MascotaEntityPersistenceTest
     @PersistenceContext
     private EntityManager em;
     
+    /**
+     * @return Devuelve el JAR que Arquillian va a desplegar en Payara embebido.
+     */
     @Deployment
     public static JavaArchive deployment( )
     {
@@ -56,5 +60,22 @@ public class MascotaEntityPersistenceTest
         
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
+    }
+    
+    @Test
+    public void actualizarEstadoMascotaTest()
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEntity newEntity = factory.manufacturePojo(MascotaEntity.class);
+        MascotaEntity mascota = ep.create(newEntity);
+        
+        Assert.assertNotNull(mascota);
+        int random = (int) (Math.random() * 4);
+        MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
+        
+        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota.getId(), estados[random]);
+        
+        mascota = em.find( MascotaEntity.class, mascota.getId());
+        Assert.assertEquals(entidadActualizada.getEstado(), mascota.getEstado());
     }
 }

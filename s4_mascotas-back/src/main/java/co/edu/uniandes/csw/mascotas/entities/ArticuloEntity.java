@@ -19,6 +19,10 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     private String titulo;
     private String tema;
     private String contenido;
+   
+   // @javax.persistence.ManyToOne(
+    //)
+  //  private UsuarioEntity autor;
     
     public ArticuloEntity(){
         
@@ -65,7 +69,20 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
+     /**
+     * @return the autor
+     */
+    //public UsuarioEntity getAutor() {
+     //   return autor;
+    //}
     
+    /**
+     * @param autor the autor to set
+     */
+  //  public void setAutor(UsuarioEntity autor) {
+      //  this.autor = autor;
+    //}
     
     
 }

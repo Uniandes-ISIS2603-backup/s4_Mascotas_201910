@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.mascotas.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,6 +24,8 @@ public class EventoEntity extends BaseEntity implements Serializable{
     private String nombre;
     private String descripcion;
     private String imagen;
+    
+    //private UsuarioEntity organizador;
     
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
@@ -102,5 +106,20 @@ public class EventoEntity extends BaseEntity implements Serializable{
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    
+     /**
+     * @param organizador the organizador to set
+     */
+   // public void setOrganizador(UsuarioEntity organizador) {
+     //   this.organizador = organizador;    }
+    
+        /**
+     * @return the organizador
+     */
+    //public UsuarioEntity getOrganizador() {
+      //  return organizador;
+    //}
+
     
 }

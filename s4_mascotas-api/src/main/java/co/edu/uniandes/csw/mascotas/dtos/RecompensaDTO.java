@@ -38,6 +38,11 @@ public class RecompensaDTO implements Serializable{
     private String estado;
     
     /**
+     * El proceso de mascota extraviada asociada a la recompensa
+     */
+    private MascotaExtraviadaDTO procesoMascotaExtraviada;
+    
+    /**
      * Las siguientes dos constantes contienen los dos valores
      * que puede tener el atributo 'estado'
      */
@@ -129,6 +134,22 @@ public class RecompensaDTO implements Serializable{
     }
 
     /**
+     * 
+     * @return El proceso de mascota asociado a la recompensa
+     */
+    public MascotaExtraviadaDTO getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+
+    /**
+     * Modifica el proceso de mascota asociado a la recompensa
+     * @param procesoMascotaExtraviada 
+     */
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaDTO procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+
+    /**
      * Convertir de DTO a Entity
      * @return Un RecompensaEntity con los valores del DTO
      */
@@ -149,9 +170,5 @@ public class RecompensaDTO implements Serializable{
     public String toString() {
         return "RecompensaDTO{" + "id=" + id + ", medioDePago=" + medioDePago + ", valor=" + valor + ", estado=" + estado + '}';
     }
-    
-    
-    
-    
     
 }
