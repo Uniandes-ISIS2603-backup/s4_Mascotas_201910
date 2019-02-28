@@ -6,14 +6,9 @@
 package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -28,12 +23,12 @@ public class MascotaEntity extends BaseEntity implements Serializable
      /**
      * Constante que define el tipo de mascota perro 
      */
-    public final static String PERRO = "PERRO";
+    public static final String PERRO = "PERRO";
     
     /**
      * Constante que define el tipo de mascota gato
      */
-    public final static String GATO = "GATO";
+    public static final String GATO = "GATO";
     
     public enum Estados_mascota
     {
@@ -76,7 +71,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
     /** Constructor vacío por defecto */
     public MascotaEntity( )
     {
-        
+        // Implementación por default de la entidad
     }
 
     /**
