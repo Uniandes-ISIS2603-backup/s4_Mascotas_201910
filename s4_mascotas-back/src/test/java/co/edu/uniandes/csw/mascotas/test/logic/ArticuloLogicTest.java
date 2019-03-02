@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.test.logic;
 
 import co.edu.uniandes.csw.mascotas.ejb.ArticuloLogic;
 import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.ArticuloPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -75,6 +79,57 @@ public class ArticuloLogicTest {
                 .addPackage(ArticuloPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    }
+    
+     /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            clearData();
+            insertData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
+    private void clearData() {
+        em.createQuery("delete from ArticuloEntity").executeUpdate();
+    }
+
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
+    private void insertData() {
+        for (int i = 0; i < 3; i++) {
+            ArticuloEntity entity = factory.manufacturePojo(ArticuloEntity.class);
+
+            em.persist(entity);
+            data.add(entity);
+
+        }
+    }
+
+    @Test
+    public void crearArticuloTest() throws BusinessLogicException {
+        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+        ArticuloEntity result = articuloLogic.crearArticulo(newEntity);
+        Assert.assertNotNull(result);
+        ArticuloEntity entity = em.find(ArticuloEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getTitulo(), entity.getTitulo());
     }
     
 }
