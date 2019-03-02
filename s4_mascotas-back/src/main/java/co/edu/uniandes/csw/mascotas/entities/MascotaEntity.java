@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -65,7 +66,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
      * información de la mascota (solo si existe dicho proceso)
      */
     @PodamExclude
-    @OneToOne(mappedBy = "mascota", fetch=FetchType.LAZY)
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
 
     /** Constructor vacío por defecto */
