@@ -67,7 +67,7 @@ public class MascotaExtraviadaResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public MascotaExtraviadaDTO getProcesoMascotaExtraviadaPorId(@PathParam("id") Long id) throws Exception{
+    public MascotaExtraviadaDTO getProcesoMascotaExtraviada(@PathParam("id") Long id) throws Exception{
         MascotaExtraviadaEntity entity = mascotaExtraviadaLogic.getProcesoMascotaExtraviada(id);
         if(entity == null){
             throw new WebApplicationException("El proceso de mascota extraviada con id = " + id + "no existe.", 404);

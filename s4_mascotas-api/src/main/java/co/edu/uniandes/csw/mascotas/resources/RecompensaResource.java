@@ -33,7 +33,7 @@ public class RecompensaResource {
      * @return DTO con la información respectiva
      */
     @POST
-    public RecompensaDTO crearRecompensa(RecompensaDTO r){
+    public RecompensaDTO createRecompensa(RecompensaDTO r){
         return r;
     }
     
@@ -42,7 +42,7 @@ public class RecompensaResource {
      * @return Todas las recompensas existentes
      */
     @GET
-    public List<RecompensaDTO> darRecompensas(){
+    public List<RecompensaDTO> getRecompensas(){
         return null;
     }
     
@@ -53,7 +53,7 @@ public class RecompensaResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public RecompensaDTO darRecompensaPorId(Long id){
+    public RecompensaDTO getRecompensa(Long id){
         return null;
     }
     
@@ -63,7 +63,7 @@ public class RecompensaResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void eliminarRecompensaPorId(Long id){
+    public void deleteRecompensaPorId(Long id){
         
     }
 }
