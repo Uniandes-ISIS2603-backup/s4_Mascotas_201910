@@ -6,10 +6,11 @@
 package co.edu.uniandes.csw.mascotas.test.logic;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
-import co.edu.uniandes.csw.mascotas.persistence.MascotaExtraviadaPersistence;
-import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
-import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.RecompensaLogic;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -32,13 +33,25 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @RunWith(Arquillian.class)
-public class MascotaExtraviadaLogicTest {
+public class MascotaExtraviadaRecompensaLogicTest {
     
     /**
      * La lógica sobre la cual se ejecutan las pruebas
      */
     @Inject
-    private MascotaExtraviadaLogic logic;
+    private MascotaExtraviadaRecompensaLogic logic;
+    
+    /**
+     * La lógica de los procesos de mascota extraviada
+     */
+    @Inject
+    private MascotaExtraviadaLogic mascotaExtraviadaLogic;
+    
+    /**
+     * La lógica de las recompensas de los procesos de mascota extraviada
+     */
+    @Inject
+    private RecompensaLogic recompensaLogic;
     
     /**
      * El objeto con el cuál se crean entidades con valores de atributo aleatorios
@@ -56,7 +69,7 @@ public class MascotaExtraviadaLogicTest {
      */
     private List<MascotaExtraviadaEntity> listaPruebaProcesosMascotaExtraviada = new ArrayList<>();
     
-        /**
+    /**
      * Lista de recompensas sobre la cual se realizan algunas pruebas
      */
     private List<RecompensaEntity> listaPruebaRecompensas = new ArrayList<>();
@@ -71,8 +84,9 @@ public class MascotaExtraviadaLogicTest {
     public static JavaArchive deployment(){
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(MascotaExtraviadaEntity.class.getPackage())
-                .addPackage(MascotaExtraviadaLogic.class.getPackage())
-                .addPackage(MascotaExtraviadaPersistence.class.getPackage())
+                .addPackage(RecompensaEntity.class.getPackage())
+                .addPackage(MascotaExtraviadaRecompensaLogic.class.getPackage())
+                .addPackage(RecompensaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -83,17 +97,21 @@ public class MascotaExtraviadaLogicTest {
     private void inicializacionListaPrueba(){
         for (int i = 0; i < 10; i++) {
             MascotaExtraviadaEntity p = factory.manufacturePojo(MascotaExtraviadaEntity.class);
-            em.persist(p);
             listaPruebaProcesosMascotaExtraviada.add(p);
         }
         
         for(int i = 0; i < 10; i++){
             RecompensaEntity r = factory.manufacturePojo(RecompensaEntity.class);
-            r.setProcesoMascotaExtraviada(listaPruebaProcesosMascotaExtraviada.get(i));
-            em.persist(r);
             listaPruebaRecompensas.add(r);
         }
-        listaPruebaProcesosMascotaExtraviada.get(0).setRecompensa(listaPruebaRecompensas.get(0));
+        for(int i = 0; i < 10; i++){
+            MascotaExtraviadaEntity p = listaPruebaProcesosMascotaExtraviada.get(i);
+            RecompensaEntity r = listaPruebaRecompensas.get(i);
+            p.setRecompensa(r);
+            r.setProcesoMascotaExtraviada(p);
+            em.persist(p);
+            em.persist(r);
+        }
     }
     
     /**
@@ -104,7 +122,7 @@ public class MascotaExtraviadaLogicTest {
         em.createQuery("delete from RecompensaEntity").executeUpdate();
     }
     
-        /**
+    /**
      * Configuración inicial de la prueba.
      */
     @Before
@@ -126,41 +144,20 @@ public class MascotaExtraviadaLogicTest {
     }
     
     /**
-     * Prueba la creación de un proceso de mascota extraviada desde la lógica
-     * @throws Exception 
+     * Prueba la funcionalidad de remover una recompensa de
+     * un proceso de mascotas 
      */
     @Test
-    public void createMascotaExtraviadaTest()throws Exception{
-        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
-        entity.setEstado(MascotaExtraviadaEntity.PENDIENTE);
-        MascotaExtraviadaEntity result = logic.createMascotaExtraviada(entity);
-        Assert.assertNotNull(result);
-        MascotaExtraviadaEntity foundEntity = em.find(MascotaExtraviadaEntity.class, entity.getId());
-        Assert.assertEquals(result.getCiudad(), foundEntity.getCiudad());
-        Assert.assertEquals(result.getDireccion(), foundEntity.getDireccion());
-        Assert.assertEquals(result.getEstado(), foundEntity.getEstado());
-        
-    }
-    
-    /**
-     * Prueba la creación de un proceso de mascota extraviada
-     * con un estado diferente a 'PENDIENTE'. Se espera que genere una Excepción
-     * @throws Exception 
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void createMascotaExtraviadaConEstadoInvalidoTest() throws Exception{
-        MascotaExtraviadaEntity entity = factory.manufacturePojo(MascotaExtraviadaEntity.class);
-        entity.setEstado(MascotaExtraviadaEntity.ENCONTRADO);
-        logic.createMascotaExtraviada(entity);
-    }
-    
-    /**
-     * Prueba la eliminación de un proceso de mascota extraviada 
-     * si tiene una recompensa asociada. Se espera que genere una Excepción
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteMascotaExtraviadaConRecompensa() throws Exception{
-        MascotaExtraviadaEntity entiy = listaPruebaProcesosMascotaExtraviada.get(0);
-        logic.deleteProcesoMascotaExtraviada(entiy.getId());
+    public void removerRecompensaTest()throws Exception{
+        MascotaExtraviadaEntity p = listaPruebaProcesosMascotaExtraviada.get(5);
+        RecompensaEntity r = p.getRecompensa();
+        logic.removeRecompensaConProceso(p.getId());
+        MascotaExtraviadaEntity foundP = mascotaExtraviadaLogic.getProcesoMascotaExtraviada(p.getId());
+        Assert.assertNull(foundP.getRecompensa());
+        try{
+            RecompensaEntity foundR = recompensaLogic.getRecompensa(r.getId());
+        }catch(Exception e){
+            Assert.assertTrue(true);
+        }
     }
 }
