@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.persistence.ArticuloPersistence;
 import java.util.ArrayList;
 import java.util.List;

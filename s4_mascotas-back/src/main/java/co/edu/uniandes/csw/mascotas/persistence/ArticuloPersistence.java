@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -41,7 +42,7 @@ public class ArticuloPersistence {
         return query.getResultList();
     }
     
-     public ArticuloEntity actualizarTitulo(Long articuloId, String titulo)
+    public ArticuloEntity actualizarTitulo(Long articuloId, String titulo)
      {
          ArticuloEntity articulo = em.find(ArticuloEntity.class, articuloId);
          articulo.setTitulo(titulo);
@@ -49,7 +50,7 @@ public class ArticuloPersistence {
          return articulo;
      }
      
-      public ArticuloEntity actualizarContenido(Long articuloId, String contenido)
+     public ArticuloEntity actualizarContenido(Long articuloId, String contenido)
      {
          ArticuloEntity articulo = em.find(ArticuloEntity.class, articuloId);
          articulo.setContenido(contenido);
