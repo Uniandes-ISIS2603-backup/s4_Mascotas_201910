@@ -37,13 +37,13 @@ public class UsuarioDTO implements Serializable{
     /**
      * Telefono de contacto del usuario
      */
-    private int telefono;
+    private Integer telefono;
     
     
     /**
      * Registra si el usuario desea recibir notificaciones
      */
-    private boolean recibeNotificaciones;
+    private Boolean recibeNotificaciones;
 
     /**
      * Constructor
@@ -109,7 +109,7 @@ public class UsuarioDTO implements Serializable{
      * Cambia el telefono de contacto que el usuario tiene registrado
      * @param telefono 
      */
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
     
@@ -117,7 +117,7 @@ public class UsuarioDTO implements Serializable{
      * Cambia si el usario desea recibir notificaciones
      * @param recibeNotificaciones 
      */
-    public void setRecibeNotificaciones(boolean recibeNotificaciones) {
+    public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
     }
 
@@ -157,7 +157,7 @@ public class UsuarioDTO implements Serializable{
      * 
      * @return retorna si el usuario deseas recibir notificaciones
      */
-    public boolean isRecibeNotificaciones() {
+    public Boolean isRecibeNotificaciones() {
         return recibeNotificaciones;
     }
     

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.resources;
 import javax.ws.rs.*;
 import co.edu.uniandes.csw.mascotas.dtos.UsuarioDTO;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -24,6 +25,7 @@ public class UsuarioResource {
     
     @POST
     public UsuarioDTO crearUsuario(UsuarioDTO usuario){
+        UsuarioEntity entidad = usuario.toEntity();
         return usuario;
     }
     
