@@ -87,9 +87,4 @@ public class MascotaExtraviadaLogic {
         }
         return persistence.update(entity);
     }
-    
-    public void deleteMascotaEnAdopcion(Long id) throws BusinessLogicException{
-        
-        persistence.delete(id);
-    }
 }

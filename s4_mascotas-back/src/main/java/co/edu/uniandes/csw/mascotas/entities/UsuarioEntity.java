@@ -7,11 +7,12 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Entity;
 import uk.co.jemos.podam.common.PodamExclude;
-import javax.persistence.OneToMany;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
+import javax.persistence.OneToMany;
 
 
 /**
@@ -49,6 +50,26 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     private Integer telefono;
     
+    /**
+     * Lista de articulos
+     */
+    @OneToMany(
+       cascade = CascadeType.ALL,
+       mappedBy = "autor",
+       fetch = FetchType.LAZY
+     )
+    private List<ArticuloEntity> articulos;
+    
+     /**
+     * Lista de eventos
+     */
+     @OneToMany(
+         cascade = CascadeType.ALL,
+         mappedBy = "organizador",
+         fetch = FetchType.LAZY
+    )
+    private List<EventoEntity> eventos;
+    
     
     /**
      * Registra si el usuario desea recibir notificaciones
@@ -59,7 +80,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      * La coleccion de procesos de mascota extraviada que tiene el usuario 
      */
     @PodamExclude
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
+    @OneToMany( cascade = CascadeType.ALL,mappedBy = "usuario",fetch = FetchType.LAZY)
     Collection<MascotaExtraviadaEntity> procesosMascotaExtraviada;
     
 //    @PodamExclude
@@ -69,21 +90,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
 //     @PodamExclude
 //    @OneToMany(mappedBy = "autor",fetch = javax.persistence.FetchType.LAZY)
 //    Collection<ClasificadoEntity> clasificados;    
-    
-    /**
-     * La colecccion de articulos relacioandos al autor 
-     */
-    @PodamExclude
-    @OneToMany(mappedBy = "autor",fetch = FetchType.LAZY)
-    Collection<ArticuloEntity> articulos;
-     
-    /**
-     * La coleccion de procesos de mascota en adopcion que tiene el usuario
-     */
-    @PodamExclude 
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
-    Collection<MascotaEnAdopcionEntity> procesosMascotasAdopcion;
-  
+
     
     
     
@@ -136,13 +143,24 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public Integer getTelefono() {
         return telefono;
     }
+
+
+    public List<ArticuloEntity> getArticulos(){
+        return articulos;
+    }
+    
+    public List<EventoEntity> getEventos(){
+        return eventos;
+    }
     
     
     /**
      * 
      * @return retorna si el usuario deseas recibir notificaciones
      */
+  
     public Boolean isRecibeNotificaciones() {
+
         return recibeNotificaciones;
     }
 
@@ -202,21 +220,8 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return procesosMascotaExtraviada;
     }
 
-    /**
-     * 
-     * @return coleccion de articulos que tiene el usuario
-     */
-    public Collection<ArticuloEntity> getArticulos() {
-        return articulos;
-    }
 
-    /**
-     * 
-     * @return coleccion de procesos de adopcion que tiene el usuario 
-     */
-    public Collection<MascotaEnAdopcionEntity> getProcesosMascotasAdopcion() {
-        return procesosMascotasAdopcion;
-    }
+
 
     /**
      * Cambia los procesos de mascota extraviada que tiene el usuario
@@ -226,13 +231,6 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.procesosMascotaExtraviada = procesosMascotaExtraviada;
     }
 
-    /**
-     * Cambia los articulos que tiene el usuario
-     * @param articulos 
-     */
-    public void setArticulos(Collection<ArticuloEntity> articulos) {
-        this.articulos = articulos;
-    }
 
     /**
      * Cambia los procesos mascota en adopcion que tiene el usuario
@@ -242,7 +240,13 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.procesosMascotasAdopcion = procesosMascotasAdopcion;
     }
     
+    public void setArticulos(List<ArticuloEntity> articulos){
+        this.articulos = articulos;
+    }
     
+    public void setEventos(List<EventoEntity> eventos){
+        this.eventos = eventos;
+    }
     
     
     

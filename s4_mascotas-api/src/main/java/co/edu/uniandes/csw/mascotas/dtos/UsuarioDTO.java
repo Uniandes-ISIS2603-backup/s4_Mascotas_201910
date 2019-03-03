@@ -5,8 +5,12 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -44,6 +48,16 @@ public class UsuarioDTO implements Serializable{
      * Registra si el usuario desea recibir notificaciones
      */
     private Boolean recibeNotificaciones;
+    
+     /**
+     * Lista de articulos
+     */
+   // private List<ArticuloDTO> articulos;
+    
+     /**
+     * Lista de eventos
+     */
+   // private List<EventoDTO> eventos;
 
     /**
      * Constructor
@@ -161,6 +175,21 @@ public class UsuarioDTO implements Serializable{
         return recibeNotificaciones;
     }
     
+   // public List<ArticuloDTO> getArticulos(){
+     //   return articulos;
+    //}
+    
+    //public void setArticulos(List<ArticuloDTO> articulos){
+      //  this.articulos = articulos;
+    //}
+
+    //public List<EventoDTO> getEventos(){
+      //  return eventos;
+    //}
+    
+    //public void setEventos(List<EventoDTO> eventos){
+      //  this.eventos = eventos;
+    //}
     
     public UsuarioEntity toEntity(){
         UsuarioEntity entity = new UsuarioEntity();
@@ -170,9 +199,27 @@ public class UsuarioDTO implements Serializable{
         entity.setTelefono(this.telefono);
         entity.setRecibeNotificaciones(this.recibeNotificaciones);
         entity.setContrasenha(this.contrasenha);
+        //entity.setArticulos(convertArticulosToEntity(this.articulos));
+        //entity.setEventos(convertEventosToEntity(this.eventos));
+        
      return entity;         
     }
     
+   // public List<ArticuloEntity> convertArticulosToEntity(List<ArticuloDTO> as){
+     //   List<ArticuloEntity> ls = new ArrayList<>();
+       // for(ArticuloDTO a : as){
+         //   ls.add(a.toEntity());
+        //}
+        //return ls;
+    //}
+    
+    //public List<EventoEntity> convertEventosToEntity(List<EventoDTO> as){
+      //  List<EventoEntity> ls = new ArrayList<>();
+        //for(EventoDTO a : as){
+          //  ls.add(a.toEntity());
+        //}
+        //return ls;
+    //}
     
     public String toString(){
         return "UsuarioDTO{"+"usuario:"+usuario+", contrasenha:"+contrasenha+", correo:"+correo+", nombre:"+nombre+", telefono:"+telefono+", recibeNotificaciones:"+recibeNotificaciones+"}";

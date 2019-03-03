@@ -40,7 +40,6 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
      * El proceso de mascota extraviada asociado
      */
     @PodamExclude
-    @OneToOne(mappedBy = "recompensa", fetch=FetchType.LAZY)
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
     
     /**

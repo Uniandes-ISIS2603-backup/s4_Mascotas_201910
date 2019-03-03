@@ -28,7 +28,7 @@ import javax.ws.rs.Produces;
  * @author s.canales
  */
 
-@Path("articulos")
+@Path("calificaciones")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -52,7 +52,6 @@ public class CalificacionResource {
      * @return 
      */
     @GET
-    
     public List<CalificacionDTO> getCalificaciones(){
         
         List<CalificacionDTO> calificaciones = new ArrayList<>();
@@ -87,18 +86,21 @@ public class CalificacionResource {
         
         logic.deleteCalificacion(id);
     }
-    
-    @PUT
-    @Path("{id: \\d+}")
-    public CalificacionDTO uptaCalificacionDTO(@PathParam("id") Long id , String comentario, Integer calificacion) throws BusinessLogicException{
-        
-        CalificacionDTO dto = new CalificacionDTO();
-        CalificacionEntity entity = logic.updateCalificacion(id, comentario, calificacion);
-        dto.setCalificacion(entity.getCalificacion());
-        dto.setComentario(entity.getComentario());
-        
-        return dto;
-    }
+
+    /**
+     * No pueden existir parámetros sin anotaciones (salvo los DTO´s)
+     */
+//    @PUT
+//    @Path("{id: \\d+}")
+//    public CalificacionDTO uptaCalificacionDTO(@PathParam("id") Long id , String comentario, Integer calificacion) throws BusinessLogicException{
+//        
+//        CalificacionDTO dto = new CalificacionDTO();
+//        CalificacionEntity entity = logic.updateCalificacion(id, comentario, calificacion);
+//        dto.setCalificacion(entity.getCalificacion());
+//        dto.setComentario(entity.getComentario());
+//        
+//        return dto;
+//    }
     
     
     

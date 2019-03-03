@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.resources;
 
 import co.edu.uniandes.csw.mascotas.dtos.MascotaExtraviadaDTO;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -38,6 +39,12 @@ public class MascotaExtraviadaResource {
     @Inject
     private MascotaExtraviadaLogic mascotaExtraviadaLogic;
     
+    /**
+     * La lógica que maneja procesos de mascota extraviada y sus recompensas
+     */
+    @Inject
+    private MascotaExtraviadaRecompensaLogic mascotaExtraviadaRecompensaLogic;
+    
     private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaResource.class.getName());
     
     /**
@@ -67,7 +74,7 @@ public class MascotaExtraviadaResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public MascotaExtraviadaDTO getProcesoMascotaExtraviadaPorId(@PathParam("id") Long id) throws Exception{
+    public MascotaExtraviadaDTO getProcesoMascotaExtraviada(@PathParam("id") Long id) throws Exception{
         MascotaExtraviadaEntity entity = mascotaExtraviadaLogic.getProcesoMascotaExtraviada(id);
         if(entity == null){
             throw new WebApplicationException("El proceso de mascota extraviada con id = " + id + "no existe.", 404);
@@ -82,8 +89,13 @@ public class MascotaExtraviadaResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteProcesoMascotaExtraviadaPorId(@PathParam("id") Long id){
-
+    public void deleteProcesoMascotaExtraviada(@PathParam("id") Long id) throws Exception{
+        MascotaExtraviadaEntity entity = mascotaExtraviadaLogic.getProcesoMascotaExtraviada(id);
+        if(entity == null){
+            throw new WebApplicationException("El proceso de mascota extraviada con id = " + id + "no existe.", 404);
+        }
+        mascotaExtraviadaRecompensaLogic.removeRecompensaConProceso(id);
+        mascotaExtraviadaLogic.deleteProcesoMascotaExtraviada(id);
     }
     
     /**
@@ -103,6 +115,11 @@ public class MascotaExtraviadaResource {
         return new MascotaExtraviadaDTO(mascotaExtraviadaLogic.updateMascotaExtraviada(id));
     }
     
+    /**
+     * Transforma una lista de entidades a lista de DTO's
+     * @param xs - Lista de entidades
+     * @return Lista de DTO's
+     */
     private List<MascotaExtraviadaDTO> listaEntidadesADTO(List<MascotaExtraviadaEntity> xs){
         List<MascotaExtraviadaDTO> newList = new ArrayList<>();
         for(MascotaExtraviadaEntity x : xs){
