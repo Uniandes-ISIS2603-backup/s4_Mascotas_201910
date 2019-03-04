@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mascotas.test.persistence;
+package co.edu.uniandes.csw.mascotas.test.logic;
 
+import co.edu.uniandes.csw.mascotas.ejb.ArticuloLogic;
 import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
-import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.ArticuloPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -31,25 +32,36 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 
 @RunWith(Arquillian.class)
-public class ArticuloPersistenceTest {
+public class ArticuloLogicTest {
     
+     private PodamFactory factory = new PodamFactoryImpl();
+     
+    /**
+     * Inyección de la dependencia a la clase ArticuloLogic cuyos métodos se
+     * van a probar.
+     */
     @Inject
-    private ArticuloPersistence ap;
+    private ArticuloLogic articuloLogic;
     
+     /**
+     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
+     * datos por fuera de los métodos que se están probando.
+     */
     @PersistenceContext
     private EntityManager em;
     
-    /**
-     * Lista de eventos sobre la cual se realizan algunas pruebas
-     */
-    private List<ArticuloEntity> listaPrueba = new ArrayList<>();
     
-    /**
+     /**
      * Variable para marcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
      */
     @Inject
     private UserTransaction utx;
+    
+    /**
+     * Lista que tiene los datos de prueba.
+     */
+    private List<ArticuloEntity> data = new ArrayList<ArticuloEntity>();
     
     
      /**
@@ -63,6 +75,7 @@ public class ArticuloPersistenceTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ArticuloEntity.class.getPackage())
+                .addPackage(ArticuloLogic.class.getPackage())
                 .addPackage(ArticuloPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -75,9 +88,8 @@ public class ArticuloPersistenceTest {
     public void configTest() {
         try {
             utx.begin();
-            em.joinTransaction();
             clearData();
-            inicializacionListaPrueba();
+            insertData();
             utx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,78 +100,36 @@ public class ArticuloPersistenceTest {
             }
         }
     }
-    
+
     /**
      * Limpia las tablas que están implicadas en la prueba.
-     *
-     *
      */
     private void clearData() {
         em.createQuery("delete from ArticuloEntity").executeUpdate();
     }
-    
+
     /**
-     * Inicializa la lista de prueba
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
      */
-    private void inicializacionListaPrueba(){
-        PodamFactory factory = new PodamFactoryImpl();
-        for(int i = 0; i < 10; i++){
-            ArticuloEntity e = factory.manufacturePojo(ArticuloEntity.class);
-            em.persist(e);
-            listaPrueba.add(e);
+    private void insertData() {
+        for (int i = 0; i < 3; i++) {
+            ArticuloEntity entity = factory.manufacturePojo(ArticuloEntity.class);
+
+            em.persist(entity);
+            data.add(entity);
+
         }
     }
-    
-      /**
-     * Prueba para crear un Articulo.
-     *
-     *
-     */
+
     @Test
-    public void createArticuloTest() {
-        
-        PodamFactory factory = new PodamFactoryImpl();
+    public void crearArticuloTest() throws BusinessLogicException {
         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        ArticuloEntity ea = ap.create(newEntity);
-
-        Assert.assertNotNull(ea);
-
-        ArticuloEntity entity = em.find(ArticuloEntity.class, ea.getId());
-
+        ArticuloEntity result = articuloLogic.crearArticulo(newEntity);
+        Assert.assertNotNull(result);
+        ArticuloEntity entity = em.find(ArticuloEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getTitulo(), entity.getTitulo());
     }
     
-     @Test
-    public void actualizarTituloTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        ArticuloEntity ea = ap.create(newEntity);
-        
-        Assert.assertNotNull(ea);
-        
-        String nuevoTitulo = "abcd";
-        
-        ArticuloEntity entidadActualizada = ap.actualizarTitulo(ea.getId(), nuevoTitulo);
-        
-        ea = em.find( ArticuloEntity.class, ea.getId());
-        Assert.assertEquals(entidadActualizada.getTitulo(), ea.getTitulo());
-    }
-    
-         @Test
-    public void actualizarContenidoTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        ArticuloEntity ea = ap.create(newEntity);
-        
-        Assert.assertNotNull(ea);
-        
-        String nuevoContenido = "abcd";
-        
-        ArticuloEntity entidadActualizada = ap.actualizarContenido(ea.getId(), nuevoContenido);
-        
-        ea = em.find( ArticuloEntity.class, ea.getId());
-        Assert.assertEquals(entidadActualizada.getContenido(), ea.getContenido());
-    }
 }

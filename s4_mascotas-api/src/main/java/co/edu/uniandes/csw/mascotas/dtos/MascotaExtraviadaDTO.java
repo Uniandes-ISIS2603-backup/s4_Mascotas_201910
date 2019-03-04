@@ -66,11 +66,11 @@ public class MascotaExtraviadaDTO implements Serializable{
             this.ciudad = e.getCiudad();
             this.estado = e.getEstado();
             
-//            if(e.getRecompensa() != null){
-//                this.recompensa = new RecompensaDTO(e.getRecompensa());
-//            }else{
-//                this.recompensa = null;
-//            }
+            if(e.getRecompensa() != null){
+                this.recompensa = new RecompensaDTO(e.getRecompensa());
+            }else{
+                this.recompensa = null;
+            }
         }
     }
    

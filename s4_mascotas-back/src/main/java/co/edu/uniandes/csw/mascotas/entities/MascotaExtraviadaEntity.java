@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -37,7 +39,7 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
      * Relación a una Recompensa de cardinalidad 1
      */
     @PodamExclude
-    @OneToOne
+    @OneToOne(mappedBy = "procesoMascotaExtraviada", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     private RecompensaEntity recompensa;
     
     /**
