@@ -4,11 +4,16 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.mascotas.entities;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,8 +22,8 @@ import javax.persistence.TemporalType;
  * @author s.canales
  */
 @Entity
-public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
-    
+public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable {
+
     /**
      * el estado de la mascota
      */
@@ -34,7 +39,7 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * fecha en la que comienza el proceso y en la que termina
      */
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
@@ -42,28 +47,29 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * calificación asignada al proceso de adopción
      */
-//    private CalificacionEntity calificacion;
-//    
-//    /**
-//     * la mascota asociada al proceso
-//     */
-//    private MascotaEntity mascota;
-//    
-//    /**
-//     * el usuario que puso la mascota en adopción
-//     */
-//    private UsuarioEntity usuario;
-//    
-//    /**
-//     * nombre de ususarios postulados para adoptar la mascota
-//     */
-    //private PostuladoEntity postulados;
-    
+    @PodamExclude
+    @OneToOne(mappedBy = "procesoMascotaEnAdopcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private CalificacionEntity calificacion;
+
+    /**
+     * la mascota asociada al proceso
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "procesoMascotaEnAdopcion", fetch = FetchType.LAZY)
+    private MascotaEntity mascota;
+
+    /**
+     * nombre de ususarios postulados para adoptar la mascota
+     */
+    @PodamExclude
+    @OneToMany(mappedBy = "procesoMascotaEnAdopcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostuladoEntity> postulados;
+
     /**
      * constructor
      */
-    public MascotaEnAdopcionEntity(){
-        
+    public MascotaEnAdopcionEntity() {
+
     }
 
     /**
@@ -139,6 +145,48 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * @return the calificacion
      */
+    public CalificacionEntity getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(CalificacionEntity calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    /**
+     * @return the mascota
+     */
+    public MascotaEntity getMascota() {
+        return mascota;
+    }
+
+    /**
+     * @param mascota the mascota to set
+     */
+    public void setMascota(MascotaEntity mascota) {
+        this.mascota = mascota;
+    }
+
+    /**
+     * @return the postulados
+     */
+    public List<PostuladoEntity> getPostulados() {
+        return postulados;
+    }
+
+    /**
+     * @param postulados the postulados to set
+     */
+    public void setPostulados(List<PostuladoEntity> postulados) {
+        this.postulados = postulados;
+    }
+
+    /**
+     * @return the calificacion
+     */
 //    public CalificacionEntity getCalificacion() {
 //        return calificacion;
 //    }
@@ -163,7 +211,6 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
 //    public void setPostulados(PostuladoEntity postulados) {
 //        this.postulados = postulados;
 //    }
-
 //    /**
 //     * @return the mascota
 //     */
