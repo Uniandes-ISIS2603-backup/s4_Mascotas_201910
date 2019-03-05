@@ -7,8 +7,8 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +26,8 @@ public class EventoEntity extends BaseEntity implements Serializable{
     private String descripcion;
     private String imagen;
     
-    @PodamExclude
-    @ManyToOne
+    //@PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
     private UsuarioEntity organizador;
     
     @Temporal(TemporalType.DATE)

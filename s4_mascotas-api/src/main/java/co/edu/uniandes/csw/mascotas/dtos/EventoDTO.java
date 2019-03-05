@@ -27,6 +27,18 @@ public class EventoDTO implements Serializable{
         
     }
     
+     public EventoDTO (EventoEntity entity) {
+        
+         this.id = entity.getId();
+         this.nombre = entity.getNombre();
+         this.descripcion = entity.getDescripcion();
+         this.imagen = entity.getImagen();
+         this.fechaInicio = entity.getFechaInicio();
+         this.fechaFin = entity.getFechaFin();
+         
+         //organizador??
+    }
+    
     /**
      * @return the id
      */
