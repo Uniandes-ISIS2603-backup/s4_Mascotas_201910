@@ -12,6 +12,8 @@ import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
 import com.sun.istack.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -147,5 +149,68 @@ public class MascotaLogicTest {
         {
             Assert.assertEquals(fotosEntidad.get(i), fotosResultado.get(i));
         }
+    }
+    
+    /**
+     * Test que valida que un tipo que no sea PERRO o GATO no pueda ser ingresado al sistema
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void crearMascotaTestConTipoDiferenteTest() throws BusinessLogicException
+    {
+        MascotaEntity nuevaEntidad = factory.manufacturePojo(MascotaEntity.class);
+        nuevaEntidad.setTipo("PAJARO");
+        logica.crearMascota(nuevaEntidad);
+    }
+  
+    /**
+     * Test que valida que no se puede crear una mascota con descripción nula
+     * @throws co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException
+     */
+    @Test (expected = BusinessLogicException.class) 
+    public void crearMascotaDescripcionNulaTest()throws BusinessLogicException
+    {
+        MascotaEntity nuevaEntidad = factory.manufacturePojo(MascotaEntity.class);
+        nuevaEntidad.setDescripcion(null);
+        logica.crearMascota(nuevaEntidad);
+    }
+    
+    /**
+     * Test que valida que no se puede crear una mascota con descripción vacía
+     * @throws co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException
+     */
+    @Test (expected = BusinessLogicException.class) 
+    public void crearMascotaDescripcionVaciaTest()throws BusinessLogicException
+    {
+        MascotaEntity nuevaEntidad = factory.manufacturePojo(MascotaEntity.class);
+        nuevaEntidad.setDescripcion("");
+        logica.crearMascota(nuevaEntidad);
+    }
+    
+    @Test
+    public void darMascotasPorEstadoTest() throws BusinessLogicException
+    {
+        String estado = data.get(0).getEstado().name();
+        List<MascotaEntity> mascotas = logica.darMascotasPorEstado(estado);
+        if(mascotas.size()<1)
+            Assert.fail();
+        for(MascotaEntity mascota : mascotas )
+        {
+            if(!mascota.getEstado().name().equals(estado))
+                Assert.fail();
+        }
+    }
+    
+    @Test (expected = BusinessLogicException.class)
+    public void darMascotasPorEstadoNoValidoTest() throws BusinessLogicException
+    {
+        int length = 8;
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+             + "abcdefghijklmnopqrstuvwxyz"
+             + "0123456789";
+        String str = new Random().ints(length, 0, chars.length())
+                         .mapToObj(i -> "" + chars.charAt(i))
+                         .collect(Collectors.joining());
+        logica.darMascotasPorEstado(str);
     }
 }

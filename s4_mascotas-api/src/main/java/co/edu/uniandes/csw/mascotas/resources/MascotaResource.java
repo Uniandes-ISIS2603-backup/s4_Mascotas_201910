@@ -57,11 +57,14 @@ public class MascotaResource {
         return new MascotaDTO(entidad);
     }
 
-// Esta operaciòn GET es ambigua con respecto al GET de darMascota
-// Para diferenciar las operaciones deben tener @Path diferente, si no no funciona
-// Sugerencia: para las consultas del estado, se deberìa realiza la consulta (select) en la persistencia donde se busque el estado
+    /**
+     * Retorna una lista con las mascotas cuyo estado es el ingresado por parámetro
+     * @param pEstado
+     * @return
+     * @throws BusinessLogicException 
+     */
     @GET
-    @Path("{mascotaEstado: \\d+}")
+    @Path("/estado/{mascotaEstado: \\d+}")
     public List<MascotaDTO> darMascotasPorEstado( @PathParam("MascotaEstado")String pEstado ) throws BusinessLogicException
     {
         List<MascotaDTO> mascotas = new ArrayList<>();
