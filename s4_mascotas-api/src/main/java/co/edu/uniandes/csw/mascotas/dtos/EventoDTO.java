@@ -21,10 +21,22 @@ public class EventoDTO implements Serializable{
     private String imagen;
     private Date fechaInicio;
     private Date fechaFin;
-   // private UsuarioDTO organizador;
+    private UsuarioDTO organizador;
     
     public EventoDTO () {
         
+    }
+    
+     public EventoDTO (EventoEntity entity) {
+        
+         this.id = entity.getId();
+         this.nombre = entity.getNombre();
+         this.descripcion = entity.getDescripcion();
+         this.imagen = entity.getImagen();
+         this.fechaInicio = entity.getFechaInicio();
+         this.fechaFin = entity.getFechaFin();
+         
+         //organizador??
     }
     
     /**
@@ -114,29 +126,30 @@ public class EventoDTO implements Serializable{
     /**
      * @return the organizador
      */
-  //  public UsuarioDTO getOrganizador() {
-    //    return organizador;
-    //}
+    public UsuarioDTO getOrganizador() {
+        return organizador;
+    }
 
     /**
      * @param elOrganizador the organizador to set
      */
-    //public void setOrganizador(UsuarioDTO elOrganizador) {
-      // this.organizador = elOrganizador;
-    //}
+    public void setOrganizador(UsuarioDTO elOrganizador) {
+      this.organizador = elOrganizador;
+    }
  
           /**
      * Convertir de DTO a Entity
      * @return Un EventoEntity con los valores del DTO
      */
     public EventoEntity toEntity(){
+        
         EventoEntity entity = new EventoEntity();
         entity.setNombre(this.nombre);
         entity.setDescripcion(this.descripcion);
         entity.setImagen(this.imagen);
         entity.setFechaInicio(this.fechaInicio);
         entity.setFechaFin(this.fechaFin);
-       // entity.setOrganizador(this.organizador.toEntity());
+        entity.setOrganizador(this.organizador.toEntity());
         
         return entity;
     }

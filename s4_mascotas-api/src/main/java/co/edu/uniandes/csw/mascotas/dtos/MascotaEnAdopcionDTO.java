@@ -39,7 +39,17 @@ public class MascotaEnAdopcionDTO implements Serializable{
     
     private boolean adoptada;
     
-    public MascotaEnAdopcionDTO(){
+    public MascotaEnAdopcionDTO(MascotaEnAdopcionEntity entity){
+        
+        if(entity != null){
+            
+            razonAdopcion = entity.getRazonAdopcion();
+            pasado = entity.getPasado();
+            fechaInicio = entity.getFechaInicio();
+            fechaFinal = entity.getFechaFinal();
+            adoptada = entity.isAdoptada();
+        }
+        
     
 }
 

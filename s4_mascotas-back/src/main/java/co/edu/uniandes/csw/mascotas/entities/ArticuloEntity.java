@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -20,9 +23,10 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     private String tema;
     private String contenido;
    
-   // @javax.persistence.ManyToOne(
-    //)
-  //  private UsuarioEntity autor;
+    //@PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
+    private UsuarioEntity autor;
+   
     
     public ArticuloEntity(){
         
@@ -73,16 +77,17 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
      /**
      * @return the autor
      */
-    //public UsuarioEntity getAutor() {
-     //   return autor;
-    //}
+    public UsuarioEntity getAutor() {
+          return autor;
+    }
     
     /**
      * @param autor the autor to set
      */
-  //  public void setAutor(UsuarioEntity autor) {
-      //  this.autor = autor;
-    //}
+    public void setAutor(UsuarioEntity autor) {
+         this.autor = autor;
+    }
+    
     
     
 }

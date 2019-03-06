@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.ejb;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaEnAdopcionPersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -31,4 +32,27 @@ public class MascotaEnAdopcionLogic {
         return persistence.create(entity);
     }
     
+    public MascotaEnAdopcionEntity getMascotaEnAdopcion(long id)throws Exception{
+        
+        MascotaEnAdopcionEntity buscado = persistence.find(id);
+        if(buscado == null) throw new BusinessLogicException(" no se encontró el proceso de mascota en adopción con id: " + id);
+        
+        return buscado;
+    }
+    
+    public List<MascotaEnAdopcionEntity> getMascotasEnAdopcion() throws BusinessLogicException{
+        
+        return persistence.findAll();
+    }
+    
+    public MascotaEnAdopcionEntity updateMascotaEnAdopcion(MascotaEnAdopcionEntity mascotaCambiada , Long id) throws Exception{
+        
+        if(persistence.find(id) == null) throw new BusinessLogicException("Error al modificar, no se encontró la mascota con id: " + id);
+        return persistence.update(mascotaCambiada);
+    }
+    
+    public void deleteMascotaEnAdopcion(Long id) throws BusinessLogicException{
+        
+        persistence.delete(id);
+    }
 }

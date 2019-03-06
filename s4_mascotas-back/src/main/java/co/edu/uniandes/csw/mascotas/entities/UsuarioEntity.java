@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -44,6 +48,26 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     private int telefono;
     
+    /**
+     * Lista de articulos
+     */
+    @OneToMany(
+       cascade = CascadeType.ALL,
+       mappedBy = "autor",
+       fetch = FetchType.LAZY
+     )
+    private List<ArticuloEntity> articulos;
+    
+     /**
+     * Lista de eventos
+     */
+     @OneToMany(
+         cascade = CascadeType.ALL,
+         mappedBy = "organizador",
+         fetch = FetchType.LAZY
+    )
+    private List<EventoEntity> eventos;
+    
     
     public UsuarioEntity(){
         
@@ -74,6 +98,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return telefono;
     }
 
+    public List<ArticuloEntity> getArticulos(){
+        return articulos;
+    }
+    
+    public List<EventoEntity> getEventos(){
+        return eventos;
+    }
+    
     public boolean isRecibeNotificaciones() {
         return recibeNotificaciones;
     }
@@ -102,7 +134,13 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.recibeNotificaciones = recibeNotificaciones;
     }
     
+    public void setArticulos(List<ArticuloEntity> articulos){
+        this.articulos = articulos;
+    }
     
+    public void setEventos(List<EventoEntity> eventos){
+        this.eventos = eventos;
+    }
     
     
     

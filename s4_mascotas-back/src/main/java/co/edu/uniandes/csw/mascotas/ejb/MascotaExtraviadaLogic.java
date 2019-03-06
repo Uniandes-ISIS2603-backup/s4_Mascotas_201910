@@ -87,6 +87,4 @@ public class MascotaExtraviadaLogic {
         }
         return persistence.update(entity);
     }
-    
-    
 }

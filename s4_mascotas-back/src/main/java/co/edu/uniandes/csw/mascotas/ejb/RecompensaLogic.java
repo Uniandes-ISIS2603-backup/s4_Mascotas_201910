@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.ejb;
 
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
@@ -70,6 +71,13 @@ public class RecompensaLogic {
         return r;
     }
     
+    /**
+     * Actualiza los valores de una recompensa de acuerdo a la entidad dada por parámetro
+     * @param id
+     * @param entity
+     * @return La recompensa actualizada
+     * @throws Exception 
+     */
     public RecompensaEntity updateRecompensa(Long id, RecompensaEntity entity) throws Exception{
         RecompensaEntity r = getRecompensa(id);
         if (r.getValor() < 0) {
@@ -83,4 +91,5 @@ public class RecompensaLogic {
         }
         return persistence.update(r);
     }
+
 }
