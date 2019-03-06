@@ -48,7 +48,7 @@ public class MascotaLogic
     public MascotaEntity crearMascota( MascotaEntity mascota ) throws BusinessLogicException
     {
         //Validación de reglas de negocio
-        if( !mascota.getTipo().equals(PERRO) && !mascota.getTipo().equals(GATO))
+        if( (!mascota.getTipo().equals(PERRO) && !mascota.getTipo().equals(GATO)) || mascota.getTipo() == null)
         {
             throw new BusinessLogicException("Una mascota sólo puede ser perro o gato");
         }
@@ -56,7 +56,7 @@ public class MascotaLogic
         {
             throw new BusinessLogicException("Por favor incluya al menos una foto o video");
         }
-        if(mascota.getDescripcion()==null)
+        if(mascota.getDescripcion()==null || mascota.getDescripcion().equals(""))
         {
             throw new BusinessLogicException("Es necesario diligenciar el campo de descripción");
         }
@@ -121,4 +121,5 @@ public class MascotaLogic
         
         return persistencia.darMascotasPorEstado(pEstado);
     }
+    
 }

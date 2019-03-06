@@ -57,11 +57,15 @@ public class MascotaResource {
         return new MascotaDTO(entidad);
     }
 
-// Esta operaciòn GET es ambigua con respecto al GET de darMascota
-// Para diferenciar las operaciones deben tener @Path diferente, si no no funciona
-// Sugerencia: para las consultas del estado, se deberìa realiza la consulta (select) en la persistencia donde se busque el estado
+    /**
+     * Retorna una lista con las mascotas cuyo estado es el ingresado por parámetro
+     * @param pEstado
+     * @return
+     * @throws BusinessLogicException 
+     */
     @GET
-    public List<MascotaDTO> darMascotasPorEstado( String pEstado ) throws BusinessLogicException
+    @Path("/estado/{mascotaEstado: \\d+}")
+    public List<MascotaDTO> darMascotasPorEstado( @PathParam("MascotaEstado")String pEstado ) throws BusinessLogicException
     {
         List<MascotaDTO> mascotas = new ArrayList<>();
         List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
@@ -74,6 +78,7 @@ public class MascotaResource {
      * @param id
      * @param mascota Mascota a la cual se le actualizará el estado
      * @return mascotaDTO mascota con el estado actualizado
+     * @throws co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException
      */
     @PUT
     @Path("{id: \\d+}")
@@ -84,5 +89,15 @@ public class MascotaResource {
            throw new WebApplicationException("El recurso /mascotas/"+id+" no existe.",404);
        MascotaDTO dto = new MascotaDTO(logica.cambiarEstadoMascota(id, mascota.toEntity()));
        return dto;
+    }
+    
+    @GET
+    public List<MascotaDTO> darTodasLasMascotas( )
+    {
+        List<MascotaDTO> respuesta = new ArrayList<>();
+        List<MascotaEntity> list = logica.darTodasLasMascotas();
+        for(MascotaEntity entity: list)
+            respuesta.add(new MascotaDTO(entity));
+        return respuesta;
     }
 }

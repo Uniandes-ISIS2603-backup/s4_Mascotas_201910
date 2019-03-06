@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -72,6 +73,7 @@ public class RecompensaResource {
      * 
      * @param id - id de la recompensa
      * @return La recompensa correspondiente al id
+     * @throws java.lang.Exception
      */
     @GET
     @Path("{id: \\d+}")
