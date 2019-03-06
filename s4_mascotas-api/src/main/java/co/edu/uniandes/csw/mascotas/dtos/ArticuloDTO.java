@@ -24,6 +24,20 @@ public class ArticuloDTO implements Serializable{
     
     }
     
+    public ArticuloDTO (ArticuloEntity entity) { 
+    
+        if(entity != null){
+            
+            this.id = entity.getId();
+            this.titulo = entity.getTitulo();
+            this.tema = entity.getTema();
+            this.contenido = entity.getContenido();
+            
+            //autor ??
+        }
+        
+    }
+    
     /**
      * @return the id
      */

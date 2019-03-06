@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mascotas.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,16 +39,15 @@ public class MascotaPersistence
         return query.getResultList();
     }
     
-    public MascotaEntity actualizarEstadoMascota(Long mascotaId, MascotaEntity.Estados_mascota nuevoEstado)
+    public MascotaEntity actualizarEstadoMascota(MascotaEntity mascota)
     {
-        MascotaEntity mascota = em.find(MascotaEntity.class, mascotaId);
-        mascota.setEstado(nuevoEstado);
-        em.refresh(mascota);
-        return mascota;
+        return em.merge(mascota);
     }
     
-    public List<MascotaEntity> darMascotasPorEstado(int estado)
+    public List<MascotaEntity> darMascotasPorEstado(String pEstado)
     {
+        MascotaEntity.Estados_mascota estado;
+        estado = MascotaEntity.Estados_mascota.valueOf(pEstado);
         TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado = :estado", MascotaEntity.class);
         query.setParameter("estado", estado);
         return query.getResultList();

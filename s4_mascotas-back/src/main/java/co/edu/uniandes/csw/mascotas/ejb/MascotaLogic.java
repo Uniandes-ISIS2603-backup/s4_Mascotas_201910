@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,6 +52,14 @@ public class MascotaLogic
         {
             throw new BusinessLogicException("Una mascota sólo puede ser perro o gato");
         }
+        if(mascota.getFotos()== null)
+        {
+            throw new BusinessLogicException("Por favor incluya al menos una foto o video");
+        }
+        if(mascota.getDescripcion()==null)
+        {
+            throw new BusinessLogicException("Es necesario diligenciar el campo de descripción");
+        }
         mascota = persistencia.create(mascota);
         return mascota;
     }
@@ -79,23 +86,39 @@ public class MascotaLogic
         
     }
     
-    public MascotaEntity cambiarEstadoMascota(Long pId, String pEstado) throws BusinessLogicException
+    public MascotaEntity cambiarEstadoMascota(Long pId, MascotaEntity mascota) throws BusinessLogicException
     {
-        // Validar reglas de negocio
-        try
-        {
-            MascotaEntity mascota = persistencia.actualizarEstadoMascota(pId,MascotaEntity.Estados_mascota.valueOf(pEstado));
-            return mascota;
+        String estadoMascota = mascota.getEstado().name();
+        MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
+        boolean found = false;
+        for (MascotaEntity.Estados_mascota estado : estados) {
+            if (estadoMascota.equals(estado.name())) {
+                found = true;
+                persistencia.actualizarEstadoMascota(mascota);
+            }
         }
-        catch(Exception e)
+        if (!found ) 
         {
             throw new BusinessLogicException("El estado de la mascota no corresponde a un estado válido.");
         }
+        return mascota;
+
+        
     }
     
-    public List<MascotaEntity> darMascotasPorEstado(int pEstado)
+    public List<MascotaEntity> darMascotasPorEstado(String pEstado) throws BusinessLogicException
     {
         // Validar reglas de negocio (estado pertenece a los posibles estados)
+         MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
+        boolean found = false;
+        for (MascotaEntity.Estados_mascota estado : estados) {
+            if (pEstado.equals(estado.name())) {
+                found = true;
+            }
+        }
+        if(!found)
+            throw new BusinessLogicException( " El estado ingresado no es válido. ");
+        
         return persistencia.darMascotasPorEstado(pEstado);
     }
 }
