@@ -20,10 +20,10 @@ import javax.persistence.TemporalType;
 public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
     
     @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    private Date fechaInicializacion;
     
     @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+    private Date fechaFinalizacion;
     
     private String estado;
     
@@ -39,28 +39,28 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
      * @return the fechaInicio
      */
     public Date getFechaInicio() {
-        return fechaInicio;
+        return fechaInicializacion;
     }
 
     /**
      * @param fechaInicio the fechaInicio to set
      */
     public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+        this.fechaInicializacion = fechaInicio;
     }
 
     /**
      * @return the fechaFin
      */
     public Date getFechaFin() {
-        return fechaFin;
+        return fechaFinalizacion;
     }
 
     /**
      * @param fechaFin the fechaFin to set
      */
     public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+        this.fechaFinalizacion = fechaFin;
     }
 
     /**

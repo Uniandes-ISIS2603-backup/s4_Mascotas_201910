@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,9 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 public class MascotaEncontradaPersistence {
+    
+    private static final Logger LOGGER = Logger.getLogger(MascotaEncontradaPersistence.class.getName());
+    
     
     @PersistenceContext (unitName = "mascotasPU")
     protected EntityManager em;
@@ -40,5 +44,11 @@ public class MascotaEncontradaPersistence {
         TypedQuery<MascotaEncontradaEntity> query = em.createQuery("select u from MascotaEncontradaEntity u", MascotaEncontradaEntity.class);
         
         return query.getResultList();
+    }
+    
+    public void delete(Long id){
+        MascotaEncontradaEntity entity = em.find(MascotaEncontradaEntity.class, id);
+        
+        em.remove(entity);
     }
 }
