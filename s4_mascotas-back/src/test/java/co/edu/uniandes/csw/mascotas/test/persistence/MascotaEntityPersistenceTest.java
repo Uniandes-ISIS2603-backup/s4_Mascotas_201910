@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
-import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -70,10 +69,8 @@ public class MascotaEntityPersistenceTest
         MascotaEntity mascota = ep.create(newEntity);
         
         Assert.assertNotNull(mascota);
-        int random = (int) (Math.random() * 4);
-        MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
         
-        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota.getId(), estados[random]);
+        MascotaEntity entidadActualizada = ep.actualizarEstadoMascota(mascota);
         
         mascota = em.find( MascotaEntity.class, mascota.getId());
         Assert.assertEquals(entidadActualizada.getEstado(), mascota.getEstado());
