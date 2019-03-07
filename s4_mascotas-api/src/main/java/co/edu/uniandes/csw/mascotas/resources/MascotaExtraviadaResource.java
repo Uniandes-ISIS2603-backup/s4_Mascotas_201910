@@ -110,11 +110,12 @@ public class MascotaExtraviadaResource {
     @PUT
     @Path("{id: \\d+}")
     public MascotaExtraviadaDTO updateProcesoMascotaExtraviada(@PathParam("id") Long id, MascotaExtraviadaDTO p) throws Exception{
-        p.setId(id);
+        MascotaExtraviadaEntity newP = p.toEntity();
+        newP.setId(id);
         if (mascotaExtraviadaLogic.getProcesoMascotaExtraviada(id) == null) {
             throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + id + " no existe.", 404);
         }
-        return new MascotaExtraviadaDTO(mascotaExtraviadaLogic.updateMascotaExtraviada(id));
+        return new MascotaExtraviadaDTO(mascotaExtraviadaLogic.updateMascotaExtraviada(id, newP));
     }
     
     /**
@@ -128,5 +129,20 @@ public class MascotaExtraviadaResource {
             newList.add(new MascotaExtraviadaDTO(x));
         }
         return newList;
+    }
+    
+    /**
+     * Conexiòn con el servicio de la recompensa para un proceso de mascota
+     * extraviada.
+     * Conecta las rutas /recompensas y /procesosMascotaExtraviada
+     * @param procesoId
+     * @return Clase con los recursos de recompensa para un proceso de mascotaExtraviada
+     */
+    @Path("{procesoId: \\d+}/recompensa")
+    public Class<MascotaExtraviadaRecompensaResource> getMascotaExtraviadaRecompensaResource(@PathParam("procesoId") Long procesoId) throws Exception{
+        if (mascotaExtraviadaLogic.getProcesoMascotaExtraviada(procesoId) == null) {
+            throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + procesoId + " no existe.", 404);
+        }
+        return MascotaExtraviadaRecompensaResource.class;
     }
 }
