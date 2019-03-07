@@ -39,7 +39,7 @@ public class RecompensaLogic {
         if (r.getValor() < 0) {
             throw new BusinessLogicException("El valor de la recompensa no puede ser negativo");
         }
-        if (r.getEstado() != RecompensaEntity.PENDIENTE) {
+        if (!r.getEstado().equals(RecompensaEntity.PENDIENTE)) {
             throw new BusinessLogicException("Una nueva recompensa debería estar en estado 'PENDIENTE'");
         }
         if(r.getProcesoMascotaExtraviada() == null){

@@ -37,7 +37,7 @@ public class MascotaExtraviadaLogic {
      * @throws Exception 
      */
     public MascotaExtraviadaEntity createMascotaExtraviada(MascotaExtraviadaEntity  p) throws Exception{
-        if(p.getEstado() != MascotaExtraviadaEntity.PENDIENTE){
+        if(!p.getEstado().equals(MascotaExtraviadaEntity.PENDIENTE)){
             throw new BusinessLogicException("Un nuevo proceso de mascota extraviada debería estar en 'PENDIENTE'");
         }
         
