@@ -80,16 +80,16 @@ public class RecompensaLogic {
      */
     public RecompensaEntity updateRecompensa(Long id, RecompensaEntity entity) throws Exception{
         RecompensaEntity r = getRecompensa(id);
-        if (r.getValor() < 0) {
+        if (entity.getValor() < 0) {
             throw new BusinessLogicException("El valor nuevo de la recompensa no es correcto; no puede ser negativo");
         }
-        if(!r.getEstado().equals(RecompensaEntity.PAGADO) || !r.getEstado().equals(RecompensaEntity.PENDIENTE)){
+        if(!entity.getEstado().equals(RecompensaEntity.PAGADO) && !entity.getEstado().equals(RecompensaEntity.PENDIENTE)){
            throw new BusinessLogicException("El estado de la recompensa solo puede ser 'PENDIENTE' o 'PAGADO'");
         }
         if(!r.getProcesoMascotaExtraviada().equals(entity.getProcesoMascotaExtraviada())){
            throw new BusinessLogicException("El proceso de mascota extraviada asociada debe ser el mismo que antes para la recompensa con id " + id);
         }
-        return persistence.update(r);
+        return persistence.update(entity);
     }
 
 }

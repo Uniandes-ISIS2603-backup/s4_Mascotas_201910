@@ -62,6 +62,7 @@ public class MascotaExtraviadaDTO implements Serializable{
      */
     public MascotaExtraviadaDTO(MascotaExtraviadaEntity e){
         if(e != null){
+            this.id = e.getId();
             this.direccion = e.getDireccion();
             this.ciudad = e.getCiudad();
             this.estado = e.getEstado();

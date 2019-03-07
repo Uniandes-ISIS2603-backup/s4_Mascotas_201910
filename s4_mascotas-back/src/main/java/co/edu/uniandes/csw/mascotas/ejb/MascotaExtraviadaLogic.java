@@ -80,11 +80,32 @@ public class MascotaExtraviadaLogic {
         persistence.delete(id);
     }
     
-    public MascotaExtraviadaEntity updateMascotaExtraviada(Long id) throws Exception{
+    /**
+     * Acutaliza un proceso de mascota extraviada de acuerdo a la informaciòn dada
+     * @param id - Identificador del proceso a actualizar
+     * @param p - Entity con la nueva informaciòn
+     * @return El proceso con los valores actualizados
+     * @throws Exception 
+     */
+    public MascotaExtraviadaEntity updateMascotaExtraviada(Long id, MascotaExtraviadaEntity p) throws Exception{
         MascotaExtraviadaEntity entity = getProcesoMascotaExtraviada(id);
-        if(!entity.getEstado().equals(MascotaExtraviadaEntity.ENCONTRADO) || !entity.getEstado().equals(MascotaExtraviadaEntity.PENDIENTE)){
+        setIfNull(p, entity);
+        if(!p.getEstado().equals(MascotaExtraviadaEntity.ENCONTRADO) && !p.getEstado().equals(MascotaExtraviadaEntity.PENDIENTE)){
             throw new BusinessLogicException("El proceso de mascota extraviada solo puede estar en estado 'ENCONTRADO' o 'PENDIENTE'");
         }
-        return persistence.update(entity);
+        return persistence.update(p);
+    }
+    
+    public void setIfNull(MascotaExtraviadaEntity entityToSet, MascotaExtraviadaEntity entityToCopy){
+        if(entityToSet.getDireccion() == null){
+            entityToSet.setDireccion(entityToCopy.getDireccion());
+        }
+        if(entityToSet.getCiudad() == null){
+            entityToSet.setCiudad(entityToCopy.getCiudad());
+        }
+        
+        if(entityToSet.getEstado() == null){
+            entityToSet.setEstado(entityToCopy.getEstado());
+        }
     }
 }

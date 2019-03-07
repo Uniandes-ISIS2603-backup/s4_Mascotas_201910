@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -48,6 +49,13 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToOne
     private MascotaEntity mascota;
+    
+    /**
+     * El usuario al que pertenece el proceso de mascota extraviada
+     */
+    @PodamExclude
+    @ManyToOne
+    private UsuarioEntity usuario;
     
     /**
      * Las siguientes dos constantes contienen los dos valores
@@ -143,7 +151,20 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     public void setMascota(MascotaEntity mascota) {
         this.mascota = mascota;
     }
-    
-    
 
+    /**
+     * 
+     * @return El usuario al que pertenece el proceso de mascota extraviada
+     */
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+    
+    /**
+     * Modifica el usuario al que pertenece el proceso de mascota extraviada
+     * @param usuario 
+     */
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
 }
