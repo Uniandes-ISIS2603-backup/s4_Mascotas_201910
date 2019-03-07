@@ -82,7 +82,7 @@ public class MascotaExtraviadaLogic {
     
     public MascotaExtraviadaEntity updateMascotaExtraviada(Long id) throws Exception{
         MascotaExtraviadaEntity entity = getProcesoMascotaExtraviada(id);
-        if(!entity.getEstado().equals(MascotaExtraviadaEntity.ENCONTRADO) || !entity.getEstado().equals(MascotaExtraviadaEntity.PENDIENTE)){
+        if(!entity.getEstado().equals(MascotaExtraviadaEntity.ENCONTRADO) && !entity.getEstado().equals(MascotaExtraviadaEntity.PENDIENTE)){
             throw new BusinessLogicException("El proceso de mascota extraviada solo puede estar en estado 'ENCONTRADO' o 'PENDIENTE'");
         }
         return persistence.update(entity);
