@@ -42,7 +42,7 @@ public class EventoPersistenteTest {
      /**
      * Lista de eventos sobre la cual se realizan algunas pruebas
      */
-    private List<EventoEntity> listaPrueba = new ArrayList<>();
+    private List<EventoEntity> listaPrueba = new ArrayList<EventoEntity>();
     
     /**
      * Variable para marcar las transacciones del em anterior cuando se
@@ -104,7 +104,7 @@ public class EventoPersistenteTest {
      */
     private void inicializacionListaPrueba(){
         PodamFactory factory = new PodamFactoryImpl();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 3; i++){
             EventoEntity e = factory.manufacturePojo(EventoEntity.class);
             em.persist(e);
             listaPrueba.add(e);
@@ -130,88 +130,62 @@ public class EventoPersistenteTest {
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
     
+    /**
+     * Prueba para consultar la lista de eventos.
+     */
+    //@Test
+    //public void getEventosTest() {
+      //  List<EventoEntity> list = ep.findAll();
+        //Assert.assertEquals(listaPrueba.size(), list.size());
+       // for (EventoEntity ent : listaPrueba) {
+           //  boolean found = false;
+          //  for (EventoEntity entity : list) {
+             //   if (ent.getId().equals(entity.getId())) {
+             //       found = true;
+             //  }
+           // }
+            //Assert.assertTrue(found);
+      //  }
+    //}
+    
+    
+     /**
+     * Prueba para consultar un Evento.
+     */
     @Test
-    public void actualizarNombreTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        EventoEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        String nuevoNombre = "abcd";
-        
-        EventoEntity entidadActualizada = ep.actualizarNombre(ee.getId(), nuevoNombre);
-        
-        ee = em.find( EventoEntity.class, ee.getId());
-        Assert.assertEquals(entidadActualizada.getNombre(), ee.getNombre());
+    public void getEventoTest() {
+        EventoEntity entity = listaPrueba.get(0);
+        EventoEntity newEntity = ep.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
     }
     
-     @Test
-    public void actualizarDescripcionTest()
-    {
+    /**
+     * Prueba para actualizar un evento.
+     */
+    @Test
+    public void actualizarEventoTest() {
+        EventoEntity entity = listaPrueba.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        EventoEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        String nuevaDescripcion = "abcd";
-        
-        EventoEntity entidadActualizada = ep.actualizarDescripcion(ee.getId(), nuevaDescripcion);
-        
-        ee = em.find( EventoEntity.class, ee.getId());
-        Assert.assertEquals(entidadActualizada.getDescripcion(), ee.getDescripcion());
+
+        newEntity.setId(entity.getId());
+
+        ep.actualizarEvento(newEntity);
+
+        EventoEntity resp = em.find(EventoEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
     }
     
+    /**
+     * Prueba para eliminar un evento.
+     */
     @Test
-    public void actualizarImagenTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        EventoEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        String nuevaImagen = "abcd";
-        
-        EventoEntity entidadActualizada = ep.actualizarImagen(ee.getId(), nuevaImagen);
-        
-        ee = em.find( EventoEntity.class, ee.getId());
-        Assert.assertEquals(entidadActualizada.getImagen(), ee.getImagen());
-    }
-    
-    @Test
-    public void actualizarFechaInicioTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        EventoEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        Date fecha = new Date();
-        
-        EventoEntity entidadActualizada = ep.actualizarFechaInicio(ee.getId(), fecha);
-        
-        ee = em.find( EventoEntity.class, ee.getId());
-        Assert.assertEquals(entidadActualizada.getFechaInicio(), ee.getFechaInicio());
-    }
-    
-    @Test
-    public void actualizarFechaFinTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        EventoEntity ee = ep.create(newEntity);
-        
-        Assert.assertNotNull(ee);
-        
-        Date fecha = new Date();
-        
-        EventoEntity entidadActualizada = ep.actualizarFechaFin(ee.getId(), fecha);
-        
-        ee = em.find( EventoEntity.class, ee.getId());
-        Assert.assertEquals(entidadActualizada.getFechaFin(), ee.getFechaFin());
+    public void deleteEventoTest() {
+        EventoEntity entity = listaPrueba.get(0);
+        ep.delete(entity.getId());
+        EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
 }

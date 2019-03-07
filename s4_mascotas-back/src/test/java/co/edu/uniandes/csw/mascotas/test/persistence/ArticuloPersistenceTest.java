@@ -103,7 +103,7 @@ public class ArticuloPersistenceTest {
      */
     private void inicializacionListaPrueba(){
         PodamFactory factory = new PodamFactoryImpl();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 3; i++){
             ArticuloEntity e = factory.manufacturePojo(ArticuloEntity.class);
             em.persist(e);
             listaPrueba.add(e);
@@ -129,37 +129,63 @@ public class ArticuloPersistenceTest {
         Assert.assertEquals(newEntity.getTitulo(), entity.getTitulo());
     }
     
-     @Test
-    public void actualizarTituloTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        ArticuloEntity ea = ap.create(newEntity);
-        
-        Assert.assertNotNull(ea);
-        
-        String nuevoTitulo = "abcd";
-        
-        ArticuloEntity entidadActualizada = ap.actualizarTitulo(ea.getId(), nuevoTitulo);
-        
-        ea = em.find( ArticuloEntity.class, ea.getId());
-        Assert.assertEquals(entidadActualizada.getTitulo(), ea.getTitulo());
+    /**
+     * Prueba para consultar la lista de articulos.
+     */
+    //@Test
+    //public void getArticulosTest() {
+      //  List<ArticuloEntity> list = ap.findAll();
+        //Assert.assertEquals(listaPrueba.size(), list.size());
+        //for (ArticuloEntity ent : listaPrueba) {
+          //  boolean found = false;
+            //for (ArticuloEntity entity : list) {
+              //  if (ent.getId().equals(entity.getId())) {
+                //    found = true;
+               //}
+            //}
+            //Assert.assertTrue(found);
+        //}
+    //}
+    
+    
+     /**
+     * Prueba para consultar un Articulo.
+     */
+    @Test
+    public void getArticuloTest() {
+        ArticuloEntity entity = listaPrueba.get(0);
+        ArticuloEntity newEntity = ap.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getTitulo(), newEntity.getTitulo());
     }
     
-         @Test
-    public void actualizarContenidoTest()
-    {
+    /**
+     * Prueba para actualizar un Articulo.
+     */
+    @Test
+    public void actualizarArticuloTest() {
+        ArticuloEntity entity = listaPrueba.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        ArticuloEntity ea = ap.create(newEntity);
-        
-        Assert.assertNotNull(ea);
-        
-        String nuevoContenido = "abcd";
-        
-        ArticuloEntity entidadActualizada = ap.actualizarContenido(ea.getId(), nuevoContenido);
-        
-        ea = em.find( ArticuloEntity.class, ea.getId());
-        Assert.assertEquals(entidadActualizada.getContenido(), ea.getContenido());
+
+        newEntity.setId(entity.getId());
+
+        ap.actualizarArticulo(newEntity);
+
+        ArticuloEntity resp = em.find(ArticuloEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getTitulo(), resp.getTitulo());
     }
+    
+    /**
+     * Prueba para eliminar un articulo.
+     */
+    @Test
+    public void deleteArticuloTest() {
+        ArticuloEntity entity = listaPrueba.get(0);
+        ap.delete(entity.getId());
+        ArticuloEntity deleted = em.find(ArticuloEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+   
 }
