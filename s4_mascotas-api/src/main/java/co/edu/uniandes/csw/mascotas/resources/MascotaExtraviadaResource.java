@@ -94,7 +94,9 @@ public class MascotaExtraviadaResource {
         if(entity == null){
             throw new WebApplicationException("El proceso de mascota extraviada con id = " + id + "no existe.", 404);
         }
-        mascotaExtraviadaRecompensaLogic.removeRecompensaConProceso(id);
+        if(entity.getRecompensa() != null){
+            mascotaExtraviadaRecompensaLogic.removeRecompensaConProceso(id);
+        }
         mascotaExtraviadaLogic.deleteProcesoMascotaExtraviada(id);
     }
     
