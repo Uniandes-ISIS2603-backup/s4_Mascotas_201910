@@ -131,4 +131,87 @@ public class EventoLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
+    
+    /**
+     * Prueba para crear un evento con el mismo nombre de un evento que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoConMismoNombreTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        newEntity.setNombre(data.get(0).getNombre());
+        eventoLogic.crearEvento(newEntity);
+    }
+    
+    /**
+     * Prueba para consultar la lista de eventos.
+     */
+    @Test
+    public void getEventosTest() {
+        List<EventoEntity> list = eventoLogic.encontrarTodosEventos();
+        Assert.assertEquals(data.size(), list.size());
+        for (EventoEntity entity : list) {
+            boolean found = false;
+            for (EventoEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar un articulo.
+     */
+    @Test
+    public void getEventoTest() {
+        EventoEntity entity = data.get(0);
+        EventoEntity resultEntity = eventoLogic.encontrarEventoPorId(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+    }
+    
+    /**
+     * Prueba para actualizar un evento.
+     * @throws BusinessLogicException 
+     */
+    @Test
+    public void updateEventoTest() throws BusinessLogicException {
+        EventoEntity entity = data.get(0);
+        EventoEntity pojoEntity = factory.manufacturePojo(EventoEntity.class);
+        pojoEntity.setId(entity.getId());
+        eventoLogic.actualizarEvento(pojoEntity.getId(), pojoEntity);
+        EventoEntity resp = em.find(EventoEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+    }
+    
+     /**
+     * Actualizar un articulo con el mismo titulo de un evento que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateEventoConMismoNombreTest() throws BusinessLogicException {
+        EventoEntity entity = data.get(0);
+        entity.setNombre(data.get(1).getNombre());
+        eventoLogic.actualizarEvento(entity.getId(), entity);
+    }
+    
+     /**
+     * Prueba para eliminar un evento.
+     */
+    @Test
+    public void deleteEventoTest() {
+        EventoEntity entity = data.get(2);
+        eventoLogic.eliminarEvento(entity.getId());
+        EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+     }
+    
 }
