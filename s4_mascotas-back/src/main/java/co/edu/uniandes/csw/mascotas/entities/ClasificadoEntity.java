@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,6 +23,9 @@ public class ClasificadoEntity extends BaseEntity implements Serializable {
     private String contenido; 
     
     private String enlace;
+    
+    @OneToOne
+    private UsuarioEntity autor;
     
     public ClasificadoEntity()
     {
@@ -67,5 +72,19 @@ public class ClasificadoEntity extends BaseEntity implements Serializable {
      */
     public void setEnlace(String enlace) {
         this.enlace = enlace;
+    }
+
+    /**
+     * @return the autor
+     */
+    public UsuarioEntity getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(UsuarioEntity autor) {
+        this.autor = autor;
     }
 }

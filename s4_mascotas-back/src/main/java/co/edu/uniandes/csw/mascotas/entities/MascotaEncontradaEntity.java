@@ -8,8 +8,10 @@ package co.edu.uniandes.csw.mascotas.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -31,6 +33,14 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
     
     private String descripcion;
     
+    public static final String PENDIENTE = "PENDIENTE";
+    
+    public static final String ENTREGADA = "ENTREGADA";
+    
+    @PodamExclude
+    @ManyToOne
+    private MascotaEntity mascota;
+    
     public MascotaEncontradaEntity () {
         
     }
@@ -38,28 +48,28 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public Date getFechaInicializacion() {
         return fechaInicializacion;
     }
 
     /**
      * @param fechaInicio the fechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicializacion(Date fechaInicio) {
         this.fechaInicializacion = fechaInicio;
     }
 
     /**
      * @return the fechaFin
      */
-    public Date getFechaFin() {
+    public Date getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
     /**
      * @param fechaFin the fechaFin to set
      */
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFinalizacion(Date fechaFin) {
         this.fechaFinalizacion = fechaFin;
     }
 
