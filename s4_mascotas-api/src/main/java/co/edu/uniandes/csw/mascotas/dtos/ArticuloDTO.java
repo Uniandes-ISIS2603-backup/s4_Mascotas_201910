@@ -10,34 +10,50 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Daniela González
  */
-public class ArticuloDTO implements Serializable{
-    
+public class ArticuloDTO implements Serializable {
+
     private Long id;
     private String titulo;
     private String tema;
     private String contenido;
+    
+    /*
+    * Relación a un usuario dado que esta tiene cardinalidad 1.
+     */
     private UsuarioDTO autor;
 
-    public ArticuloDTO () { 
-    
+    /**
+     * Constructor por defecto
+     */
+    public ArticuloDTO() {
+
     }
-    
-    public ArticuloDTO (ArticuloEntity entity) { 
-    
-        if(entity != null){
-            
+
+    /**
+     * Constructor a partir de una entidad
+     *
+     * @param entity La entidad de la cual se construye el DTO
+     */
+    public ArticuloDTO(ArticuloEntity entity) {
+
+        if (entity != null) {
+
             this.id = entity.getId();
             this.titulo = entity.getTitulo();
             this.tema = entity.getTema();
             this.contenido = entity.getContenido();
-            
-            //autor ??
+
+            if (entity.getAutor() != null) {
+                this.autor = new UsuarioDTO(entity.getAutor());
+            } else {
+                this.autor = null;
+            }
         }
-        
+
     }
-    
+
     /**
      * @return the id
      */
@@ -93,35 +109,38 @@ public class ArticuloDTO implements Serializable{
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-    
+
     /**
      * @return the autor
      */
-     public UsuarioDTO getAutor() {
-           return autor;
-     }
+    public UsuarioDTO getAutor() {
+        return autor;
+    }
 
     /**
      * @param elAutor the autor to set
      */
     public void setAutor(UsuarioDTO elAutor) {
-          this.autor = elAutor;
-     }
+        this.autor = elAutor;
+    }
 
-        /**
+    /**
      * Convertir de DTO a Entity
+     *
      * @return Un ArticuloEntity con los valores del DTO
      */
-    public ArticuloEntity toEntity(){
-        
+    public ArticuloEntity toEntity() {
+
         ArticuloEntity entity = new ArticuloEntity();
         entity.setTitulo(this.titulo);
         entity.setTema(this.tema);
         entity.setContenido(this.contenido);
-        entity.setAutor(this.autor.toEntity());
-        
+       
+         if(this.autor != null){
+            entity.setAutor(this.autor.toEntity());
+        }
+
         return entity;
     }
-    
-    
+
 }

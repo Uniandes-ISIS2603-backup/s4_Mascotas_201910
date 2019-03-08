@@ -21,12 +21,24 @@ public class EventoDTO implements Serializable{
     private String imagen;
     private Date fechaInicio;
     private Date fechaFin;
+    
+    /*
+    * Relación a un usuario dado que esta tiene cardinalidad 1.
+     */
     private UsuarioDTO organizador;
     
+    /**
+     * Constructor por defecto
+     */
     public EventoDTO () {
         
     }
     
+    /**
+     * Constructor a partir de una entidad
+     *
+     * @param entity La entidad de la cual se construye el DTO
+     */
      public EventoDTO (EventoEntity entity) {
         
          this.id = entity.getId();
@@ -36,7 +48,12 @@ public class EventoDTO implements Serializable{
          this.fechaInicio = entity.getFechaInicio();
          this.fechaFin = entity.getFechaFin();
          
-         //organizador??
+         if(entity.getOrganizador() != null){
+             this.organizador = new UsuarioDTO(entity.getOrganizador());
+         }
+         else{
+             this.organizador = null;
+         }
     }
     
     /**
@@ -149,7 +166,10 @@ public class EventoDTO implements Serializable{
         entity.setImagen(this.imagen);
         entity.setFechaInicio(this.fechaInicio);
         entity.setFechaFin(this.fechaFin);
-        entity.setOrganizador(this.organizador.toEntity());
+        
+        if(this.organizador != null){
+            entity.setOrganizador(this.organizador.toEntity());
+        }
         
         return entity;
     }

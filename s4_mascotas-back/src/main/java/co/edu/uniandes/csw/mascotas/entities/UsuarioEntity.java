@@ -10,12 +10,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 /**
  *
- * @author Maria Ana Ortiz ma.ortiz1
+ * @author Maria Ana Ortiz ma.ortiz1 y Sebastiàn Lemus Cadena
  */
 @Entity
 public class UsuarioEntity extends BaseEntity implements Serializable{
@@ -68,6 +70,23 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     )
     private List<EventoEntity> eventos;
     
+    /**
+     * El conjunto de procesos de mascota extraviada que puede tener un usuario
+     */
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MascotaExtraviadaEntity> procesosMascotaExtraviada;
+    
+    /**
+     * El conjunto de procesos de mascota en adopciòn de los cuales puede ser dueño el usuario
+     */
+    @OneToMany(mappedBy = "duenio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MascotaEnAdopcionEntity> procesosMascotaAdopcion;
+    
+    /**
+     * El conjunto de procesos de mascota en adopciòn a los cuales se puede postular el usuario
+     */
+    @ManyToMany(mappedBy = "postulados", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion;
     
     public UsuarioEntity(){
         
@@ -141,7 +160,30 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setEventos(List<EventoEntity> eventos){
         this.eventos = eventos;
     }
-    
+
+    public List<MascotaExtraviadaEntity> getProcesosMascotaExtraviada() {
+        return procesosMascotaExtraviada;
+    }
+
+    public void setProcesosMascotaExtraviada(List<MascotaExtraviadaEntity> procesosMascotaExtraviada) {
+        this.procesosMascotaExtraviada = procesosMascotaExtraviada;
+    }
+
+    public List<MascotaEnAdopcionEntity> getProcesosMascotaAdopcion() {
+        return procesosMascotaAdopcion;
+    }
+
+    public void setProcesosMascotaAdopcion(List<MascotaEnAdopcionEntity> procesosMascotaAdopcion) {
+        this.procesosMascotaAdopcion = procesosMascotaAdopcion;
+    }
+
+    public List<MascotaEnAdopcionEntity> getPostulacionesMascotaAdopcion() {
+        return postulacionesMascotaAdopcion;
+    }
+
+    public void setPostulacionesMascotaAdopcion(List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion) {
+        this.postulacionesMascotaAdopcion = postulacionesMascotaAdopcion;
+    }
     
     
     

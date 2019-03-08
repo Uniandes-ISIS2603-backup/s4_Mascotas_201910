@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,10 +34,21 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
      * la razón por la cual se quiere poner en adopción la mascota
      */
     private String razonAdopcion;
+    
+    /**
+     * El usuario que es dueño del proceso de mascota en adopciòn
+     */
+    @PodamExclude
+    @ManyToOne
+    private UsuarioEntity duenio;
+    
+    @PodamExclude
+    @ManyToMany
+    private List<UsuarioEntity> postulados;
+    
     /**
      * fecha en la que comienza el proceso y en la que termina
      */
-    
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
@@ -135,6 +149,24 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     public void setRazonAdopcion(String razonAdopcion) {
         this.razonAdopcion = razonAdopcion;
     }
+
+    public UsuarioEntity getDuenio() {
+        return duenio;
+    }
+
+    public void setDuenio(UsuarioEntity duenio) {
+        this.duenio = duenio;
+    }
+
+    public List<UsuarioEntity> getPostulados() {
+        return postulados;
+    }
+
+    public void setPostulados(List<UsuarioEntity> postulados) {
+        this.postulados = postulados;
+    }
+    
+    
 
     /**
      * @return the calificacion

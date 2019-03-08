@@ -63,6 +63,7 @@ public class RecompensaDTO implements Serializable{
      */
     public RecompensaDTO(RecompensaEntity e){
         if(e != null){
+            this.id = e.getId();
             this.medioDePago = e.getMedioDePago();
             this.valor = e.getValor();
             this.estado = e.getEstado();

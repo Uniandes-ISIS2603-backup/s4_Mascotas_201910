@@ -51,7 +51,7 @@ public class ArticuloLogic {
     /**
      * Crea un articulo a partir de la entidad ingresada por parámetro
      * @param articulo
-     * @return
+     * @return entidad del articulo creado
      * @throws BusinessLogicException 
      */
     public ArticuloEntity crearArticulo(ArticuloEntity articulo) throws BusinessLogicException{
@@ -80,7 +80,7 @@ public class ArticuloLogic {
      * @param articuloId Llave del articulo
      * @return elArticulo
      */
-    public ArticuloEntity encontrarArticuloPorId(Long articuloId){
+    public ArticuloEntity encontrarArticuloPorId(Long articuloId) {
         
         ArticuloEntity elArticulo = persistence.find(articuloId);
         return elArticulo;
@@ -97,27 +97,57 @@ public class ArticuloLogic {
     }
     
     
-    public ArticuloEntity cambiarTitulo(Long articuloId, String nuevoTitulo) throws BusinessLogicException{
+    /**
+     *
+     * Actualizar un articulo.
+     *
+     * @param id: id del articulo que se quiere actualizar para buscarlo en la base de
+     * datos.
+     * @param nuevo: articulo con los cambios para ser actualizado.
+     * por ejemplo el titulo.
+     * @throws BusinessLogicException si la informacion nueva no cumple las reglas de negocio.
+     * @return el articulo con los cambios actualizados en la base de datos.
+     */
+    public ArticuloEntity actualizarArticulo(Long id, ArticuloEntity nuevo) throws BusinessLogicException{
         
         //Validacion reglas de negocio
-        if(nuevoTitulo == null){
+        if(nuevo.getTitulo() == null){
             throw new BusinessLogicException("Un articulo debe tener un titulo");
         }
-        
-        ArticuloEntity cambiada = persistence.actualizarTitulo(articuloId, nuevoTitulo);
-        return cambiada;
-    }
-    
-    
-     public ArticuloEntity cambiarContenido(Long articuloId, String nuevoContenido) throws BusinessLogicException{
-        
-        //Validacion reglas de negocio
-        if(nuevoContenido == null){
+        if(nuevo.getContenido() == null){
             throw new BusinessLogicException("Un articulo debe tener un contenido");
-        } 
-         
-        ArticuloEntity cambiada = persistence.actualizarContenido(articuloId, nuevoContenido);
+        }
+        
+        ArticuloEntity cambiada = persistence.actualizarArticulo(nuevo);
+        
         return cambiada;
     }
     
+    /**
+     * Borrar un articulo
+     *
+     * @param id: id del articulo a borrar.
+     */
+    public void eliminarArticulo(Long id) {
+        
+        persistence.delete(id);
+    } 
+    
+    /**
+     * Busca un articulo por su titulo
+     *
+     * @param titulo: titulo del articulo que se busca
+     * @return el articulo con el titulo enviado por parametro.
+     * @throws BusinessLogicException Si el titulo que se busca no es  valido.
+     */
+    public ArticuloEntity buscarArticuloPorTitulo(String titulo) throws BusinessLogicException{
+        
+        if(titulo == null){
+            throw new BusinessLogicException("El titulo buscado debe ser valido");
+        }
+        
+        ArticuloEntity articulo = persistence.findByName(titulo);
+       
+        return articulo;    
+    }
 }

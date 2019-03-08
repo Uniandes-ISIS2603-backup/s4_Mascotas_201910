@@ -23,57 +23,92 @@ public class EventoPersistence {
     @PersistenceContext(unitName = "mascotasPU")
     protected EntityManager em;
 
+    /**
+     * Método para persisitir (crear) la entidad en la base de datos.
+     *
+     * @param eventoEntity objeto evento que se creará en la base de datos
+     * @return devuelve la entidad creada con un id generado por la base de datos.
+     */
     public EventoEntity create(EventoEntity eventoEntity) {
 
         em.persist(eventoEntity);
         return eventoEntity;
     }
 
+    /**
+     * Busca un evento con el id enviado por parametro.
+     *
+     * @param eventoId: id correspondiente al evento buscado.
+     * @return una entidad de evento.
+     */
     public EventoEntity find(Long eventoId) {
 
         return em.find(EventoEntity.class, eventoId);
     }
 
+     /**
+     * Devuelve todos los eventos de la base de datos.
+     *
+     * @return una lista con todos los eventos que encuentre en la base de
+     * datos.
+     */
     public List<EventoEntity> findAll(){
         
         TypedQuery query = em.createQuery("select u from EventoEntity u", EventoEntity.class);
         return query.getResultList();
     }
     
-   // public EventoEntity 
+    /**
+     * Actualiza un evento.
+     *
+     * @param nuevaEntidad: la entidad que viene con los nuevos cambios.
+     * Por ejemplo el nombre pudo cambiar. 
+     * @return un evento con los cambios aplicados.
+     */
+     public EventoEntity actualizarEvento(EventoEntity nuevaEntidad){
+         
+         return em.merge(nuevaEntidad);
+     }
     
-    public EventoEntity actualizarNombre(Long eventoId, String nombre){
-        EventoEntity evento = em.find(EventoEntity.class, eventoId);
-         evento.setNombre(nombre);
-         em.refresh(evento);
-         return evento;
-    }
+     /**
+     *
+     * Borra un evento de la base de datos recibiendo como argumento el id
+     * del evento
+     *
+     * @param id: id correspondiente al evento a borrar.
+     */
+     public void delete(Long id){
+         
+         EventoEntity entity = em.find(EventoEntity.class, id);
+         em.remove(entity);
+     }
     
-    public EventoEntity actualizarDescripcion(Long eventoId, String descripcion){
-        EventoEntity evento = em.find(EventoEntity.class, eventoId);
-         evento.setDescripcion(descripcion);
-         em.refresh(evento);
-         return evento;
-    }
-      
-    public EventoEntity actualizarImagen(Long eventoId, String imagen){
-        EventoEntity evento = em.find(EventoEntity.class, eventoId);
-         evento.setImagen(imagen);
-         em.refresh(evento);
-         return evento;
-    }
-        
-    public EventoEntity actualizarFechaInicio(Long eventoId, Date fecha){
-        EventoEntity evento = em.find(EventoEntity.class, eventoId);
-         evento.setFechaInicio(fecha);
-         em.refresh(evento);
-         return evento;
-    }
-    
-    public EventoEntity actualizarFechaFin(Long eventoId, Date fecha){
-        EventoEntity evento = em.find(EventoEntity.class, eventoId);
-         evento.setFechaFin(fecha);
-         em.refresh(evento);
-         return evento;
-    }
+      /**
+     * Busca si hay algun evento con el nombre que se envía de argumento
+     *
+     * @param nombre: nombre del evento que se está buscando
+     * @return null si no existe ningun evento con el nombre del argumento.
+     * Si existe alguno devuelve el primero.
+     */
+     public EventoEntity findByName(String nombre){
+         
+         TypedQuery query = em.createQuery("Select e From EventoEntity e where e.nombre = :nombre", EventoEntity.class);
+         
+         query = query.setParameter("nombre", nombre);
+         
+         List<EventoEntity> mismoNombre = query.getResultList();
+         
+         EventoEntity resultado;
+         
+         if(mismoNombre == null){
+             resultado = null;
+         } else if (mismoNombre.isEmpty()){
+             resultado = null;
+         } else{
+             resultado = mismoNombre.get(0);
+         }
+         
+         return resultado;
+     }
+     
 }

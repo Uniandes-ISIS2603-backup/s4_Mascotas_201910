@@ -23,16 +23,27 @@ public class EventoLogic {
     @Inject
     private EventoPersistence persistence;
     
+    
+     /**
+     * Crea un evento a partir de la entidad ingresada por parámetro
+     * @param evento
+     * @return entidad del evento creado
+     * @throws BusinessLogicException 
+     */
     public EventoEntity crearEvento(EventoEntity evento) throws BusinessLogicException{
         
+        //Validacion reglas de negocio
         if(evento.getNombre()== null){
              throw new BusinessLogicException("Un evento debe tener un nombre");
         }
         
          if(evento.getDescripcion()== null){
-             throw new BusinessLogicException("Un evento debe tener una de4scripcion");
+             throw new BusinessLogicException("Un evento debe tener una descripcion");
         }
-        
+       // if(evento.getFechaInicio().compareTo(evento.getFechaFin())>0){
+         //   throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
+        //}
+         
         evento = persistence.create(evento);
         return evento;
     }
@@ -58,32 +69,61 @@ public class EventoLogic {
         return eventos;
     }
     
-    public EventoEntity cambiarNombre(Long eventoId, String nuevoNombre) throws BusinessLogicException{
+    /**
+     *
+     * Actualizar un evento.
+     *
+     * @param id: id del evento que se quiere actualizar para buscarlo en la base de
+     * datos.
+     * @param nuevo: evento con los cambios para ser actualizado.
+     * Por ejemplo el titulo.
+     * @throws BusinessLogicException si la informacion nueva no cumple las reglas de negocio.
+     * @return el evento con los cambios actualizados en la base de datos.
+     */
+    public EventoEntity actualizarEvento(Long id, EventoEntity nuevo) throws BusinessLogicException{
         
         //Validacion reglas de negocio
-        if(nuevoNombre == null){
-            throw new BusinessLogicException("Un evento debe tener un nombre");
+        if(nuevo.getNombre()== null){
+             throw new BusinessLogicException("El nuevo nombre debe ser valido");
+        }
+        if(nuevo.getDescripcion()== null){
+             throw new BusinessLogicException("La nueva descripcion debe ser valida");
+        }
+        if(nuevo.getFechaInicio().compareTo(nuevo.getFechaFin())>0){
+            throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
         }
         
-        EventoEntity cambiada = persistence.actualizarNombre(eventoId, nuevoNombre);
-        return cambiada;
-    }
- 
-    public EventoEntity cambiarDescripcion(Long eventoId, String nuevaDescripcion) throws BusinessLogicException{
+        EventoEntity cambiado = persistence.actualizarEvento(nuevo);
         
-        //Validacion reglas de negocio
-        if(nuevaDescripcion == null){
-            throw new BusinessLogicException("Un evento debe tener una descripcion");
-        }
-        
-        EventoEntity cambiada = persistence.actualizarDescripcion(eventoId, nuevaDescripcion);
-        return cambiada;
+        return cambiado;
     }
     
-    public EventoEntity cambiarImagen(Long eventoId, String nuevaImagen){
+    /**
+     * Borrar un evento
+     *
+     * @param id: id del evento a borrar.
+     */
+    public void eliminarEvento(Long id) {
         
-        EventoEntity cambiada = persistence.actualizarImagen(eventoId, nuevaImagen);
-        return cambiada;
+        persistence.delete(id);
+    } 
+    
+    /**
+     * Busca un articulo por su nombre
+     *
+     * @param nombre: nombre del evento que se busca
+     * @return el evento con el nombre enviado por parametro.
+     * @throws BusinessLogicException Si el nombre que se busca no es  valido.
+     */
+    public EventoEntity buscarEventoPorTitulo(String nombre) throws BusinessLogicException{
+        
+        if(nombre == null){
+            throw new BusinessLogicException("El nombre buscado debe ser valido");
+        }
+        
+        EventoEntity evento = persistence.findByName(nombre);
+       
+        return evento;    
     }
     
 }

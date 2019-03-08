@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "aa96fd24-78b9-4c32-8eee-671d2d8bb161",
+		"name": "MascotaExtraviadaResourceTest",
+		"description": "Test de operaciones GET, POST, PUT, DELETE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a3929fd-4c9c-4d0d-9051-548f49fc81b7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get todos los procesos de mascota extraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8c82727-0501-442c-b765-a683659b2006",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"tests[\"editorials count\"] = data.length > 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post de un proceso de mascota extraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e21a3d4-0212-4ba1-8d43-33136e90a82e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"direccion\" : \"cra91#792\",\n\t\"ciudad\" : \"Santiago de Chile\",\n\t\"estado\" : \"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete de un proceso de mascota extraviada no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1788961-977f-4d6d-8dbb-d156e6e62c17",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put de un proceso de mascota extraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04957801-9d4c-405e-8f81-99c4f3c3b4dc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"ENCONTRADO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/7",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get de un proceso especìfico de mascota extraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d371ae07-b443-401d-a061-48e27f0e5310",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"{{new_id_e}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get de un proceso de mascota no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c61da1dc-1690-4438-ab21-f8a38e689c0f",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post de un proceso de mascota extraviada con estado invàlido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8886b05-230e-44fa-bdab-d5ae09aec988",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"DORMIDO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a un proceso de mascota extraviada con estado invàlido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94be6b4e-f043-4b7f-80e7-2d6b1827660d",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"DORMIDO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/2",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a un proceso de mascota extraviada inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8afc7576-d8dc-4996-9c0c-e58b3a6cd182",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
