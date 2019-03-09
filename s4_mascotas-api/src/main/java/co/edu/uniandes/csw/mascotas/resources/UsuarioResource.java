@@ -50,7 +50,7 @@ public class UsuarioResource {
     
     
     @PUT
-    @Path("update/{id: \\d+}")
+    @Path("{id: \\d+}")
     public UsuarioDTO actualizar(@PathParam("id") Long id,  UsuarioDTO usuario)throws BusinessLogicException
     {      
             UsuarioEntity usr = logica.getUsuario(id);
@@ -60,7 +60,9 @@ public class UsuarioResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void eliminarUsuario(@PathParam("id") Long id ){      
+    public void eliminarUsuario(@PathParam("id") Long id ) throws BusinessLogicException{      
+      UsuarioEntity usuario = logica.getUsuario(id);
+      logica.deleteUsuario(id);
       
     
     }
