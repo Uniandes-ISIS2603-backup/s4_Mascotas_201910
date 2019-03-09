@@ -41,13 +41,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *  Pruebas de integracion de la cascara.
+ *  Pruebas de integracion del recurso Mascota.
  * @author Mostly ISIS2603, Link changed by Natalia Sanabria Forero
  */
 @RunWith(Arquillian.class)
 public class MascotaIT {
 
-    private static final String COLLECTION = "Cascara-Tests.postman_collection";
+    private static final String COLLECTION = "MascotaResource.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
