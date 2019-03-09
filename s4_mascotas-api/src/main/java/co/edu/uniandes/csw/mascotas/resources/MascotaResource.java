@@ -87,7 +87,7 @@ public class MascotaResource {
        mascota.setId(id);
        if(logica.buscarMascotaPorId(id)==null)
            throw new WebApplicationException("El recurso /mascotas/"+id+" no existe.",404);
-       MascotaDTO dto = new MascotaDTO(logica.cambiarEstadoMascota(id, mascota.toEntity()));
+       MascotaDTO dto = new MascotaDTO(logica.cambiarEstadoMascota(mascota.toEntity()));
        return dto;
     }
     

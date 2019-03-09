@@ -86,7 +86,7 @@ public class MascotaLogic
         
     }
     
-    public MascotaEntity cambiarEstadoMascota(Long pId, MascotaEntity mascota) throws BusinessLogicException
+    public MascotaEntity cambiarEstadoMascota(MascotaEntity mascota) throws BusinessLogicException
     {
         String estadoMascota = mascota.getEstado().name();
         MascotaEntity.Estados_mascota[] estados = MascotaEntity.Estados_mascota.values();
