@@ -47,7 +47,7 @@ public class MascotaResource {
     }
     
     @GET
-    @Path("{mascotaId: \\d+}")
+    @Path("/{mascotaId}")
     public MascotaDTO darMascota( @PathParam("MascotaId") Long mascotaId ) throws WebApplicationException
     {
         MascotaEntity entidad;
