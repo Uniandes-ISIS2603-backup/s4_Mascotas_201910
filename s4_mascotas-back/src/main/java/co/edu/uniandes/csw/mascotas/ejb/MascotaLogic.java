@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase que se encarga de validar las reglas de negocio relacionadas con el Recurso Mascota
  * @author Natalia Sanabria Forero (n.sanabria)
  */
 @Stateless
@@ -23,9 +23,7 @@ public class MascotaLogic
     // ---------------------------------------
     // Constantes
     // ---------------------------------------
-    
-    private static final Logger LOGGER = Logger.getLogger(MascotaLogic.class.getName());
-    
+      
     /**
      * Constante que define el tipo de mascota perro 
      */
@@ -36,6 +34,9 @@ public class MascotaLogic
      */
     public final static String GATO = "GATO";
         
+    /**
+     * Instancia inyectada de la persistencia que permite el acceso a la base de datos
+     */
     @Inject
     private MascotaPersistence persistencia;
     
@@ -86,6 +87,12 @@ public class MascotaLogic
         
     }
     
+    /**
+     * Cambia el estado de una mascota con el estado que venga en la entidad que llega por parámetro <br>
+     * @param mascota Mascota con susdatos e identificador y su nuevo estado
+     * @return mascota
+     * @throws BusinessLogicException Si el estado ingresado no corresponde a uno de los estados del sistema
+     */
     public MascotaEntity cambiarEstadoMascota(MascotaEntity mascota) throws BusinessLogicException
     {
         String estadoMascota = mascota.getEstado().name();
@@ -106,6 +113,12 @@ public class MascotaLogic
         
     }
     
+    /**
+     * Retorna una lista de las mascotas cuyo estado es el ingresado por parámetro <br>
+     * @param pEstado
+     * @return
+     * @throws BusinessLogicException Si el String ingresado como estado no tiene una representación en los estados posibles del atributo.
+     */
     public List<MascotaEntity> darMascotasPorEstado(String pEstado) throws BusinessLogicException
     {
         // Validar reglas de negocio (estado pertenece a los posibles estados)
