@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.mascotas.resources;
 import javax.ws.rs.*;
 import co.edu.uniandes.csw.mascotas.dtos.UsuarioDTO;
+import co.edu.uniandes.csw.mascotas.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,63 +26,36 @@ import javax.ws.rs.Produces;
 public class UsuarioResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
+    @Inject
+    private UsuarioLogic logica;
+    
+    
     @POST
-    public UsuarioDTO crearUsuario(UsuarioDTO usuario){
-        return usuario;
+    public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException{
+        UsuarioEntity entidad = usuario.toEntity();
+        entidad = logica.crearUsuario(entidad);
+        return new UsuarioDTO(entidad);
     }
     
     @GET
     @Path("{id: \\d+}")
-    public UsuarioDTO darUsuuario(@PathParam("id") Long id){      
-        
-        return null;
+    public UsuarioDTO darUsuuario(@PathParam("id") Long id) throws BusinessLogicException
+    {      
+
+               UsuarioEntity usuario = logica.getUsuario(id);
+               return  new UsuarioDTO(usuario);
+
     }
-    
-    
-// Realizar solo un mètodo put para todas las posibles actualizaciones del usuario   
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public UsuarioDTO actualizarContraseñaUsuario(@PathParam("id") Long id, String contrasenha){      
-//        
-//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
-//        // Corregir.
-//        //usuario.setContrasenha(contrasenha);
-//        
-//        //return usuario;
-//        return null;
-//    }
-//    
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public UsuarioDTO actualizarTelefono(@PathParam("id") Long id, int telefono){      
-//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
-//        // Corregir.
-//        //usuario.setTelefono(telefono);
-//        
-//        //return usuario;
-//        return null;
-//    }
-//    
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public UsuarioDTO actualizarNombre(@PathParam("id") Long id, String nombre){      
-//        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
-//        // Corregir.
-//        //usuario.setNombre(nombre);
-//        
-//        return null;
-//    }
     
     
     
     @PUT
-    @Path("{id: \\d+}")
-    public UsuarioDTO actualizar(@PathParam("id") Long id,  boolean recibeNotificaciones){      
-        // esta operaciòn debe ser manejada por la lògica y la persistencia no por las entidaddes
-        // Corregir.
-        //usuario.setRecibeNotificaciones(recibeNotificaciones);
-        
-        return null;
+    @Path("update/{id: \\d+}")
+    public UsuarioDTO actualizar(@PathParam("id") Long id,  UsuarioDTO usuario)throws BusinessLogicException
+    {      
+            UsuarioEntity usr = logica.getUsuario(id);
+            UsuarioDTO fo = new UsuarioDTO(usr);
+        return fo;
     }
     
     @DELETE
