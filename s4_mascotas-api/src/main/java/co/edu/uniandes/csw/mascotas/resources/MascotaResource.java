@@ -24,7 +24,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *
+ * Clase que representa a un recurso Mascota
  * @author Natalia Sanabria Forero
  */
 @Path("mascotas")
@@ -33,11 +33,18 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class MascotaResource {
     
-    private static final Logger LOGGER = Logger.getLogger(MascotaResource.class.getName());
-    
+    /**
+     * Instancia de la lógica
+     */
     @Inject
     private MascotaLogic logica;
     
+    /**
+     * Crea una nueva mascota a partir de la información que le llega por parámetro
+     * @param mascota
+     * @return mascota con el nuevo id asignado por el sistema
+     * @throws BusinessLogicException 
+     */
     @POST
     public MascotaDTO crearMascota(MascotaDTO mascota) throws BusinessLogicException
     {
@@ -46,6 +53,12 @@ public class MascotaResource {
        return new MascotaDTO(entidad);
     }
     
+    /**
+     * Retorna una mascota dado su identificador
+     * @param mascotaId Id de la mascota a buscar
+     * @return entidad
+     * @throws WebApplicationException 
+     */
     @GET
     @Path("/{mascotaId}")
     public MascotaDTO darMascota( @PathParam("MascotaId") Long mascotaId ) throws WebApplicationException
@@ -91,6 +104,10 @@ public class MascotaResource {
        return dto;
     }
     
+    /**
+     * Retorna una lista con todas las mascotas almacenadas en la base de datos
+     * @return respuesta 
+     */
     @GET
     public List<MascotaDTO> darTodasLasMascotas( )
     {
