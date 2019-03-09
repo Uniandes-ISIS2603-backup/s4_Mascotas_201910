@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 /**
@@ -53,21 +54,15 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * Lista de articulos
      */
-    @OneToMany(
-       cascade = CascadeType.ALL,
-       mappedBy = "autor",
-       fetch = FetchType.LAZY
-     )
+    @PodamExclude
+    @OneToMany( mappedBy = "autor" )
     private List<ArticuloEntity> articulos;
     
      /**
      * Lista de eventos
      */
-     @OneToMany(
-         cascade = CascadeType.ALL,
-         mappedBy = "organizador",
-         fetch = FetchType.LAZY
-    )
+     @PodamExclude
+     @OneToMany(mappedBy = "organizador")
     private List<EventoEntity> eventos;
     
     /**

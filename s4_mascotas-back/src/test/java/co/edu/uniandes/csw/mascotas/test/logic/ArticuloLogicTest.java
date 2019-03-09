@@ -115,7 +115,7 @@ public class ArticuloLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             ArticuloEntity entity = factory.manufacturePojo(ArticuloEntity.class);
-
+            entity.setTema(ArticuloLogic.CUIDADO);
             em.persist(entity);
             data.add(entity);
 
@@ -125,11 +125,96 @@ public class ArticuloLogicTest {
     @Test
     public void crearArticuloTest() throws BusinessLogicException {
         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+        newEntity.setTema(ArticuloLogic.CUIDADO);
         ArticuloEntity result = articuloLogic.crearArticulo(newEntity);
         Assert.assertNotNull(result);
         ArticuloEntity entity = em.find(ArticuloEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getTitulo(), entity.getTitulo());
+    }
+    
+     /**
+     * Prueba para crear un articulo con el mismo titulo de un articulo que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+//    @Test(expected = BusinessLogicException.class)
+//    public void createArticuloConMismoTituloTest() throws BusinessLogicException {
+//        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+//        newEntity.setTema(ArticuloLogic.CUIDADO);
+//        newEntity.setTitulo(data.get(0).getTitulo());
+//       articuloLogic.crearArticulo(newEntity);
+//    }
+    
+     /**
+     * Prueba para consultar la lista de articulos.
+     */
+    @Test
+    public void getArticulosTest() {
+        List<ArticuloEntity> list = articuloLogic.encontrarTodosArticulos();
+        Assert.assertEquals(data.size(), list.size());
+        for (ArticuloEntity entity : list) {
+            boolean found = false;
+            for (ArticuloEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar un articulo.
+     */
+    @Test
+    public void getArticuloTest() {
+        ArticuloEntity entity = data.get(0);
+        ArticuloEntity resultEntity = articuloLogic.encontrarArticuloPorId(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getTitulo(), resultEntity.getTitulo());
+    }
+    
+     /**
+     * Prueba para actualizar un articulo.
+     * @throws BusinessLogicException 
+     */
+    @Test
+    public void updateArticuloTest() throws BusinessLogicException {
+        ArticuloEntity entity = data.get(0);
+        ArticuloEntity pojoEntity = factory.manufacturePojo(ArticuloEntity.class);
+        pojoEntity.setId(entity.getId());
+        pojoEntity.setTema(ArticuloLogic.CUIDADO);
+        articuloLogic.actualizarArticulo(pojoEntity.getId(), pojoEntity);
+        ArticuloEntity resp = em.find(ArticuloEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getTitulo(), resp.getTitulo());
+    }
+ 
+    /**
+     * Actualizar un articulo con el mismo titulo de un articulo que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+//    @Test(expected = BusinessLogicException.class)
+//    public void updateArticuloConMismoTituloTest() throws BusinessLogicException {
+//        ArticuloEntity entity = data.get(0);
+//        entity.setTitulo(data.get(1).getTitulo());
+//        articuloLogic.actualizarArticulo(entity.getId(), entity);
+//    }
+    
+    /**
+     * Prueba para eliminar un articulo.
+     */
+    @Test
+    public void deleteArticuloTest() {
+        ArticuloEntity entity = data.get(2);
+        articuloLogic.eliminarArticulo(entity.getId());
+        ArticuloEntity deleted = em.find(ArticuloEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
     
 }
