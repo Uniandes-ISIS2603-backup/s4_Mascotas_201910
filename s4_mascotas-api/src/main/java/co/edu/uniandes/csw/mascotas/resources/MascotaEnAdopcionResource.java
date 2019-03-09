@@ -60,7 +60,8 @@ public class MascotaEnAdopcionResource {
      * @throws Exception 
      */
     @GET
-    public MascotaEnAdopcionDTO getMascotaEnAdopcion(Long id) throws Exception{
+    @Path("{processId}")
+    public MascotaEnAdopcionDTO getMascotaEnAdopcion(@PathParam("processId")Long id) throws Exception{
         
         return new MascotaEnAdopcionDTO(logic.getMascotaEnAdopcion(id));
     }
