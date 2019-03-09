@@ -39,11 +39,14 @@ public class EventosUsuarioLogic
      * @param eventoId identificador único del evento
      * @param usuarioId identificador único del usuario
      * @return el evento agregado
+     * @throws co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException Si el usuario no existe en el sistema
      */
-    public EventoEntity agregarEventoAUsuario(Long eventoId, Long usuarioId)
+    public EventoEntity agregarEventoAUsuario(Long eventoId, Long usuarioId) throws BusinessLogicException
     {
         EventoEntity evento = ep.find(eventoId);
         UsuarioEntity usuario = up.find(usuarioId);
+        if(usuario == null)
+            throw new BusinessLogicException("El recurso /usuarios/"+usuarioId+" no existe");
         List<EventoEntity> eventosUsuario = usuario.getEventos();
         eventosUsuario.add(evento);
         usuario.setEventos(eventosUsuario);
