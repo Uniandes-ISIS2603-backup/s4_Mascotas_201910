@@ -17,26 +17,40 @@ import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 
 /**
  *
- * @author estudiante
+ * @author Maria Ana Ortiz Botero
  */
 @Stateless
 public class UsuarioPersistence {
      private static final Logger LOGGER = Logger.getLogger(UsuarioPersistence.class.getName());
-     
+     /**
+      * Contexto de persistencia
+      */
      @PersistenceContext(unitName="mascotasPU")
      protected EntityManager em;
      
-     
+     /**
+      * Crea en la persistnecia un usuario pasado por parametro
+      * @param entityU
+      * @return retorna la entidad creada en la persistencia
+      */
      public UsuarioEntity create(UsuarioEntity entityU){
          em.persist(entityU);
          return entityU;
      }
      
-   
+   /**
+    * Encuentra en la persistencia el usaurio encontrado
+    * @param id
+    * @return Retorna los valores del usuario
+    */
     public UsuarioEntity find(long id){
     return em.find(UsuarioEntity.class, id);
     }
     
+    /**
+     * Retorna todos los usuarios en la persistencia
+     * @return lista de usuarios entidaades
+     */
     public List<UsuarioEntity> findAll()
     {
         TypedQuery<UsuarioEntity> qu = em.createQuery("select u from UsuarioEntity u",UsuarioEntity.class );
@@ -62,7 +76,11 @@ public class UsuarioPersistence {
         UsuarioEntity entity = em.find(UsuarioEntity.class, id);
         em.remove(entity);
     }
-
+    /**
+     * Se busca por el nombre del usuario
+     * @param usuario
+     * @return 
+     */
     public UsuarioEntity findByUser(String usuario){
          TypedQuery<UsuarioEntity> query = em.createQuery("Select e From UsuarioEntity e where e.usuario = :usuario", UsuarioEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
@@ -75,6 +93,11 @@ public class UsuarioPersistence {
         }
         return result;
     }
+    /**
+     * Busca la persistencia por el correo del usuario
+     * @param correo - string correo
+     * @return Retorna el resultado del usuario
+     */
     public UsuarioEntity findByCorreo(String correo){
          TypedQuery<UsuarioEntity> query = em.createQuery("Select e From UsuarioEntity e where e.correo = :correo", UsuarioEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
