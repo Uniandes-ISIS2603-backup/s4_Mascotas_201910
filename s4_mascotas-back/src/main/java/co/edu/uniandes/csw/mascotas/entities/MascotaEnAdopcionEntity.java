@@ -69,7 +69,7 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable 
      * constructor
      */
     public MascotaEnAdopcionEntity() {
-
+asdf
     }
 
     /**
