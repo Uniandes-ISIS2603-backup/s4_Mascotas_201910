@@ -51,4 +51,9 @@ public class MascotaEncontradaPersistence {
         
         em.remove(entity);
     }
+    
+    public MascotaEncontradaEntity update( MascotaEncontradaEntity mascota ){
+        
+        return em.merge(mascota);
+    }
 }

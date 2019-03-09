@@ -21,8 +21,6 @@ import javax.inject.Inject;
 @Stateless
 public class MascotaEncontradaLogic {
     
-    private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaLogic.class.getName());
-    
     @Inject
     private MascotaEncontradaPersistence persistence;
     
@@ -62,6 +60,32 @@ public class MascotaEncontradaLogic {
         }
         
         persistence.delete(id);
+    }
+    
+    public MascotaEncontradaEntity updateMascotaEncontrada( Long id, MascotaEncontradaEntity mascota ) throws BusinessLogicException{
+        
+        MascotaEncontradaEntity mascotaEntity = getProcesoMascotaEncontrada(id);
+        setIfNull( mascota, mascotaEntity );
+        if(!mascota.getEstado().equals(MascotaEncontradaEntity.ENTREGADA) && (!mascota.getEstado().equals(MascotaEncontradaEntity.PENDIENTE))){
+            throw new BusinessLogicException("El proceso solo puede tener el estado 'ENTREGADA' o 'PENDIENTE'");
+            
+        }
+        
+        return persistence.update(mascota);
+        
+    }
+    
+    public void setIfNull(MascotaEncontradaEntity entityToSet, MascotaEncontradaEntity entityToCopy){
+        if(entityToSet.getDescripcion()== null){
+            entityToSet.setDescripcion(entityToCopy.getDescripcion());
+        }
+        if(entityToSet.getUbicacion()== null){
+            entityToSet.setUbicacion(entityToCopy.getUbicacion());
+        }
+        
+        if(entityToSet.getEstado() == null){
+            entityToSet.setEstado(entityToCopy.getEstado());
+        }
     }
     
     
