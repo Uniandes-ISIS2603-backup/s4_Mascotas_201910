@@ -113,4 +113,21 @@ public class UsuarioPersistenceTest {
         
     }
 
+    
+    @Test
+    public void buscarUsuario(){
+        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
+        UsuarioEntity resul = persistence.create(entity);
+        UsuarioEntity resulP=persistence.findByUser(entity.getUsuario());
+        Assert.assertEquals(resulP.getNombre(),entity.getNombre());
+    }
+      @Test
+    public void buscarUsuarioCorreo(){
+        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
+        UsuarioEntity resul = persistence.create(entity);
+        UsuarioEntity resulP=persistence.findByCorreo(entity.getCorreo());
+        Assert.assertEquals(resulP.getNombre(),entity.getNombre());
+    }
 }
