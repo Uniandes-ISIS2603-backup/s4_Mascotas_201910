@@ -187,6 +187,10 @@ public class MascotaLogicTest {
         logica.crearMascota(nuevaEntidad);
     }
     
+    /**
+     * Prueba que verifica que se reciba una lista de mascotas cuando se pasa por parámetro un estado válido
+     * @throws BusinessLogicException 
+     */
     @Test
     public void darMascotasPorEstadoTest() throws BusinessLogicException
     {
@@ -199,11 +203,22 @@ public class MascotaLogicTest {
             if(!mascota.getEstado().name().equals(estado))
                 Assert.fail();
         }
+        
+        List<MascotaEntity> todas = logica.darTodasLasMascotas();
+        int mascotasConEstado = 0;
+        for( MascotaEntity mascota : mascotas )
+        {
+            if(mascota.getEstado().equals(MascotaEntity.Estados_mascota.valueOf(estado)))
+                mascotasConEstado++;
+        }
+        
+        Assert.assertEquals(mascotasConEstado, mascotas.size());
     }
     
     @Test (expected = BusinessLogicException.class)
     public void darMascotasPorEstadoNoValidoTest() throws BusinessLogicException
     {
+        //Genera un String aleatorio de 8 caracteres
         int length = 8;
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
              + "abcdefghijklmnopqrstuvwxyz"
@@ -212,5 +227,26 @@ public class MascotaLogicTest {
                          .mapToObj(i -> "" + chars.charAt(i))
                          .collect(Collectors.joining());
         logica.darMascotasPorEstado(str);
+    }
+    
+    @Test
+    public void actualizarEstadoMascotaTest() throws BusinessLogicException
+    {
+        Random random = new Random();
+        MascotaEntity.Estados_mascota estado = MascotaEntity.Estados_mascota.values()[random.nextInt(MascotaEntity.Estados_mascota.values().length)];
+        int i = 0;
+        int j = 0;
+        while(i<data.size())
+        {
+            if(!data.get(i).getEstado().equals(estado))
+            {   
+                j = i; 
+                data.get(i).setEstado(estado);
+                logica.cambiarEstadoMascota(data.get(i));
+                break;
+            }
+            i++;
+        }
+        
     }
 }

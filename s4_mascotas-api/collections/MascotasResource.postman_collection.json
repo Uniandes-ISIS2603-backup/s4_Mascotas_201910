@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "8f6e79fb-0b87-44ed-bfdd-f89793d8400c",
+		"name": "MascotasResource",
+		"description": "Colección de pruebas PostMan para el recurso Mascota",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crea una Mascota",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bb3f40a-bae3-4146-b5e5-8280219728a8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_m\", data.id); ",
+							"postman.setGlobalVariable(\"new_estado_m\", data.estado);",
+							"tests[\"Añade una mascota con datos correctos (sin conflicto) a la base de datos\"]= responseCode.code===200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"disabled": false,
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"tipo\": \"PERRO\",\r\n    \"descripcion\": \"Tiene tres meses aproximadamente, muy amistoso y cariñoso\",\r\n    \"raza\": \"Labrador\",\r\n    \"fotos\" : \"https://http2.mlstatic.com/cachorro-labrador-retriever-arena-D_NQ_NP_978974-MLA25845738106_082017-F.jpg\",\r\n    \"estado\" : \"EN_ADOPCION\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s4_mascotas-api/api/mascotas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"mascotas"
+					]
+				},
+				"description": "Agrega una nueva mascota al sistema de BDD"
+			},
+			"response": []
+		},
+		{
+			"name": "Retorna la lista de mascotas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2070d8f-5a36-484f-a67e-67942d56f59a",
+						"exec": [
+							"tests[\"Obtiene la lista de datos satisfactoriamente\"]= responseCode.code===200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s4_mascotas-api/api/mascotas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"mascotas"
+					]
+				},
+				"description": "Prueba método de obtención de la lista de mascotas"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una mascota dado su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4e08a6f-f41a-44cc-a534-fefd4556e92a",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s4_mascotas-api/api/mascotas/{{new_id_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"mascotas",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca las mascotas por su estado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s4_mascotas-api/api/mascotas/estado/{{new_estado_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"mascotas",
+						"estado",
+						"{{new_estado_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cambia el estado de una mascota",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de110971-3729-467b-9c75-491210badd3a",
+						"exec": [
+							"console.log(responseBody);\r",
+							"var data = JSON.parse(responseBody);\r",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tipo\": \"PERRO\",\n    \"descripcion\": \"Tiene tres meses aproximadamente, muy amistoso y cariñoso\",\n    \"raza\": \"Labrador\",\n    \"fotos\": \"https://http2.mlstatic.com/cachorro-labrador-retriever-arena-D_NQ_NP_978974-MLA25845738106_082017-F.jpg\",\n    \"estado\": \"ADOPTADO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s4_mascotas-api/api/mascotas/{{new_id_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"mascotas",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
