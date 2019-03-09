@@ -31,9 +31,9 @@ public class ClasificadoPersistence {
        return clasifEntity;
    }
    
-   public ClasificadoEntity find(Long id){
+   public ClasificadoEntity find(String name){
        
-       return em.find(ClasificadoEntity.class, id);
+       return em.find(ClasificadoEntity.class, name);
    }
    
    public List<ClasificadoEntity> findAll(){
