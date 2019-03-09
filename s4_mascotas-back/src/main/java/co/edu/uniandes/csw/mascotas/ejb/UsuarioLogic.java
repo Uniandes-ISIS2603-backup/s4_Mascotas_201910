@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.UsuarioPersistence;
+import java.time.Clock;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -39,17 +40,21 @@ public class UsuarioLogic {
      */
     public UsuarioEntity crearUsuario(UsuarioEntity usuario) throws BusinessLogicException {
         List<UsuarioEntity> usuarios = persistencia.findAll();
-        boolean exist = false;
-        for (UsuarioEntity usuario1 : usuarios) {
-            if (usuario1.getUsuario().equals(usuario.getUsuario())) {
-                throw new BusinessLogicException("El usuario ya esta registrado");
-            }
-        }
 
-        for (UsuarioEntity usuario1 : usuarios) {
-            if (usuario1.getCorreo().equals(usuario.getCorreo())) {
-                throw new BusinessLogicException("El correo ya esta registrado en un usuario");
-            }
+        if(persistencia.findByUser(usuario.getUsuario())!=null){
+            throw new BusinessLogicException("El usuario ya esta registrado");
+        }
+        boolean exist = false;
+//        for (UsuarioEntity usuario1 : usuarios) {
+//            System.out.print(usuario1.getUsuario());
+//            if (usuario1.getUsuario().equals(usuario.getUsuario())) {
+//
+//                exist = true;
+//            }
+//        }
+
+        if (persistencia.findByCorreo(usuario.getCorreo())!=null) {
+            throw new BusinessLogicException("El correo ya tiene un usuario registrado");
         }
         persistencia.create(usuario);
         return usuario;
@@ -89,7 +94,6 @@ public class UsuarioLogic {
 //        List<ClasificadoEntity> clasificados = entity.getClasificados();
         List<MascotaEnAdopcionEntity> procesosMascotasAdopcion = entity.getProcesosMascotaAdopcion();
 
-        
         if (eventos != null && eventos.size() > 0) {
             throw new BusinessLogicException("El usuario no puede ser organizaddor de ningun evento");
         }
@@ -105,18 +109,15 @@ public class UsuarioLogic {
 //        if(clasificados != null&& clasificados.size()>0){
 //            throw new BusinessLogicException("El usuario no puede ser autor de ningun clasificado");
 //        }
-        if(procesosMascotasAdopcion!=null&& procesosMascotasAdopcion.size()>0){
+        if (procesosMascotasAdopcion != null && procesosMascotasAdopcion.size() > 0) {
             throw new BusinessLogicException("El usuario no puede tener procesos");
         }
         persistencia.delete(id);
     }
 
-    
-    public UsuarioEntity actualizarInformacion(Long id, UsuarioEntity usuario) throws BusinessLogicException
-    {
+    public UsuarioEntity actualizarInformacion(Long id, UsuarioEntity usuario) throws BusinessLogicException {
         UsuarioEntity entity = getUsuario(id);
-        if(!entity.getUsuario().equalsIgnoreCase(usuario.getUsuario()))
-        {
+        if (!entity.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
             throw new BusinessLogicException("El usuario no se puede modificar");
         }
         return persistencia.update(entity);

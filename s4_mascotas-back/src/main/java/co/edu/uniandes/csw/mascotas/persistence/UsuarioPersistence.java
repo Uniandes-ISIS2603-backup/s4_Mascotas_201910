@@ -63,6 +63,30 @@ public class UsuarioPersistence {
         em.remove(entity);
     }
 
+    public UsuarioEntity findByUser(String usuario){
+         TypedQuery<UsuarioEntity> query = em.createQuery("Select e From UsuarioEntity e where e.usuario = :usuario", UsuarioEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("usuario", usuario);
+        // Se invoca el query se obtiene la lista resultado
+        List<UsuarioEntity> sameName = query.getResultList();
+        UsuarioEntity result = null;
+        if (!(sameName == null || sameName.isEmpty())) {
+            result = sameName.get(0);
+        }
+        return result;
+    }
+    public UsuarioEntity findByCorreo(String correo){
+         TypedQuery<UsuarioEntity> query = em.createQuery("Select e From UsuarioEntity e where e.correo = :correo", UsuarioEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("correo", correo);
+        // Se invoca el query se obtiene la lista resultado
+        List<UsuarioEntity> sameName = query.getResultList();
+        UsuarioEntity result = null;
+        if (!(sameName == null || sameName.isEmpty())) {
+            result = sameName.get(0);
+        }
+        return result;
+    }
 }
             
             
