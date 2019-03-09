@@ -31,14 +31,12 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
+ * Clase de prueba de la lógica
  * @author Natalia Sanabria Forero (n.sanabria)
  */
 @RunWith(Arquillian.class)
 public class MascotaLogicTest {
-    
-    private static final Logger LOGGER = Logger.getLogger(MascotaLogic.class.getName(), MascotaLogic.class);
-    
+       
     private PodamFactory factory = new PodamFactoryImpl();
     /**
      * Inyección de la dependencia de la clase de lógica, cuyos métodos se van a probar
@@ -76,6 +74,9 @@ public class MascotaLogicTest {
                 .addAsManifestResource("META-INF/beans.xml","beans.xml");   
     }
     
+    /**
+     * Configura el ambiente para garantizar la correcta ejecución de las pruebas
+     */
     @Before
     public void configTest()
     {
@@ -99,6 +100,9 @@ public class MascotaLogicTest {
         }
     }
     
+    /**
+     * Remueve todos los datos de la base de datos para iniciar en limpio
+     */
     private void clearData()
     {
         em.createQuery("delete from MascotaEntity").executeUpdate();
@@ -125,6 +129,10 @@ public class MascotaLogicTest {
         }
     }
     
+    /**
+     * Test del método crearMascota cuando se insertan todos los datos requeridos 
+     * @throws BusinessLogicException @Assert{No debería generar excepción} 
+     */
     @Test
     public void createMascotaTest() throws BusinessLogicException
     {
@@ -215,6 +223,10 @@ public class MascotaLogicTest {
         Assert.assertEquals(mascotasConEstado, mascotas.size());
     }
     
+    /**
+     * Test que valida que un estado no válido genere excepción cuando se buscan las mascotas por dicho estado<br>
+     * @throws BusinessLogicException 
+     */
     @Test (expected = BusinessLogicException.class)
     public void darMascotasPorEstadoNoValidoTest() throws BusinessLogicException
     {
@@ -229,24 +241,26 @@ public class MascotaLogicTest {
         logica.darMascotasPorEstado(str);
     }
     
+    /**
+     * Test que valida el método de actualizar el estado de la mascota
+     * @throws BusinessLogicException 
+     */
     @Test
     public void actualizarEstadoMascotaTest() throws BusinessLogicException
     {
         Random random = new Random();
         MascotaEntity.Estados_mascota estado = MascotaEntity.Estados_mascota.values()[random.nextInt(MascotaEntity.Estados_mascota.values().length)];
         int i = 0;
-        int j = 0;
         while(i<data.size())
         {
             if(!data.get(i).getEstado().equals(estado))
             {   
-                j = i; 
                 data.get(i).setEstado(estado);
                 logica.cambiarEstadoMascota(data.get(i));
                 break;
             }
             i++;
         }
-        
+        Assert.assertEquals(data.get(i).getEstado(), estado);
     }
 }

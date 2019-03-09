@@ -57,6 +57,10 @@ public class MascotaDTO implements Serializable
         
     }
     
+    /**
+     * Constructor que crea un DTO a partir de una entidad <br>
+     * @param entity Entidad con la información para crear una nueva instancia de DTO <br>
+     */
     public MascotaDTO(MascotaEntity entity)
     {
         if(entity!= null)
@@ -156,6 +160,10 @@ public class MascotaDTO implements Serializable
         this.estado = estado;
     }
     
+    /**
+     * Convierte un DTO en una entidad
+     * @return entity Entidad con la información del DTO de origen
+     */
     public MascotaEntity toEntity( )
     {
         MascotaEntity entity = new MascotaEntity( );
