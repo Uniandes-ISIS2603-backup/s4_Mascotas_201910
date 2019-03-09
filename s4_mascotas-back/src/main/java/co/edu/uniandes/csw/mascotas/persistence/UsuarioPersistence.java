@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.persistence;
 
+
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -41,4 +42,29 @@ public class UsuarioPersistence {
         TypedQuery<UsuarioEntity> qu = em.createQuery("select u from UsuarioEntity u",UsuarioEntity.class );
        return qu.getResultList();
     }
+    
+    /**
+     * Actualiza un usuario de acuerdo a los valores dados en el entity
+     *
+     * @param entity - Entity del usuario
+     * @return Entity del usuario
+     */
+    public UsuarioEntity update(UsuarioEntity entity) {
+        return em.merge(entity);
+    }
+
+    /**
+     * Elimina el usuario segun su id
+     *
+     * @param id
+     */
+    public void delete(Long id) {
+        UsuarioEntity entity = em.find(UsuarioEntity.class, id);
+        em.remove(entity);
+    }
+
 }
+            
+            
+            
+       
