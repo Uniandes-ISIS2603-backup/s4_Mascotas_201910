@@ -26,7 +26,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author estudiante
+ * @author Daniela Gonzalez
  */
 @Path("articulos")
 @Produces("application/json")

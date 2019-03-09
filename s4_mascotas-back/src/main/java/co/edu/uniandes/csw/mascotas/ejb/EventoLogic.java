@@ -109,7 +109,7 @@ public class EventoLogic {
     } 
     
     /**
-     * Busca un articulo por su nombre
+     * Busca un evento por su nombre
      *
      * @param nombre: nombre del evento que se busca
      * @return el evento con el nombre enviado por parametro.

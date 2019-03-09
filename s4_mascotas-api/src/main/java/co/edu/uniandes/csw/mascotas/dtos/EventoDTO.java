@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author estudiante
+ * @author Daniela Gonzalez
  */
 public class EventoDTO implements Serializable{
     

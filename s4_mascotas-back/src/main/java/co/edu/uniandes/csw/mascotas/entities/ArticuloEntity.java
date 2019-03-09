@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -28,6 +27,8 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     private UsuarioEntity autor;
    
     
+    /**Constructor por defecto
+     */
     public ArticuloEntity(){
         
     }
