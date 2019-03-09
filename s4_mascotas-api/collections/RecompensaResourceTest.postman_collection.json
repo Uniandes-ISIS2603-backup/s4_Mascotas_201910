@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "8c78682c-1dbc-4afc-a710-3bd77a2a4e85",
+		"name": "RecompensaResourceTest",
+		"description": "Operaciones de GET, POST, PUT, DELETE para recompensa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get de todas las recompensas ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ca69262-a936-4300-9bc5-672dff58699d",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/recompensas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"recompensas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put de recompensa que inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c525490-4e8e-459f-8282-2da3dbd1b49e",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medioDePago\" : \"PSE\",\n\t\"valor\" : \"10000\",\n\t\"estado\" : \"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/recompensas/1000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"recompensas",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get de una recompensa de un proceso de mascota extraviada inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af5f6ecc-533f-42af-b827-7621032da110",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8/recompensa",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8",
+						"recompensa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post de una recompensa en un proceso de mascota extraviada inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51bbdcc4-541c-42dc-8925-91ffb858ef8b",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medioDePago\" : \"PSE\",\n\t\"valor\" : \"10000\",\n\t\"estado\" : \"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8/recompensa",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8",
+						"recompensa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete de una recompensa con un proceso de mascota extraviada inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2205243b-2833-4661-81b0-1d54eb053e1b",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/8/recompensa",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"8",
+						"recompensa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recompensa desde un proceso de mascota extraviada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac3fce98-7d9d-47f1-9ec7-ca0e0417aa54",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/procesosMascotaExtraviada/2/recompensa",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"procesosMascotaExtraviada",
+						"2",
+						"recompensa"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
