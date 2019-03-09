@@ -51,6 +51,7 @@ public class MascotaExtraviadaLogicTest {
     @PersistenceContext
     private EntityManager em;
     
+    
     /**
      * Lista de procesos de mascota extraviada sobre la cual se realizan algunas pruebas
      */
@@ -62,7 +63,7 @@ public class MascotaExtraviadaLogicTest {
     private List<RecompensaEntity> listaPruebaRecompensas = new ArrayList<>();
     
     /**
-     * Manejador de transacciones
+     * maneja las transacciones
      */
     @Inject
     private UserTransaction utx;

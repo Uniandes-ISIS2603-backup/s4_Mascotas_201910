@@ -38,7 +38,10 @@ public class MascotaEnAdopcionDTO implements Serializable{
      */
     
     private boolean adoptada;
-    
+    /**
+     * constructor con un entity como parámetro
+     * @param entity 
+     */
     public MascotaEnAdopcionDTO(MascotaEnAdopcionEntity entity){
         
         if(entity != null){
@@ -52,6 +55,9 @@ public class MascotaEnAdopcionDTO implements Serializable{
         
     
 }
+    public MascotaEnAdopcionDTO(){
+        //constructor vacío por defecto
+    }
 
     /**
      * @return the id
