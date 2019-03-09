@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.mascotas.ejb.EventoLogic;
 import co.edu.uniandes.csw.mascotas.ejb.EventosUsuarioLogic;
 import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
+import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.EventoPersistence;
 import co.edu.uniandes.csw.mascotas.persistence.UsuarioPersistence;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,10 +116,23 @@ public class EventosUsuarioLogicTest
         }
     }
     
+    /**
+     * Prueba que verifica que se asocia un evento a un usuario correctamente
+     * @throws BusinessLogicException 
+     */
     @Test
-    public void agregarEventoAUsuarioTest()
+    public void agregarEventoAUsuarioTest() throws BusinessLogicException
     {
+        UsuarioEntity usuario = dataUsuarios.get(0);
+        EventoEntity evento = dataEventos.get(1);
+        EventoEntity resultado = eul.agregarEventoAUsuario(evento.getId(), usuario.getId());
         
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(evento.getId(), resultado.getId());
+        Assert.assertEquals(evento.getDescripcion(), resultado.getDescripcion());
+        Assert.assertEquals(evento.getImagen(), resultado.getImagen());
+        Assert.assertEquals(evento.getNombre(), resultado.getNombre());
+        Assert.assertEquals(evento.getOrganizador(), usuario);
     }
 
     
