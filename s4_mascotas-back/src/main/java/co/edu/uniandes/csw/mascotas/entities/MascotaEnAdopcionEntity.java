@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -42,6 +44,9 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private UsuarioEntity duenio;
     
+    /**
+     * los usuarios postulados 
+     */
     @PodamExclude
     @ManyToMany
     private List<UsuarioEntity> postulados;
@@ -56,30 +61,37 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * calificación asignada al proceso de adopción
      */
-//    private CalificacionEntity calificacion;
-//    
-//    /**
-//     * la mascota asociada al proceso
-//     */
-//    private MascotaEntity mascota;
-//    
-//    /**
-//     * el usuario que puso la mascota en adopción
-//     */
-//    private UsuarioEntity usuario;
-//    
-//    /**
-//     * nombre de ususarios postulados para adoptar la mascota
-//     */
-    //private PostuladoEntity postulados;
-    
+    @PodamExclude
+    @OneToOne(
+            mappedBy = "procesoMascotaEnAdopcion" ,
+            cascade = CascadeType.ALL ,
+            fetch = FetchType.LAZY
+    )
+    private CalificacionEntity calificacion;
+
+    @PodamExclude
+    @OneToOne
+    private MascotaEntity mascota;
     /**
      * constructor
      */
     public MascotaEnAdopcionEntity(){
-        
+        //constructor vacío por defecto
     }
-
+    /**
+     * 
+     * @return la mascota
+     */
+    public MascotaEntity getMascotaEntity(){
+        return mascota;
+    }
+    /**
+     * modifica la mascota
+     * @param nueva 
+     */
+    public void setMascotaEntity(MascotaEntity nuevaMascota){
+        mascota = nuevaMascota;
+    }
     /**
      * @return the adoptada
      */
@@ -165,62 +177,34 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     public void setPostulados(List<UsuarioEntity> postulados) {
         this.postulados = postulados;
     }
-    
-    
 
     /**
      * @return the calificacion
      */
-//    public CalificacionEntity getCalificacion() {
-//        return calificacion;
-//    }
-//
-//    /**
-//     * @param calificacion the calificacion to set
-//     */
-//    public void setCalificacion(CalificacionEntity calificacion) {
-//        this.calificacion = calificacion;
-//    }
-//
-//    /**
-//     * @return the postulados
-//     */
-//    public PostuladoEntity getPostulados() {
-//        return postulados;
-//    }
-//
-//    /**
-//     * @param postulados the postulados to set
-//     */
-//    public void setPostulados(PostuladoEntity postulados) {
-//        this.postulados = postulados;
-//    }
+    public CalificacionEntity getCalificacion() {
+        return calificacion;
+    }
 
-//    /**
-//     * @return the mascota
-//     */
-//    public MascotaEntity getMascota() {
-//        return mascota;
-//    }
-//
-//    /**
-//     * @param mascota the mascota to set
-//     */
-//    public void setMascota(MascotaEntity mascota) {
-//        this.mascota = mascota;
-//    }
-//
-//    /**
-//     * @return the usuario
-//     */
-//    public UsuarioEntity getUsuario() {
-//        return usuario;
-//    }
-//
-//    /**
-//     * @param usuario the usuario to set
-//     */
-//    public void setUsuario(UsuarioEntity usuario) {
-//        this.usuario = usuario;
-//    }
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(CalificacionEntity calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    /**
+     * @return the mascota
+     */
+    public MascotaEntity getMascota() {
+        return mascota;
+    }
+
+    /**
+     * @param mascota the mascota to set
+     */
+    public void setMascota(MascotaEntity mascota) {
+        this.mascota = mascota;
+    }
+
+
 }

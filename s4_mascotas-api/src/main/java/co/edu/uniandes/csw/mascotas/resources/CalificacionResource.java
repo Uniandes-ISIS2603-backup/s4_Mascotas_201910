@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.swing.text.html.HTML;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,6 +23,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -37,9 +39,18 @@ public class CalificacionResource {
     
     private static final Logger LOGGER = Logger.getLogger(ArticuloResource.class.getName());
     
+    /**
+     * la lógica de las calificaciones
+     */
     @Inject
     private CalificacionLogic logic;
     
+    /**
+     * crea una nueva calificación asociada a un proceso
+     * @param calificacion
+     * @return
+     * @throws BusinessLogicException 
+     */
     @POST
     public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException{
         
@@ -48,7 +59,7 @@ public class CalificacionResource {
         return nueva;
     }
     /**
-     * como la lista entidades, toca pasarlas a dto, meterlas a la nueva lista y retornarla
+     * devuelve todas las calificaciones
      * @return 
      */
     @GET
@@ -56,30 +67,37 @@ public class CalificacionResource {
         
         List<CalificacionDTO> calificaciones = new ArrayList<>();
         List<CalificacionEntity> entidades = logic.getCalificaciones();
-        CalificacionDTO dto = new CalificacionDTO();
+        
         
         for(CalificacionEntity actual : entidades){
             
-            dto.setCalificacion(actual.getCalificacion());
-            dto.setComentario(actual.getComentario());
-            calificaciones.add(dto);
+            
+            calificaciones.add(new CalificacionDTO(actual));
         }
         
         return calificaciones;        
     }
-    
+    /**
+     * devuelve una calificación por id
+     * @param id
+     * @return
+     * @throws BusinessLogicException 
+     */
     @GET
     @Path("{id: \\d+}")
     public CalificacionDTO getCalificacion(@PathParam("id") Long id) throws BusinessLogicException{
         
       CalificacionEntity entity = logic.getCalificacion(id);
-      CalificacionDTO dto = new CalificacionDTO();
-      dto.setCalificacion(entity.getCalificacion());
-      dto.setComentario(entity.getComentario());
+      CalificacionDTO dto = new CalificacionDTO(entity);
+     
       
       return dto;
     }
-    
+    /**
+     * borra una calificación por id
+     * @param id
+     * @throws BusinessLogicException 
+     */
     @DELETE
     @Path("{id: \\d+}")
     public void deleteCalificacion(@PathParam("id") Long id) throws BusinessLogicException{
@@ -88,19 +106,17 @@ public class CalificacionResource {
     }
 
     /**
-     * No pueden existir parámetros sin anotaciones (salvo los DTO´s)
+     * Modifica una calificacion
+     * @param id
      */
-//    @PUT
-//    @Path("{id: \\d+}")
-//    public CalificacionDTO uptaCalificacionDTO(@PathParam("id") Long id , String comentario, Integer calificacion) throws BusinessLogicException{
-//        
-//        CalificacionDTO dto = new CalificacionDTO();
-//        CalificacionEntity entity = logic.updateCalificacion(id, comentario, calificacion);
-//        dto.setCalificacion(entity.getCalificacion());
-//        dto.setComentario(entity.getComentario());
-//        
-//        return dto;
-//    }
+    @PUT
+    @Path("{id: \\d+}")
+    public CalificacionDTO updateCalificacionDTO(@PathParam("id") Long id, CalificacionDTO dto) throws Exception{
+        
+        dto.setId(id);
+        if(logic.getCalificacion(id) == null) throw new WebApplicationException("no se encontró una calificación con ese id");        
+        return new CalificacionDTO(logic.updateCalificacion(id,dto.toEntity()));
+    }
     
     
     
