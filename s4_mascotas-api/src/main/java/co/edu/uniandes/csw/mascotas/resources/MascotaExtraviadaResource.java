@@ -138,7 +138,7 @@ public class MascotaExtraviadaResource {
      * @param procesoId
      * @return Clase con los recursos de recompensa para un proceso de mascotaExtraviada
      */
-    @Path("{procesoId: \\d+}/recompensa")
+    //@Path("{procesoId: \\d+}/recompensa")
     public Class<MascotaExtraviadaRecompensaResource> getMascotaExtraviadaRecompensaResource(@PathParam("procesoId") Long procesoId) throws Exception{
         if (mascotaExtraviadaLogic.getProcesoMascotaExtraviada(procesoId) == null) {
             throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + procesoId + " no existe.", 404);
