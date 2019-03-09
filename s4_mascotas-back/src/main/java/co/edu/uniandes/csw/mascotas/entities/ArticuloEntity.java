@@ -23,8 +23,8 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     private String tema;
     private String contenido;
    
-    //@PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @PodamExclude
+    @ManyToOne
     private UsuarioEntity autor;
    
     

@@ -139,13 +139,13 @@ public class ArticuloLogicTest {
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createArticuloConMismoTituloTest() throws BusinessLogicException {
-        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-        newEntity.setTema(ArticuloLogic.CUIDADO);
-        newEntity.setTitulo(data.get(0).getTitulo());
-        articuloLogic.crearArticulo(newEntity);
-    }
+//    @Test(expected = BusinessLogicException.class)
+//    public void createArticuloConMismoTituloTest() throws BusinessLogicException {
+//        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+//        newEntity.setTema(ArticuloLogic.CUIDADO);
+//        newEntity.setTitulo(data.get(0).getTitulo());
+//       articuloLogic.crearArticulo(newEntity);
+//    }
     
      /**
      * Prueba para consultar la lista de articulos.
@@ -199,12 +199,12 @@ public class ArticuloLogicTest {
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void updateArticuloConMismoTituloTest() throws BusinessLogicException {
-        ArticuloEntity entity = data.get(0);
-        entity.setTitulo(data.get(1).getTitulo());
-        articuloLogic.actualizarArticulo(entity.getId(), entity);
-    }
+//    @Test(expected = BusinessLogicException.class)
+//    public void updateArticuloConMismoTituloTest() throws BusinessLogicException {
+//        ArticuloEntity entity = data.get(0);
+//        entity.setTitulo(data.get(1).getTitulo());
+//        articuloLogic.actualizarArticulo(entity.getId(), entity);
+//    }
     
     /**
      * Prueba para eliminar un articulo.
