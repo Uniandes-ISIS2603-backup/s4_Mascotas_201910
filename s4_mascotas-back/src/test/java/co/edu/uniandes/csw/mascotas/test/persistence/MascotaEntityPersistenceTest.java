@@ -22,15 +22,21 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 
 /**
- *
+ * Clase que prueba los métodos de la persistencia para el Recurso Mascota
  * @author Natalia Sanabria Forero (n.sanabria)
  */
 @RunWith(Arquillian.class)
 public class MascotaEntityPersistenceTest 
 {
+    /**
+     * Clase de persistencia que se va a probar
+     */
     @Inject
     private MascotaPersistence ep;
     
+    /**
+     * Manejdar de entidades que permite comparar los resultados
+     */
     @PersistenceContext
     private EntityManager em;
     
@@ -46,6 +52,9 @@ public class MascotaEntityPersistenceTest
                 .addAsManifestResource("META-INF/beans.xml","beans.xml");   
     }
     
+    /**
+     * Prueba que verifica que una nueva mascota quede persistida en la base de datos.
+     */
     @Test
     public void createMascotaTest( )
     {
@@ -61,6 +70,9 @@ public class MascotaEntityPersistenceTest
         Assert.assertEquals(entity.getTipo(), newEntity.getTipo());
     }
     
+    /**
+     * Prueba que verifica que el estado de una mascota cambie en la base de datos después de su actualización <br>
+     */
     @Test
     public void actualizarEstadoMascotaTest()
     {
@@ -74,5 +86,28 @@ public class MascotaEntityPersistenceTest
         
         mascota = em.find( MascotaEntity.class, mascota.getId());
         Assert.assertEquals(entidadActualizada.getEstado(), mascota.getEstado());
+    }
+    
+    /**
+     * Prueba que verifica que la mascota es encontrada satisfactoriamente
+     */
+    @Test
+    public void findTest()
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEntity newEntity = factory.manufacturePojo(MascotaEntity.class);
+        MascotaEntity mascota = ep.create(newEntity);
+        
+        Assert.assertNotNull(mascota);
+        
+        mascota = em.find( MascotaEntity.class, mascota.getId());
+        MascotaEntity mascota2 = ep.find(mascota.getId());
+        
+        Assert.assertEquals(mascota2.getId(), mascota.getId());
+        Assert.assertEquals(mascota2.getDescripcion(),(mascota.getDescripcion()));
+        Assert.assertEquals(mascota.getEstado(), mascota2.getEstado());
+        Assert.assertEquals(mascota.getTipo(), mascota2.getTipo());
+        Assert.assertEquals(mascota.getRaza(), mascota2.getRaza());
+        
     }
 }
