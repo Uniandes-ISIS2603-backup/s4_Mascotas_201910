@@ -114,6 +114,21 @@ public class EventoResource {
         return evento;
     }
     
+    @GET
+    @Path("/{nombre}")
+    public EventoDTO darArticuloPorNombre(@PathParam("nombre") String nombre) throws WebApplicationException, BusinessLogicException {
+        
+        EventoEntity eventoEntity = eventoLogic.buscarEventoPorNombre(nombre);
+        
+        if(eventoEntity == null){
+            throw new WebApplicationException("No existe un evento con ese nombre", 404);
+        }
+        
+        EventoDTO evento = new EventoDTO(eventoEntity);
+
+        return evento;
+    }
+    
     /**
      * Actualiza el evento con el id recibido por parametro con la informacion
      * que se recibe en el cuerpo de la petición.

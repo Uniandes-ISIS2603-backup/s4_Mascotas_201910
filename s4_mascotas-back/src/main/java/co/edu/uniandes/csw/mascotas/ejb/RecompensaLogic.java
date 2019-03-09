@@ -36,6 +36,7 @@ public class RecompensaLogic {
      * @throws Exception 
      */
     public RecompensaEntity createRecompensa(RecompensaEntity r) throws Exception{
+        System.out.println("entrando a RecompensaLogic createRecompensa");
         if (r.getValor() < 0) {
             throw new BusinessLogicException("El valor de la recompensa no puede ser negativo");
         }
@@ -45,6 +46,7 @@ public class RecompensaLogic {
         if(r.getProcesoMascotaExtraviada() == null){
             throw new BusinessLogicException("Un proceso no debería existir sin un proceso de mascota extraviada");
         }
+        System.out.println("reglas de negocio verificadas");
         persistence.create(r);
         return r;
     }

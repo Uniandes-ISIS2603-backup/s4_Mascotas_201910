@@ -132,20 +132,20 @@ public class ArticuloPersistenceTest {
     /**
      * Prueba para consultar la lista de articulos.
      */
-    //@Test
-    //public void getArticulosTest() {
-      //  List<ArticuloEntity> list = ap.findAll();
-        //Assert.assertEquals(listaPrueba.size(), list.size());
-        //for (ArticuloEntity ent : listaPrueba) {
-          //  boolean found = false;
-            //for (ArticuloEntity entity : list) {
-              //  if (ent.getId().equals(entity.getId())) {
-                //    found = true;
-               //}
-            //}
-            //Assert.assertTrue(found);
-        //}
-    //}
+    @Test
+    public void getArticulosTest() {
+        List<ArticuloEntity> list = ap.findAll();
+        Assert.assertEquals(listaPrueba.size(), list.size());
+        for (ArticuloEntity ent : listaPrueba) {
+           boolean found = false;
+             for (ArticuloEntity entity : list) {
+                 if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+             }
+            Assert.assertTrue(found);
+         }
+    }
     
     
      /**

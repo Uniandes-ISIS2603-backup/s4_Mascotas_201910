@@ -26,8 +26,8 @@ public class EventoEntity extends BaseEntity implements Serializable{
     private String descripcion;
     private String imagen;
     
-    //@PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @PodamExclude
+    @ManyToOne()
     private UsuarioEntity organizador;
     
     @Temporal(TemporalType.DATE)

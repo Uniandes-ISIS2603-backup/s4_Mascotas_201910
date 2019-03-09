@@ -66,9 +66,9 @@ public class ArticuloLogic {
             throw new BusinessLogicException("Un articulo debe tener contenido");
         }
         
-        //if(!articulo.getTema().equals(CUIDADO) && !articulo.getTema().equals(SALUD) && !articulo.getTema().equals(ENTRENAMIENTO) && !articulo.getTema().equals(TENENCIA_RESPONSABLE)){
-          //  throw new BusinessLogicException("Un articulo debe tener un tema valido");
-        //}
+        if(!articulo.getTema().equals(CUIDADO) && !articulo.getTema().equals(SALUD) && !articulo.getTema().equals(ENTRENAMIENTO) && !articulo.getTema().equals(TENENCIA_RESPONSABLE)){
+          throw new BusinessLogicException("Un articulo debe tener un tema valido");
+        }
         
         
         articulo = persistence.create(articulo);

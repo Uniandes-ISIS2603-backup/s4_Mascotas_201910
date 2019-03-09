@@ -133,20 +133,21 @@ public class EventoPersistenteTest {
     /**
      * Prueba para consultar la lista de eventos.
      */
-    //@Test
-    //public void getEventosTest() {
-      //  List<EventoEntity> list = ep.findAll();
-        //Assert.assertEquals(listaPrueba.size(), list.size());
-       // for (EventoEntity ent : listaPrueba) {
-           //  boolean found = false;
-          //  for (EventoEntity entity : list) {
-             //   if (ent.getId().equals(entity.getId())) {
-             //       found = true;
-             //  }
-           // }
-            //Assert.assertTrue(found);
-      //  }
-    //}
+    @Test
+    public void getEventosTest() {
+      List<EventoEntity> list = ep.findAll();
+      Assert.assertEquals(listaPrueba.size(), list.size());
+        for (int i = 0; i < listaPrueba.size(); i++) {
+            EventoEntity ent = listaPrueba.get(i);
+            boolean found = false;
+            for (EventoEntity entity : list) {
+                if (ent.getId().equals(entity.getId())) {
+                     found = true;
+              }
+             }
+            Assert.assertTrue(found);
+      }
+    }
     
     
      /**

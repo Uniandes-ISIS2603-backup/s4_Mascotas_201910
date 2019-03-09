@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Sebastián Lemus Cadena (s.lemus)
  */
+@Path("procesosMascotaExtraviada/{procesoId: \\d+}/recompensa")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class MascotaExtraviadaRecompensaResource {
@@ -56,6 +57,7 @@ public class MascotaExtraviadaRecompensaResource {
      */
     @POST
     public RecompensaDTO createRecompensa(@PathParam("procesoId") Long procesoId, RecompensaDTO recompensa) throws Exception{
+        System.out.println("entrando al post createRecompensa");
         RecompensaEntity r = recompensa.toEntity();
         MascotaExtraviadaEntity p = procesoLogic.getProcesoMascotaExtraviada(procesoId);
         if(p.getRecompensa() != null){
@@ -63,7 +65,9 @@ public class MascotaExtraviadaRecompensaResource {
         }
         r.setProcesoMascotaExtraviada(p);
         p.setRecompensa(r);
+        System.out.println("creando recompensa createRecompensa");
         RecompensaEntity createdR = recompensaLogic.createRecompensa(r);
+        System.out.println("terminando de crear recompensa createRecompensa");
         procesoLogic.updateMascotaExtraviada(procesoId, p);
         return new RecompensaDTO(createdR);
     }
