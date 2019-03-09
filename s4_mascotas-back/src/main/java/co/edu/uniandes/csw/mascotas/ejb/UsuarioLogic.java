@@ -44,14 +44,7 @@ public class UsuarioLogic {
         if(persistencia.findByUser(usuario.getUsuario())!=null){
             throw new BusinessLogicException("El usuario ya esta registrado");
         }
-        boolean exist = false;
-//        for (UsuarioEntity usuario1 : usuarios) {
-//            System.out.print(usuario1.getUsuario());
-//            if (usuario1.getUsuario().equals(usuario.getUsuario())) {
-//
-//                exist = true;
-//            }
-//        }
+
 
         if (persistencia.findByCorreo(usuario.getCorreo())!=null) {
             throw new BusinessLogicException("El correo ya tiene un usuario registrado");
@@ -62,7 +55,7 @@ public class UsuarioLogic {
     }
 
     /**
-     *
+     * Retorna el usuario del sistema
      * @param id - id del usuario a buscar
      * @return El usuario del sistema asociado al id
      * @throws BusinessLogicException
@@ -76,13 +69,18 @@ public class UsuarioLogic {
     }
 
     /**
-     *
+     *  Retorna la lista de todos los usuarios
      * @return La lista de todos los usuarios
      */
     public List<UsuarioEntity> getUsuarios() {
         return persistencia.findAll();
     }
 
+    /**
+     * Eliman un usuario 
+     * @param id - id del usuario a eliminar
+     * @throws BusinessLogicException 
+     */
     public void deleteUsuario(Long id) throws BusinessLogicException {
         //Revisar no puede tener nada pendiente
         UsuarioEntity entity = getUsuario(id);
