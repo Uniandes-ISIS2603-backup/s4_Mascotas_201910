@@ -112,5 +112,5 @@ public class UsuarioPersistenceTest {
         Assert.assertEquals(entityU.getCorreo(),encontradaEntity.getCorreo());
         
     }
-    
+
 }
