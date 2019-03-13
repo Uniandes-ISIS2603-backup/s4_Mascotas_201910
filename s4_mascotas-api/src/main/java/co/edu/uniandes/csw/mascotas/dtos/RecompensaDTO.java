@@ -158,7 +158,7 @@ public class RecompensaDTO implements Serializable{
         RecompensaEntity e = new RecompensaEntity();
         e.setMedioDePago(medioDePago);
         e.setValor(valor);
-        e.setMedioDePago(medioDePago);
+        e.setEstado(estado);
         
         return e;
     }
