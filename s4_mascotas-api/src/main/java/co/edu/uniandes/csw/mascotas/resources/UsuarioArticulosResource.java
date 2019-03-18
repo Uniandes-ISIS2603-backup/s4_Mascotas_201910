@@ -70,7 +70,7 @@ public class UsuarioArticulosResource {
      */
     @GET
     public List<ArticuloDTO> getArticulos(@PathParam("usuarioId") Long usuarioId) {
-        List<ArticuloDTO> listaDTOs = booksListEntity2DTO(usuarioArticulosLogic.darArticulos(usuarioId));
+        List<ArticuloDTO> listaDTOs = articulosListEntity2DTO(usuarioArticulosLogic.darArticulos(usuarioId));
         return listaDTOs;
     }
     
@@ -90,7 +90,7 @@ public class UsuarioArticulosResource {
      */
     @GET
     @Path("{articuloId: \\d+}")
-    public ArticuloDTO getBook(@PathParam("usuarioId") Long usuarioId, @PathParam("articuloId") Long articuloId) throws BusinessLogicException {
+    public ArticuloDTO getArticulo(@PathParam("usuarioId") Long usuarioId, @PathParam("articuloId") Long articuloId) throws BusinessLogicException {
         if (articuloLogic.encontrarArticuloPorId(articuloId) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + usuarioId + "/articulos/" + articuloId + " no existe.", 404);
         }
@@ -104,7 +104,7 @@ public class UsuarioArticulosResource {
      * @param entityList Lista de BookEntity a convertir.
      * @return Lista de BookDTO convertida.
      */
-    private List<ArticuloDTO> booksListEntity2DTO(List<ArticuloEntity> entityList) {
+    private List<ArticuloDTO> articulosListEntity2DTO(List<ArticuloEntity> entityList) {
         List<ArticuloDTO> list = new ArrayList();
         for (ArticuloEntity entity : entityList) {
             list.add(new ArticuloDTO(entity));

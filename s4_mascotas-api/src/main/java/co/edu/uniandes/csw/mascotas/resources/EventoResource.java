@@ -116,7 +116,7 @@ public class EventoResource {
     
     @GET
     @Path("/{nombre}")
-    public EventoDTO darArticuloPorNombre(@PathParam("nombre") String nombre) throws WebApplicationException, BusinessLogicException {
+    public EventoDTO darEventoPorNombre(@PathParam("nombre") String nombre) throws WebApplicationException, BusinessLogicException {
         
         EventoEntity eventoEntity = eventoLogic.buscarEventoPorNombre(nombre);
         
