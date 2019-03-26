@@ -77,7 +77,7 @@ public class RecompensaResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public RecompensaDTO getRecompensa(Long id) throws Exception{
+    public RecompensaDTO getRecompensa(@PathParam("id")Long id) throws Exception{
         RecompensaEntity r = recompensaLogic.getRecompensa(id);
         if(r == null){
             throw new WebApplicationException("la recompensa con id = " + id + "no existe.", 404);
@@ -91,7 +91,7 @@ public class RecompensaResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteRecompensaPorId(Long id) throws Exception{
+    public void deleteRecompensaPorId(@PathParam("id") Long id) throws Exception{
         RecompensaEntity r = recompensaLogic.getRecompensa(id);
         if(r == null){
             throw new WebApplicationException("la recompensa con id = " + id + "no existe.", 404);
