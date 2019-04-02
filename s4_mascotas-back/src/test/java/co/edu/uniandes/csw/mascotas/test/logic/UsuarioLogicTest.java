@@ -29,7 +29,7 @@ import org.junit.Test;
 
 /**
  *
- * @author estudiante
+ * @author Maria Ana Ortiz(ma.ortiz1)
  */
 @RunWith(Arquillian.class)
 public class UsuarioLogicTest {
@@ -80,6 +80,7 @@ public class UsuarioLogicTest {
             em.joinTransaction();
             inicializacionListaPrueba();
             clearData();
+            
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -123,5 +124,66 @@ public class UsuarioLogicTest {
      UsuarioEntity us = logic.crearUsuario(nuevaEn);
         
     }
+ 
+    @Test
+    public void getUsuario() 
+    {
+        UsuarioEntity nuevaEn= factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(nuevaEn);
+        UsuarioEntity is = logic.getUsuario(nuevaEn.getId());
+        Assert.assertEquals(nuevaEn.getId(),is.getId());
+        
+    }
+    
+    @Test
+    public void updateUsuario()throws BusinessLogicException
+    {      
+        UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+        UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
+        podamEntity.setId(entity.getId());
+        podamEntity.setUsuario(entity.getUsuario());
+        podamEntity.setCorreo(entity.getCorreo());
+        logic.actualizarInformacion(entity.getId(), podamEntity);
+        UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
+        Assert.assertEquals(podamEntity.getId(),resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
+            
+        
+    }
+         
+    @Test(expected =BusinessLogicException.class)
+    public void updateUsuarioCambiarNombreUsuario()throws BusinessLogicException
+    {
+    UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+        UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
+        podamEntity.setId(entity.getId());
+        
+        podamEntity.setCorreo(entity.getCorreo());
+        logic.actualizarInformacion(entity.getId(), podamEntity);
+        UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
+        Assert.assertEquals(podamEntity.getId(),resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
+    }
+    
+     @Test(expected =BusinessLogicException.class)
+    public void updateUsuarioCambiarCorreoUsuario()throws BusinessLogicException
+    {      
+        UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+        UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
+        podamEntity.setId(entity.getId());
+        podamEntity.setUsuario(entity.getUsuario());
+
+        logic.actualizarInformacion(entity.getId(), podamEntity);
+        UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
+        Assert.assertEquals(podamEntity.getId(),resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
+            
+        
+    }
+    
+    
     
 }

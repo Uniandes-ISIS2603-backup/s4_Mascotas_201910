@@ -60,11 +60,9 @@ public class UsuarioLogic {
      * @return El usuario del sistema asociado al id
      * @throws BusinessLogicException
      */
-    public UsuarioEntity getUsuario(Long id) throws BusinessLogicException {
+    public UsuarioEntity getUsuario(Long id){
         UsuarioEntity usuario = persistencia.find(id);
-        if (usuario == null) {
-            throw new BusinessLogicException("El usuario con id " + id + " no existe");
-        }
+
         return usuario;
     }
 
@@ -115,9 +113,21 @@ public class UsuarioLogic {
 
     public UsuarioEntity actualizarInformacion(Long id, UsuarioEntity usuario) throws BusinessLogicException {
         UsuarioEntity entity = getUsuario(id);
+        System.out.print("Parametro:"+entity.getUsuario()+'\n');
+        System.out.print("Encontrado:"+usuario.getUsuario()+'\n');
+        
+        
         if (!entity.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
+         
             throw new BusinessLogicException("El usuario no se puede modificar");
         }
-        return persistencia.update(entity);
+        if(!entity.getCorreo().equalsIgnoreCase(usuario.getCorreo())){
+            throw new BusinessLogicException("El correo del usuario no se puede modificar");
+        }
+//        if(usuario.getId()!= entity.getId()){
+//            throw new BusinessLogicException("El identiicador del usuario no se puede modificar");
+//        }
+        
+        return persistencia.update(usuario);
     }
 }
