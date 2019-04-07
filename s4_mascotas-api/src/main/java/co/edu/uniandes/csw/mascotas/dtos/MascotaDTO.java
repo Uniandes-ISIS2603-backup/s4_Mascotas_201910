@@ -23,6 +23,11 @@ public class MascotaDTO implements Serializable
     private Long id;
     
     /**
+     * Nombre de la mascota
+     */
+    private String nombre;
+    
+    /**
      * Tipo de la mascota. Solo admite elementos de {PERRO, GATO}
      */
     private String tipo;
@@ -71,6 +76,7 @@ public class MascotaDTO implements Serializable
             this.estado = entity.getEstado();
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
+            this.nombre = entity.getNombre();
         }
     }
     
@@ -173,8 +179,22 @@ public class MascotaDTO implements Serializable
         entity.setDescripcion(this.descripcion);
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
-        
+        entity.setNombre(this.nombre);
         return entity;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }
