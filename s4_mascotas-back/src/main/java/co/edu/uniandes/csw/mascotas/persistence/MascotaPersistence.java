@@ -22,34 +22,70 @@ public class MascotaPersistence
     @PersistenceContext(unitName = "mascotasPU")
     protected EntityManager em;
     
+    /**
+     * Agrega una mascota a la base de datos
+     * @param mascotaEntity
+     * @return 
+     */
     public MascotaEntity create(MascotaEntity mascotaEntity)
     {
         em.persist(mascotaEntity);
         return mascotaEntity;
     }
     
+    /**
+     * Encuentra una mascota a partir de su id
+     * @param mascotaId
+     * @return 
+     */
     public MascotaEntity find(Long mascotaId)
     {
         return em.find(MascotaEntity.class, mascotaId);
     }
     
+    /**
+     * Retorna una lista con todas las mascotas en el sistema
+     * @return 
+     */
     public List<MascotaEntity> findAll()
     {
         TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u", MascotaEntity.class);
         return query.getResultList();
     }
     
+    /**
+     * Cambia el estado de una mascota en el sistema
+     * @param mascota
+     * @return 
+     */
     public MascotaEntity actualizarEstadoMascota(MascotaEntity mascota)
     {
         return em.merge(mascota);
     }
     
+    /**
+     * Retorna las mascotas cuyo estado corresponde al estado pasado por parámetro
+     * @param pEstado
+     * @return 
+     */
     public List<MascotaEntity> darMascotasPorEstado(String pEstado)
     {
         MascotaEntity.Estados_mascota estado;
         estado = MascotaEntity.Estados_mascota.valueOf(pEstado);
         TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado = :estado", MascotaEntity.class);
         query.setParameter("estado", estado);
+        return query.getResultList();
+    }
+    
+    /**
+     * Retorna las mascotas cuyo nombre coincide o contiene el nombre ingresado por parámetro
+     * @param pNombre
+     * @return 
+     */
+    public List<MascotaEntity> darMascotasPorNombre( String pNombre )
+    {
+        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado LIKE '%:name%' ", MascotaEntity.class);
+        query.setParameter("name", pNombre);
         return query.getResultList();
     }
 }
