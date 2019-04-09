@@ -41,6 +41,8 @@ public class EventoDTO implements Serializable{
      */
      public EventoDTO (EventoEntity entity) {
         
+       if(entity != null){
+             
          this.id = entity.getId();
          this.nombre = entity.getNombre();
          this.descripcion = entity.getDescripcion();
@@ -54,6 +56,8 @@ public class EventoDTO implements Serializable{
          else{
              this.organizador = null;
          }
+         
+       }
     }
     
     /**
