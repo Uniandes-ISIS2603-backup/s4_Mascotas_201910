@@ -21,6 +21,7 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
     private String titulo;
     private String tema;
     private String contenido;
+    private String resumen;
    
     @PodamExclude
     @ManyToOne
@@ -87,6 +88,20 @@ public class ArticuloEntity extends BaseEntity implements Serializable  {
      */
     public void setAutor(UsuarioEntity autor) {
          this.autor = autor;
+    }
+
+    /**
+     * @return the resumen
+     */
+    public String getResumen() {
+        return resumen;
+    }
+
+    /**
+     * @param resumen the resumen to set
+     */
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
     
     
