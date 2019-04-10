@@ -42,6 +42,7 @@ public class ArticuloDTO implements Serializable {
     private String titulo;
     private String tema;
     private String contenido;
+    private String resumen;
     
     /*
     * Relación a un usuario dado que esta tiene cardinalidad 1.
@@ -68,6 +69,7 @@ public class ArticuloDTO implements Serializable {
             this.titulo = entity.getTitulo();
             this.tema = entity.getTema();
             this.contenido = entity.getContenido();
+            this.resumen = entity.getResumen();
 
             if (entity.getAutor() != null) {
                 this.autor = new UsuarioDTO(entity.getAutor());
@@ -134,6 +136,20 @@ public class ArticuloDTO implements Serializable {
         this.contenido = contenido;
     }
 
+    /**
+     * @return the resumen
+     */
+    public String getResumen() {
+        return resumen;
+    }
+
+    /**
+     * @param resumen the resumen to set
+     */
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+    
     /**
      * @return the autor
      */

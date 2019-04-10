@@ -64,7 +64,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      @PodamExclude
      @OneToMany(mappedBy = "organizador")
     private List<EventoEntity> eventos;
-    
+//    
     /**
      * El conjunto de procesos de mascota extraviada que puede tener un usuario
      */
@@ -144,7 +144,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.telefono = telefono;
     }
 
-    public void setRecibeNotificaciones(boolean recibeNotificaciones) {
+    public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
     }
     
