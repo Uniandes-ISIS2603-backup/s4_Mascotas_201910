@@ -154,7 +154,7 @@ public class ArticuloDTO implements Serializable {
      * @return the autor
      */
     public UsuarioDTO getAutor() {
-        return autor;
+    return autor;
     }
 
     /**
@@ -175,6 +175,7 @@ public class ArticuloDTO implements Serializable {
         entity.setTitulo(this.titulo);
         entity.setTema(this.tema);
         entity.setContenido(this.contenido);
+        entity.setResumen(this.resumen);
        
          if(this.autor != null){
             entity.setAutor(this.autor.toEntity());
