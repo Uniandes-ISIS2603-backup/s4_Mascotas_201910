@@ -127,7 +127,12 @@ public class UsuarioLogic {
 //        if(usuario.getId()!= entity.getId()){
 //            throw new BusinessLogicException("El identiicador del usuario no se puede modificar");
 //        }
-        
+
         return persistencia.update(usuario);
     }
+    
+    
+    
+    
+    
 }
