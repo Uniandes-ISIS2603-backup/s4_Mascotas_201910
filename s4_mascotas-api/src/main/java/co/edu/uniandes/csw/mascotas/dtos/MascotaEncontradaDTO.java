@@ -65,6 +65,20 @@ public class MascotaEncontradaDTO implements Serializable{
     }
 
     /**
+     * Construye una entidad a partir del DTO
+     * @return MascotaEncontradaEntity
+     */
+    public MascotaEncontradaEntity toEntity()
+    {
+        MascotaEncontradaEntity e = new MascotaEncontradaEntity( );
+        e.setEstado(estado);
+        e.setFechaFinalizacion(fechaFin);
+        e.setFechaInicializacion(fechaInicio);
+        e.setId(id);
+        e.setUbicacion(ubicacion);
+        return e;
+    }
+    /**
      * @return the id
      */
     public Long getId() {
