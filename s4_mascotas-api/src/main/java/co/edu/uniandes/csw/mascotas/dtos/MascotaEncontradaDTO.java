@@ -7,10 +7,11 @@ package co.edu.uniandes.csw.mascotas.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
+import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 
 /**
  *
- * @author Johan E. Vivas Sepulveda (je.vivas)
+ * @author Johan E. Vivas Sepulveda (je.vivas) / Natalia Sanabra Forero (n.sanabria)
  */
 public class MascotaEncontradaDTO implements Serializable{
     /**
@@ -38,17 +39,29 @@ public class MascotaEncontradaDTO implements Serializable{
      * Ubicación donde fue encontrada la mascota.
      */
     private String ubicacion;
-    
-    /**
-     * Descripción de la mascota encontrada.
-     */
-    private String descripcion;
-    
-    /**
-     * 
-     */
-    public MascotaEncontradaDTO(){
         
+    /**
+     * Constructor vacío por defecto
+     */
+    public MascotaEncontradaDTO()
+    {
+        // Constructor por defecto
+    }
+    
+    /**
+     * Constructor a partir 
+     * @param e 
+     */
+    public MascotaEncontradaDTO(MascotaEncontradaEntity e)
+    {
+        if(e!=null)
+        {
+            this.id = e.getId();
+            this.estado = e.getEstado();
+            this.fechaFin = e.getFechaFinalizacion();
+            this.fechaInicio = e.getFechaInicializacion();
+            this.ubicacion = e.getUbicacion();
+        }
     }
 
     /**
@@ -117,21 +130,8 @@ public class MascotaEncontradaDTO implements Serializable{
     /**
      * @param ubicacion the ubicacion to set
      */
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(String ubicacion) 
+    {
         this.ubicacion = ubicacion;
-    }
-
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 }
