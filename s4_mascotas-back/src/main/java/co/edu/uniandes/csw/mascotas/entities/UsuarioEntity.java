@@ -107,7 +107,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * Registra si el usuario desea recibir notificaciones
      */
-    private boolean recibeNotificaciones;
+    private Boolean recibeNotificaciones;
 
     public String getUsuario() {
         return usuario;
@@ -126,7 +126,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     }
 
     public String getTelefono() {
-        return telefono;
+        return this.telefono;
     }
 
     public List<ArticuloEntity> getArticulos(){
@@ -157,9 +157,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.correo = correo;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+   
 
     public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
@@ -220,7 +218,9 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setYearBirth(String yearBirth) {
         this.yearBirth = yearBirth;
     }
-    
+     public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
     
 }
