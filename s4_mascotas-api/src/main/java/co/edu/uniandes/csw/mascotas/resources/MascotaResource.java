@@ -60,8 +60,8 @@ public class MascotaResource {
      * @throws WebApplicationException 
      */
     @GET
-    @Path("/{mascotaId}")
-    public MascotaDTO darMascota( @PathParam("MascotaId") Long mascotaId ) throws WebApplicationException
+    @Path("{mascotaId: \\d+}")
+    public MascotaDTO darMascota( @PathParam("mascotaId") Long mascotaId ) throws WebApplicationException
     {
         MascotaEntity entidad;
         entidad = logica.buscarMascotaPorId(mascotaId);

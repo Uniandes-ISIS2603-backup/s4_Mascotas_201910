@@ -66,6 +66,10 @@ public class ArticuloLogic {
             throw new BusinessLogicException("Un articulo debe tener contenido");
         }
         
+        if(articulo.getResumen() == null){
+            throw new BusinessLogicException("Un articulo debe tener un resumen");
+        }
+        
         if(!articulo.getTema().equals(CUIDADO) && !articulo.getTema().equals(SALUD) && !articulo.getTema().equals(ENTRENAMIENTO) && !articulo.getTema().equals(TENENCIA_RESPONSABLE)){
           throw new BusinessLogicException("Un articulo debe tener un tema valido");
         }
@@ -116,6 +120,9 @@ public class ArticuloLogic {
         }
         if(nuevo.getContenido() == null){
             throw new BusinessLogicException("Un articulo debe tener un contenido");
+        }
+        if(nuevo.getResumen() == null){
+            throw new BusinessLogicException("Un articulo debe tener un resumen");
         }
         
         ArticuloEntity cambiada = persistence.actualizarArticulo(nuevo);

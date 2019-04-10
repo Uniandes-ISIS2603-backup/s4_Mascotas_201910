@@ -59,7 +59,9 @@ public class MascotaEntity extends BaseEntity implements Serializable
     
     private Estados_mascota estado;
     
+    private String nombre;
     
+    private Long idProceso;
     
     /**
      * El proceso de mascota extraviada que contiene la 
@@ -159,6 +161,33 @@ public class MascotaEntity extends BaseEntity implements Serializable
     public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
         this.procesoMascotaExtraviada = procesoMascotaExtraviada;
     }
-    
+
+    /**
+     * @return nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the idProceso
+     */
+    public Long getIdProceso() {
+        return idProceso;
+    }
+
+    /**
+     * @param idProceso the idProceso to set
+     */
+    public void setIdProceso(Long idProceso) {
+        this.idProceso = idProceso;
+    }
     
 }

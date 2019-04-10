@@ -135,4 +135,14 @@ public class MascotaLogic
         return persistencia.darMascotasPorEstado(pEstado);
     }
     
+    /**
+     * Retorna una lista con las mascotas cuyo nombre coincida o contenga el nombre pasado por parámetro
+     * @param pNombre
+     * @return 
+     */
+    public List<MascotaEntity> darMascotasPorNombre(String pNombre )
+    {
+        return persistencia.darMascotasPorNombre(pNombre);
+    }
+    
 }
