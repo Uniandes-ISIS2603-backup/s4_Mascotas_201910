@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Produces;
@@ -78,7 +77,7 @@ public class MascotaResource {
      */
     @GET
     @Path("/estado/{mascotaEstado: \\d+}")
-    public List<MascotaDTO> darMascotasPorEstado( @PathParam("MascotaEstado")String pEstado ) throws BusinessLogicException
+    public List<MascotaDTO> darMascotasPorEstado( @PathParam("mascotaEstado")String pEstado ) throws BusinessLogicException
     {
         List<MascotaDTO> mascotas = new ArrayList<>();
         List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
