@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -19,6 +20,12 @@ import java.util.List;
 public class UsuarioDTO implements Serializable{
     
     /**
+     * 
+     */
+    private Long id;
+    
+    /**
+     * 
      * Usuario con el que queda registrado
      */
     private String usuario;
@@ -41,13 +48,13 @@ public class UsuarioDTO implements Serializable{
     /**
      * Telefono de contacto del usuario
      */
-    private int telefono;
+    private Integer telefono;
     
     
     /**
      * Registra si el usuario desea recibir notificaciones
      */
-    private boolean recibeNotificaciones;
+    private Boolean recibeNotificaciones;
     
     
      /**
@@ -75,7 +82,8 @@ public class UsuarioDTO implements Serializable{
             this.correo = e.getCorreo();
             this.recibeNotificaciones = e.isRecibeNotificaciones();
             this.telefono = e.getTelefono();
-            this.nombre = e.getContrasenha();
+            this.nombre = e.getNombre();
+            this.id=e.getId();
         }
     }
     
@@ -124,7 +132,7 @@ public class UsuarioDTO implements Serializable{
      * Cambia el telefono de contacto que el usuario tiene registrado
      * @param telefono 
      */
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
     
@@ -132,7 +140,7 @@ public class UsuarioDTO implements Serializable{
      * Cambia si el usario desea recibir notificaciones
      * @param recibeNotificaciones 
      */
-    public void setRecibeNotificaciones(boolean recibeNotificaciones) {
+    public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
     }
 
@@ -163,7 +171,7 @@ public class UsuarioDTO implements Serializable{
      * 
      * @return retorna el telefono que el usario tiene registrado
      */
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
     
@@ -172,7 +180,7 @@ public class UsuarioDTO implements Serializable{
      * 
      * @return retorna si el usuario deseas recibir notificaciones
      */
-    public boolean isRecibeNotificaciones() {
+    public Boolean isRecibeNotificaciones() {
         return recibeNotificaciones;
     }
     
@@ -200,9 +208,11 @@ public class UsuarioDTO implements Serializable{
         entity.setTelefono(this.telefono);
         entity.setRecibeNotificaciones(this.recibeNotificaciones);
         entity.setContrasenha(this.contrasenha);
+        entity.setId(this.id);
+
         //entity.setArticulos(convertArticulosToEntity(this.articulos));
         //entity.setEventos(convertEventosToEntity(this.eventos));
-        
+ 
      return entity;         
     }
     
@@ -221,6 +231,15 @@ public class UsuarioDTO implements Serializable{
         //}
         //return ls;
     //}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     
     public String toString(){
         return "UsuarioDTO{"+"usuario:"+usuario+", contrasenha:"+contrasenha+", correo:"+correo+", nombre:"+nombre+", telefono:"+telefono+", recibeNotificaciones:"+recibeNotificaciones+"}";

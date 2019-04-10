@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.mascotas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mascotas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -53,8 +55,12 @@ public class UsuarioResource {
     @Path("{id: \\d+}")
     public UsuarioDTO actualizar(@PathParam("id") Long id,  UsuarioDTO usuario)throws BusinessLogicException
     {      
-            UsuarioEntity usr = logica.getUsuario(id);
-            UsuarioDTO fo = new UsuarioDTO(usr);
+            usuario.setId(id);
+            UsuarioEntity usr = usuario.toEntity();
+           
+            UsuarioEntity resp= logica.actualizarInformacion(id, usr);
+            UsuarioDTO fo = new UsuarioDTO(resp);
+            
         return fo;
     }
     
@@ -62,9 +68,22 @@ public class UsuarioResource {
     @Path("{id: \\d+}")
     public void eliminarUsuario(@PathParam("id") Long id ) throws BusinessLogicException{      
       UsuarioEntity usuario = logica.getUsuario(id);
-      logica.deleteUsuario(id);
-      
+      logica.deleteUsuario(id);     
     
+    }
+    /**
+     * Metodo que retorna todos los usuarios
+     * @return todos los usuarios
+     */
+    @GET
+    public List<UsuarioDTO> darUsuario(){
+        List<UsuarioEntity> usuarios = logica.getUsuarios();
+                List<UsuarioDTO> newList = new ArrayList<>();
+        for(UsuarioEntity x : usuarios){
+            newList.add(new UsuarioDTO(x));
+        }
+        return newList;
+        
     }
     
     
