@@ -121,9 +121,9 @@ public class UsuarioResource {
     @GET
     public List<UsuarioDetailDTO> getUsuarios() {
       
-        List<UsuarioDetailDTO>listaEditoriales = listEntity2DetailDTO(logica.getUsuarios());
+        List<UsuarioDetailDTO>listaUsuarioDetailDTO = listEntity2DetailDTO(logica.getUsuarios());
 
-        return listaEditoriales;
+        return listaUsuarioDetailDTO;
     }
 
     
@@ -145,4 +145,6 @@ public class UsuarioResource {
         }
         return list;
     }
+    
+    
 }
