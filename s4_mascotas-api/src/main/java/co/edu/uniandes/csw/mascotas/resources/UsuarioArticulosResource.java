@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.mascotas.resources;
 
 import co.edu.uniandes.csw.mascotas.dtos.ArticuloDTO;
+import co.edu.uniandes.csw.mascotas.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.mascotas.ejb.ArticuloLogic;
 import co.edu.uniandes.csw.mascotas.ejb.UsuarioArticulosLogic;
 import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,4 +113,8 @@ public class UsuarioArticulosResource {
         }
         return list;
     }
+    
+    
+    
+
 }

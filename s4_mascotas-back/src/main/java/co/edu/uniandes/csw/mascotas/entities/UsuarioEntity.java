@@ -49,7 +49,24 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * Telefono de contacto del usuario
      */
-    private int telefono;
+    private String telefono;
+    
+    
+     /**
+     * 
+     */
+    private String dayBirth;
+    
+    /**
+     * 
+     */
+    private String monthBirth;
+    
+    /**
+     * 
+     */
+    private String yearBirth;
+    
     
     /**
      * Lista de articulos
@@ -108,7 +125,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return correo;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
@@ -140,7 +157,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.correo = correo;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -179,7 +196,31 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setPostulacionesMascotaAdopcion(List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion) {
         this.postulacionesMascotaAdopcion = postulacionesMascotaAdopcion;
     }
+
+    public String getDayBirth() {
+        return dayBirth;
+    }
+
+    public String getMonthBirth() {
+        return monthBirth;
+    }
+
+    public String getYearBirth() {
+        return yearBirth;
+    }
+
+    public void setDayBirth(String dayBirth) {
+        this.dayBirth = dayBirth;
+    }
+
+    public void setMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
+    }
+
+    public void setYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+    }
     
-    
+
     
 }
