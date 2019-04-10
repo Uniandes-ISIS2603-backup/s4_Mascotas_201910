@@ -230,7 +230,9 @@ public class UsuarioDTO implements Serializable{
         entity.setRecibeNotificaciones(this.recibeNotificaciones);
         entity.setContrasenha(this.contrasenha);
         entity.setId(this.id);
-
+        entity.setMonthBirth(this.monthBirth);
+        entity.setDayBirth(this.dayBirth);
+        entity.setYearBirth(this.yearBirth);
         //entity.setArticulos(convertArticulosToEntity(this.articulos));
         //entity.setEventos(convertEventosToEntity(this.eventos));
  
