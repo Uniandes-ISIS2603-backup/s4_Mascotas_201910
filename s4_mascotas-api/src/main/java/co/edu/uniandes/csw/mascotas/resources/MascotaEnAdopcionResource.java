@@ -30,7 +30,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author s.canales
  */
-@Path("procesoMascotaEnAdopcion")
+@Path("procesosMascotaEnAdopcion")
 @Produces("application/json")
 @Consumes("application/json")
 public class MascotaEnAdopcionResource {
@@ -38,6 +38,7 @@ public class MascotaEnAdopcionResource {
     /**
      * la lógica de los procesos de adopción
      */
+    @Inject
     private MascotaEnAdopcionLogic logic;
     
     private static final Logger LOGGER = Logger.getLogger(MascotaEnAdopcionLogic.class.getName());
@@ -60,8 +61,11 @@ public class MascotaEnAdopcionResource {
      * @throws Exception 
      */
     @GET
-    @Path("{processId}")
-    public MascotaEnAdopcionDTO getMascotaEnAdopcion(@PathParam("processId")Long id) throws Exception{
+    @Path("{id: \\d+}")
+    public MascotaEnAdopcionDTO getMascotaEnAdopcion(@PathParam("id")Long id) throws Exception{
+        MascotaEnAdopcionEntity entity = logic.getMascotaEnAdopcion(id);
+        if(entity == null)
+            throw new WebApplicationException("no existe la mascota con id " + id, 404);
         
         return new MascotaEnAdopcionDTO(logic.getMascotaEnAdopcion(id));
     }
@@ -90,8 +94,11 @@ public class MascotaEnAdopcionResource {
      * @throws Exception 
      */
     @DELETE
-    public void deleteMascotaEnAdopcion(Long id) throws Exception{
-        
+    @Path("{id: \\d+}")
+    public void deleteMascotaEnAdopcion(@PathParam("id") Long id) throws Exception{
+        MascotaEnAdopcionEntity entity = logic.getMascotaEnAdopcion(id);
+        if(entity == null)
+            throw new WebApplicationException("no existe la mascota con id " + id, 404);
         logic.deleteMascotaEnAdopcion(id);
     }
     /**
@@ -103,12 +110,13 @@ public class MascotaEnAdopcionResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public MascotaEnAdopcionDTO updateMascotaEnAdopcion(MascotaEnAdopcionEntity entity , @PathParam("id") Long id) throws Exception{
+    public MascotaEnAdopcionDTO updateMascotaEnAdopcion(MascotaEnAdopcionDTO dto , @PathParam("id") Long id) throws Exception{
         
-        MascotaEnAdopcionEntity e = logic.getMascotaEnAdopcion(id);
-        if(e == null) throw new WebApplicationException("no se encontró un proceso de Mascota En adopción con ese id");
+        MascotaEnAdopcionEntity e = dto.toEntity();
+        e.setId(id);
+        if(logic.getMascotaEnAdopcion(id) == null) throw new WebApplicationException("no se pudo modificar la mascota con id " + id, 404);
         
-        return new MascotaEnAdopcionDTO(logic.updateMascotaEnAdopcion(entity , id));
+        return new MascotaEnAdopcionDTO(logic.updateMascotaEnAdopcion(e , id));
     }
     
 }

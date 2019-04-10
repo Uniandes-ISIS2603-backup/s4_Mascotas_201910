@@ -88,6 +88,7 @@ public class CalificacionResource {
     public CalificacionDTO getCalificacion(@PathParam("id") Long id) throws BusinessLogicException{
         
       CalificacionEntity entity = logic.getCalificacion(id);
+      if(entity == null) throw new WebApplicationException("no se encontró una calificacion con id " + id, 404);
       CalificacionDTO dto = new CalificacionDTO(entity);
      
       
@@ -101,21 +102,24 @@ public class CalificacionResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteCalificacion(@PathParam("id") Long id) throws BusinessLogicException{
-        
+        CalificacionEntity entity = logic.getCalificacion(id);
+        if(entity == null) throw new WebApplicationException("no se encontró una calificacion con id " + id, 404);
         logic.deleteCalificacion(id);
     }
 
     /**
      * Modifica una calificacion
      * @param id
+     * @return asd
      */
     @PUT
     @Path("{id: \\d+}")
     public CalificacionDTO updateCalificacionDTO(@PathParam("id") Long id, CalificacionDTO dto) throws Exception{
         
-        dto.setId(id);
+        CalificacionEntity entity = dto.toEntity();
+        entity.setId(id);
         if(logic.getCalificacion(id) == null) throw new WebApplicationException("no se encontró una calificación con ese id");        
-        return new CalificacionDTO(logic.updateCalificacion(id,dto.toEntity()));
+        return new CalificacionDTO(logic.updateCalificacion(id,entity));
     }
     
     
