@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Johan E. Vivas Sepulveda (je.vivas)
+ * @author Johan E. Vivas Sepulveda (je.vivas) / Natalia Sanabria Forero (n.sanabria)
  */
 
 @Stateless
@@ -23,7 +23,12 @@ public class MascotaEncontradaLogic {
     @Inject
     private MascotaEncontradaPersistence persistence;
     
-    
+    /**
+     * Crea un nuevo proceso de mascota encontrada
+     * @param mascota
+     * @return
+     * @throws BusinessLogicException 
+     */
     public MascotaEncontradaEntity createMascotaEncontrada (MascotaEncontradaEntity mascota) throws BusinessLogicException {
         
         if(!mascota.getEstado().equals(MascotaEncontradaEntity.PENDIENTE)){
@@ -35,11 +40,19 @@ public class MascotaEncontradaLogic {
         return mascota;
     }
     
+    /**
+     * Retorna todas las entidades de tipo mascota encontrada almacenadas en la base de datos
+     * @return 
+     */
     public List<MascotaEncontradaEntity> getProcesosMascotaEncontrada( ){
         
         return persistence.findAll();
     }
     
+    /**
+     * Retorna un proceso de mascota encontrada dado su id
+     * @return 
+     */
     public MascotaEncontradaEntity getProcesoMascotaEncontrada( Long id ) throws BusinessLogicException{
         
         MascotaEncontradaEntity mascotaX = persistence.find(id);
@@ -73,5 +86,5 @@ public class MascotaEncontradaLogic {
         return persistence.update(mascota);
         
     }
-
+    
 }
