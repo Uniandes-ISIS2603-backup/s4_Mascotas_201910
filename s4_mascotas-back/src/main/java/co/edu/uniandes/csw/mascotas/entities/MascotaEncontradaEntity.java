@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -31,18 +32,23 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
     
     private String ubicacion;
     
-    private String descripcion;
-    
     public static final String PENDIENTE = "PENDIENTE";
     
     public static final String ENTREGADA = "ENTREGADA";
     
+     /**
+     * La informaciòn de la mascota relacionada al proceso
+     */
     @PodamExclude
-    @ManyToOne
+    @OneToOne
     private MascotaEntity mascota;
-    
-    public MascotaEncontradaEntity () {
         
+    /**
+     * Constructor vacío por defecto
+     */
+    public MascotaEncontradaEntity () 
+    {
+        // Constructor vacío por defecto
     }
 
     /**
@@ -99,20 +105,6 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
      */
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
     
 }
