@@ -119,17 +119,19 @@ public class MascotaResource {
     
     /**
      * Retorna una lista de las mascotas cuyo tipo corresponde al recibido por parámetro
+     * @param pTipo
+     * @return 
+     * @throws co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException
      */
     @GET
-    @Path ("/tipo/{tipo}")
-    public List<MascotaDTO> darMascotasPorTipo(@PathParam("tipo")String pTipo) throws BusinessLogicException
+    @Path ("/tipo/{mascotaTipo}")
+    public List<MascotaDTO> darMascotasPorTipo(@PathParam("mascotaTipo") String pTipo) throws BusinessLogicException
     {
         List<MascotaDTO> respuesta = new ArrayList<>();
         List<MascotaEntity> list = logica.darMascotasPorTipo(pTipo);
-        for(MascotaEntity entity:list)
-        {
+        list.forEach((entity) -> {
             respuesta.add(new MascotaDTO(entity));
-        }
+        });
         return respuesta;
     }
 }
