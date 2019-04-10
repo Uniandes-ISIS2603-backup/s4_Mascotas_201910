@@ -145,4 +145,19 @@ public class MascotaLogic
         return persistencia.darMascotasPorNombre(pNombre);
     }
     
+    /**
+     * Retorna una lista con las mascotas cuyo tipo coincida con el tipo ingresado por parámetro
+     * @param pTipo
+     * @return
+     * @throws BusinessLogicException 
+     */
+    public List<MascotaEntity> darMascotasPorTipo(String pTipo) throws BusinessLogicException
+    {
+        if(!pTipo.equals(PERRO) || !pTipo.equals(GATO))
+        {
+            throw new BusinessLogicException("El tipo ingresado debe ser PERRO o GATO");
+        }
+        return persistencia.darMascotasPorTipo(pTipo);
+    }
+    
 }
