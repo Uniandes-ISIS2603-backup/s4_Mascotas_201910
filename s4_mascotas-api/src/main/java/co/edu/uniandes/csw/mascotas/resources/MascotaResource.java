@@ -122,7 +122,7 @@ public class MascotaResource {
      */
     @GET
     @Path ("/tipo/{tipo}")
-    public List<MascotaDTO> darMascotasPorTipo(@PathParam("id")String pTipo) throws BusinessLogicException
+    public List<MascotaDTO> darMascotasPorTipo(@PathParam("tipo")String pTipo) throws BusinessLogicException
     {
         List<MascotaDTO> respuesta = new ArrayList<>();
         List<MascotaEntity> list = logica.darMascotasPorTipo(pTipo);
