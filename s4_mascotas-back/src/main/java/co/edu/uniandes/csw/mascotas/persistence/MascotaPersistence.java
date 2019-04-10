@@ -88,4 +88,16 @@ public class MascotaPersistence
         query.setParameter("name", pNombre);
         return query.getResultList();
     }
+    
+    /**
+     * Retorna las mascotas del tipo indicado por el parámetro
+     * @param pTipo
+     * @return 
+     */
+    public List<MascotaEntity> darMascotasPorTipo(String pTipo)
+    {
+        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.tipo = :tipo ", MascotaEntity.class);
+        query.setParameter("tipo", pTipo);
+        return query.getResultList();
+    }
 }
