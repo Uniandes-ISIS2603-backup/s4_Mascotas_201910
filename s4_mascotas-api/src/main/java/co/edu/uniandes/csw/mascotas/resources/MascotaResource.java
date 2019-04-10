@@ -116,4 +116,20 @@ public class MascotaResource {
             respuesta.add(new MascotaDTO(entity));
         return respuesta;
     }
+    
+    /**
+     * Retorna una lista de las mascotas cuyo tipo corresponde al recibido por parámetro
+     */
+    @GET
+    @Path ("/tipo/{tipo}")
+    public List<MascotaDTO> darMascotasPorTipo(@PathParam("id")String pTipo) throws BusinessLogicException
+    {
+        List<MascotaDTO> respuesta = new ArrayList<>();
+        List<MascotaEntity> list = logica.darMascotasPorTipo(pTipo);
+        for(MascotaEntity entity:list)
+        {
+            respuesta.add(new MascotaDTO(entity));
+        }
+        return respuesta;
+    }
 }
