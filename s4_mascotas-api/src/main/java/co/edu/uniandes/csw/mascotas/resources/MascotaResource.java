@@ -76,7 +76,7 @@ public class MascotaResource {
      * @throws BusinessLogicException 
      */
     @GET
-    @Path("/estado/{mascotaEstado: \\d+}")
+    @Path("/estado/{mascotaEstado}")
     public List<MascotaDTO> darMascotasPorEstado( @PathParam("mascotaEstado")String pEstado ) throws BusinessLogicException
     {
         List<MascotaDTO> mascotas = new ArrayList<>();
