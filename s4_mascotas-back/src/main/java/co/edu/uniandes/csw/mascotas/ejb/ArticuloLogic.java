@@ -42,7 +42,7 @@ public class ArticuloLogic {
      /**
      * Constante que define el tema de tenencia responsable del animal  
      */
-    public final static String TENENCIA_RESPONSABLE = "TENENCIA RESPONSABLE";
+    public final static String TENENCIA_RESPONSABLE = "TENENCIA_RESPONSABLE";
     
     
     @Inject
@@ -89,6 +89,7 @@ public class ArticuloLogic {
         ArticuloEntity elArticulo = persistence.find(articuloId);
         return elArticulo;
     }
+    
     
     /**
      * Busca todos los articulos
@@ -157,4 +158,5 @@ public class ArticuloLogic {
        
         return articulo;    
     }
+    
 }

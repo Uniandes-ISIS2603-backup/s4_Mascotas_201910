@@ -71,6 +71,7 @@ public class ArticuloPersistence {
          return em.merge(nuevaEntidad);
      }
      
+     
      /**
      *
      * Borra un articulo de la base de datos recibiendo como argumento el id
