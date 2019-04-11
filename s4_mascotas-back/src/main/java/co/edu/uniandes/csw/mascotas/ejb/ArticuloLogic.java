@@ -42,7 +42,7 @@ public class ArticuloLogic {
      /**
      * Constante que define el tema de tenencia responsable del animal  
      */
-    public final static String TENENCIA_RESPONSABLE = "TENENCIA_RESPONSABLE";
+    public final static String TENENCIA = "TENENCIA";
     
     
     @Inject
@@ -70,7 +70,7 @@ public class ArticuloLogic {
             throw new BusinessLogicException("Un articulo debe tener un resumen");
         }
         
-        if(!articulo.getTema().equals(CUIDADO) && !articulo.getTema().equals(SALUD) && !articulo.getTema().equals(ENTRENAMIENTO) && !articulo.getTema().equals(TENENCIA_RESPONSABLE)){
+        if(!articulo.getTema().equals(CUIDADO) && !articulo.getTema().equals(SALUD) && !articulo.getTema().equals(ENTRENAMIENTO) && !articulo.getTema().equals(TENENCIA)){
           throw new BusinessLogicException("Un articulo debe tener un tema valido");
         }
         

@@ -36,7 +36,7 @@ public class ArticuloDTO implements Serializable {
      /**
      * Constante que define el tema de tenencia responsable del animal  
      */
-    public final static String TENENCIA_RESPONSABLE = "TENENCIA RESPONSABLE";
+    public final static String TENENCIA = "TENENCIA";
     
     private Long id;
     private String titulo;
