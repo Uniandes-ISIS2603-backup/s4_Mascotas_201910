@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.resources;
 import javax.ws.rs.*;
 import co.edu.uniandes.csw.mascotas.dtos.UsuarioDTO;
+import co.edu.uniandes.csw.mascotas.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.mascotas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
@@ -71,22 +72,22 @@ public class UsuarioResource {
       logica.deleteUsuario(id);     
     
     }
-    /**
-     * Metodo que retorna todos los usuarios
-     * @return todos los usuarios
-     */
-    @GET
-    public List<UsuarioDTO> darUsuario(){
-        List<UsuarioEntity> usuarios = logica.getUsuarios();
-                List<UsuarioDTO> newList = new ArrayList<>();
-        for(UsuarioEntity x : usuarios){
-            newList.add(new UsuarioDTO(x));
-        }
-        return newList;
-        
-    }
-    
-    
+//    /**
+//     * Metodo que retorna todos los usuarios
+//     * @return todos los usuarios
+//     */
+//    @GET
+//    public List<UsuarioDTO> darUsuario(){
+//        List<UsuarioEntity> usuarios = logica.getUsuarios();
+//                List<UsuarioDTO> newList = new ArrayList<>();
+//        for(UsuarioEntity x : usuarios){
+//            newList.add(new UsuarioDTO(x));
+//        }
+//        return newList;
+//        
+//    }
+//    
+//    
     /**
      * Conexión con el servicio de articulos para un usuario.
      * {@link UsuarioArticulosResource}
@@ -107,6 +108,42 @@ public class UsuarioResource {
         //    throw new WebApplicationException("El recurso /usuarios/" + usuarioId + " no existe.", 404);
         //}
         return UsuarioArticulosResource.class;
+    }
+    
+        
+    
+        /**
+     * Busca y devuelve todas las editoriales que existen en la aplicacion.
+     *
+     * @return JSONArray {@link EditorialDetailDTO} - Las editoriales
+     * encontradas en la aplicación. Si no hay ninguna retorna una lista vacía.
+     */
+    @GET
+    public List<UsuarioDetailDTO> getUsuarios() {
+      
+        List<UsuarioDetailDTO>listaUsuarioDetailDTO = listEntity2DetailDTO(logica.getUsuarios());
+
+        return listaUsuarioDetailDTO;
+    }
+
+    
+    
+     /**
+     * Convierte una lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos EditorialEntity a una lista de
+     * objetos UsuarioDetailDTO (json)
+     *
+     * @param entityList corresponde a la lista de editoriales de tipo Entity
+     * que vamos a convertir a DTO.
+     * @return la lista de editoriales en forma DTO (json)
+     */
+    private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) {
+        List<UsuarioDetailDTO> list = new ArrayList<>();
+        for (UsuarioEntity entity : entityList) {
+            list.add(new UsuarioDetailDTO(entity));
+        }
+        return list;
     }
     
     

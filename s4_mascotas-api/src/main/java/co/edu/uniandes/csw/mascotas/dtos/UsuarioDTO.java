@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -48,13 +50,28 @@ public class UsuarioDTO implements Serializable{
     /**
      * Telefono de contacto del usuario
      */
-    private Integer telefono;
+    private String telefono;
     
     
     /**
      * Registra si el usuario desea recibir notificaciones
      */
     private Boolean recibeNotificaciones;
+    
+    /**
+     * 
+     */
+    private String dayBirth;
+    
+    /**
+     * 
+     */
+    private String monthBirth;
+    
+    /**
+     * 
+     */
+    private String yearBirth;
     
     
      /**
@@ -84,6 +101,10 @@ public class UsuarioDTO implements Serializable{
             this.telefono = e.getTelefono();
             this.nombre = e.getNombre();
             this.id=e.getId();
+            this.dayBirth=e.getDayBirth();
+            this.monthBirth=e.getMonthBirth();
+            this.yearBirth= e.getYearBirth();
+            
         }
     }
     
@@ -132,7 +153,7 @@ public class UsuarioDTO implements Serializable{
      * Cambia el telefono de contacto que el usuario tiene registrado
      * @param telefono 
      */
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     
@@ -171,7 +192,7 @@ public class UsuarioDTO implements Serializable{
      * 
      * @return retorna el telefono que el usario tiene registrado
      */
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
     
@@ -209,7 +230,9 @@ public class UsuarioDTO implements Serializable{
         entity.setRecibeNotificaciones(this.recibeNotificaciones);
         entity.setContrasenha(this.contrasenha);
         entity.setId(this.id);
-
+        entity.setMonthBirth(this.monthBirth);
+        entity.setDayBirth(this.dayBirth);
+        entity.setYearBirth(this.yearBirth);
         //entity.setArticulos(convertArticulosToEntity(this.articulos));
         //entity.setEventos(convertEventosToEntity(this.eventos));
  
@@ -241,10 +264,35 @@ public class UsuarioDTO implements Serializable{
     }
     
     
-    public String toString(){
-        return "UsuarioDTO{"+"usuario:"+usuario+", contrasenha:"+contrasenha+", correo:"+correo+", nombre:"+nombre+", telefono:"+telefono+", recibeNotificaciones:"+recibeNotificaciones+"}";
+   
+    public String getDayBirth() {
+        return dayBirth;
+    }
+
+    public String getMonthBirth() {
+        return monthBirth;
+    }
+
+    public String getYearBirth() {
+        return yearBirth;
+    }
+
+    public void setDayBirth(String dayBirth) {
+        this.dayBirth = dayBirth;
+    }
+
+    public void setMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
+    }
+
+    public void setYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+    }
+    
+     @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
             
-    
     
 }

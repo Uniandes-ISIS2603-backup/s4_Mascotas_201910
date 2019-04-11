@@ -35,7 +35,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"usuario\":\"gatita123\",\n \"nombre\": \"Luisa Fernanda Will\" ,\n \"correo\": \"lfwill1996@gmail.com\",\n \"telefono\": 3113569,\n \"recibeNotificaciones\": false,\n \"contrasenha\":\"lolita12349\"\n \n}\n"
+					"raw": "{\n \"usuario\":\"gatita123\",\n \"nombre\": \"Luisa Fernanda Will\" ,\n \"correo\": \"lfwill1996@gmail.com\",\n \"telefono\":\"311356\",\n \"recibeNotificaciones\": false,\n \"contrasenha\":\"lolita12349\",\n \"dayBirth\":\"28\",\n \"monthBirth\":\"09\",\n \"yearBirth\":\"1997\"\n}\n"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario",
@@ -83,7 +83,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"usuario\":\"fer1234rom\",\n \"nombre\": \"Fernando Romero\" ,\n \"correo\": \"ferRom19896@gmail.com\",\n \"telefono\": 3113569,\n \"recibeNotificaciones\": false,\n \"contrasenha\":\"chandis12349\"\n }"
+					"raw": "{\n \"usuario\":\"fer1234rom\",\n \"nombre\": \"Fernando Romero\" ,\n \"correo\": \"ferRom19896@gmail.com\",\n \"telefono\": \"3113569\",\n \"recibeNotificaciones\": false,\n \"contrasenha\":\"chandis12349\",\n  \"dayBirth\":\"28\",\n \"monthBirth\":\"09\",\n \"yearBirth\":\"1997\"\n\n }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario",
@@ -110,7 +110,7 @@
 						"id": "ee74ebfd-fc4f-4be0-9ee1-dd7ef450761e",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"postman.setGlobalVariable(\"new_id_borrar\",data.id);",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -131,7 +131,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"usuario\":\"andy123\",\n \"nombre\": \"Andres Gonzalez\" ,\n \"correo\": \"angon19006@gmail.com\",\n \"telefono\": 3113569,\n \"recibeNotificaciones\": true,\n \"contrasenha\": \"eraa2349\"\n }"
+					"raw": "{\n \"usuario\":\"andy123\",\n \"nombre\": \"Andres Gonzalez\" ,\n \"correo\": \"angon19006@gmail.com\",\n \"telefono\": \"3113569\",\n \"recibeNotificaciones\": true,\n \"contrasenha\": \"eraa2349\",\n \"dayBirth\":\"28\",\n \"monthBirth\":\"09\",\n \"yearBirth\":\"1997\"\n }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario",
@@ -178,7 +178,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"usuario\":\"andy123\",\n \"nombre\": \"Andres Gonzalez\" ,\n \"correo\": \"angon19006@gmail.com\",\n \"telefono\": 3113569,\n \"recibeNotificaciones\": true,\n \"contrasenha\": \"eraa2349\"\n }"
+					"raw": "{\n \"usuario\":\"andy123\",\n \"nombre\": \"Andres Gonzalez\" ,\n \"correo\": \"angon19006@gmail.com\",\n \"telefono\": \"3113569\",\n \"recibeNotificaciones\": true,\n \"contrasenha\": \"eraa2349\",\n  \"dayBirth\":\"28\",\n \"monthBirth\":\"09\",\n \"yearBirth\":\"1997\"\n }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario",
@@ -309,6 +309,7 @@
 					"script": {
 						"id": "1c7e8f07-7970-44b8-9da4-f6306c442b8e",
 						"exec": [
+							"",
 							"pm.test(\"Status code is 204\", function () {",
 							"    pm.response.to.have.status(204);",
 							"});"
@@ -343,6 +344,131 @@
 						"api",
 						"usuario",
 						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un articulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad4e4577-cad7-4b8b-8ce6-7bfd5d58afee",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"titulo\":\"La manana de lucas\",\n\t\"tema\":\"ENTRENAMIENTO\",\n\t\"contenido\":\"Lucas un dia salio al parque y se puso a jugar con otros perros estaba tan feliz, pero justo un perro no le gusto y pun lo mordio, fue muy triste.\",\n\t\"resumen\": \"Acostumbrar a nuestros perros a estar con otros\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregarArticulo a usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02b7d938-c8c4-42b9-8ea2-530ac51940e0",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_p}}/articulos/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"usuario",
+						"{{new_id_p}}",
+						"articulos",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar articulos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos"
 					]
 				}
 			},

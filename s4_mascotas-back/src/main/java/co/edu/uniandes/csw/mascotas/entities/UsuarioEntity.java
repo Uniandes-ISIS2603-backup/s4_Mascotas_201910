@@ -49,7 +49,24 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * Telefono de contacto del usuario
      */
-    private int telefono;
+    private String telefono;
+    
+    
+     /**
+     * 
+     */
+    private String dayBirth;
+    
+    /**
+     * 
+     */
+    private String monthBirth;
+    
+    /**
+     * 
+     */
+    private String yearBirth;
+    
     
     /**
      * Lista de articulos
@@ -90,7 +107,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * Registra si el usuario desea recibir notificaciones
      */
-    private boolean recibeNotificaciones;
+    private Boolean recibeNotificaciones;
 
     public String getUsuario() {
         return usuario;
@@ -108,8 +125,8 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return correo;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public String getTelefono() {
+        return this.telefono;
     }
 
     public List<ArticuloEntity> getArticulos(){
@@ -140,9 +157,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.correo = correo;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
+   
 
     public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
@@ -179,7 +194,33 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setPostulacionesMascotaAdopcion(List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion) {
         this.postulacionesMascotaAdopcion = postulacionesMascotaAdopcion;
     }
-    
-    
+
+    public String getDayBirth() {
+        return dayBirth;
+    }
+
+    public String getMonthBirth() {
+        return monthBirth;
+    }
+
+    public String getYearBirth() {
+        return yearBirth;
+    }
+
+    public void setDayBirth(String dayBirth) {
+        this.dayBirth = dayBirth;
+    }
+
+    public void setMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
+    }
+
+    public void setYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+    }
+     public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     
 }

@@ -5,14 +5,20 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Sebastián Lemus Cadena (s.lemus) y Maria Ana Ortiz Botero 
  */
-public class UsuarioDetailDTO {
+public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     
     /**
      * Conjunto de artìculos que puede tener y crear un usuario
@@ -51,6 +57,37 @@ public class UsuarioDetailDTO {
      * @param entity 
      */
     public UsuarioDetailDTO(UsuarioEntity entity){
+        super(entity);
+        if(entity.getArticulos()!=null){
+            articulos=new ArrayList<>();
+            for(ArticuloEntity articulo: entity.getArticulos()){
+                articulos.add(new ArticuloDTO(articulo));
+                
+            }
+        }
+        if(entity.getEventos()!=null){
+            eventos = new ArrayList<>();
+            for(EventoEntity evento: entity.getEventos())
+            {
+             eventos.add(new EventoDTO(evento));   
+            }    
+        }
+        if(entity.getProcesosMascotaExtraviada()!=null){
+            procesosMascotaExtraviada = new ArrayList<>();
+            for(MascotaExtraviadaEntity procesoMascota: entity.getProcesosMascotaExtraviada()){
+                procesosMascotaExtraviada.add(new MascotaExtraviadaDTO(procesoMascota));
+                
+            }
+        }
+        if(entity.getProcesosMascotaAdopcion()!=null){
+            procesosMascotaAdopcion=new ArrayList<>();
+            for(MascotaEnAdopcionEntity procesoMascota: entity.getProcesosMascotaAdopcion()){
+                procesosMascotaAdopcion.add(new MascotaEnAdopcionDTO(procesoMascota));
+            }
+                    
+        }
+         
+        
         
     }
     
@@ -59,7 +96,37 @@ public class UsuarioDetailDTO {
      * @return La representaciòn del usuarioDTO en entidad
      */
     public UsuarioEntity toEntity(){
-        return null;
+        UsuarioEntity useEntity = super.toEntity();
+        if(this.eventos!=null){   
+             ArrayList<EventoEntity> eventosE= new ArrayList<>();
+            for(EventoDTO evento: eventos)
+            {
+             eventosE.add(evento.toEntity());   
+            }    
+            useEntity.setEventos(eventosE);
+        }
+        if(this.articulos!=null){
+            ArrayList<ArticuloEntity> articulosE = new ArrayList<>();
+            for(ArticuloDTO articulo: this.articulos){
+                articulosE.add(articulo.toEntity());
+            }
+           useEntity.setArticulos(articulosE);
+        }
+        if(this.procesosMascotaAdopcion!=null){
+            ArrayList<MascotaEnAdopcionEntity> adopcionEn = new ArrayList<>();
+            for(MascotaEnAdopcionDTO mascotaA: this.procesosMascotaAdopcion){
+                adopcionEn.add(mascotaA.toEntity());
+            }
+        }
+        if(this.procesosMascotaExtraviada!=null){
+            ArrayList<MascotaExtraviadaEntity> extraviadaEn = new ArrayList<>();
+            for(MascotaExtraviadaDTO mascotaEx:this.procesosMascotaExtraviada){
+                extraviadaEn.add(mascotaEx.toEntity());
+            }
+        }
+              
+        
+        return useEntity;
     }
     
     /**

@@ -154,7 +154,7 @@ public class ArticuloDTO implements Serializable {
      * @return the autor
      */
     public UsuarioDTO getAutor() {
-        return autor;
+    return autor;
     }
 
     /**
