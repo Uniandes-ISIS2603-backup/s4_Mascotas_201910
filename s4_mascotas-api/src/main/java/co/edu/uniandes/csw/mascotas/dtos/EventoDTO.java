@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.adapters.DateAdapter;
 import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -19,7 +21,9 @@ public class EventoDTO implements Serializable{
     private String nombre;
     private String descripcion;
     private String imagen;
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaInicio;
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaFin;
     
     /*
