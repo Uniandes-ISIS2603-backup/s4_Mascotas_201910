@@ -7,3 +7,7 @@ insert into ArticuloEntity (id, titulo, tema, contenido, resumen) values (2, 'Pr
 
 insert into EventoEntity (id, nombre, descripcion, imagen, fechaInicio, fechaFin) values (1, 'Feria canina', 'Todo lo que tu mejor amigo necesita en un solo lugar', 'https://www.lanetanoticias.com/wp-content/uploads/2017/07/images-1.jpg', '04/20/2019', '04/24/2019');
 insert into EventoEntity (id, nombre, descripcion, imagen, fechaInicio, fechaFin) values (2, 'Peluqueria gratis', 'Acercate al centro comercial Atlanttis y dale a tu mascota un tratamiento de peluqueria gratis', 'https://www.cimformacion.com/blog/wp-content/uploads/perro-en-la-peluqueria-canina.jpg', '05/15/2019', '05/16/2019');
+
+insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (1, 'Max', 'PERRO', 'Labrador', 'Max es un labrador de 4 años');
+insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (2, 'Lola', 'PERRO', 'Boston Terrier', 'Lola es una perra de dos años');
+insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (3, 'Mia', 'GATO', 'Criollo', 'Mia es una gatita de 5 años');

@@ -138,11 +138,11 @@ public class EventoLogicTest {
      *
      * @throws BusinessLogicException
      */
- //   @Test(expected = BusinessLogicException.class)
+ // @Test(expected = BusinessLogicException.class)
    // public void createEventoConMismoNombreTest() throws BusinessLogicException {
      //   EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-       // newEntity.setNombre(data.get(0).getNombre());
-       // eventoLogic.crearEvento(newEntity);
+     //   newEntity.setNombre(data.get(0).getNombre());
+     //   eventoLogic.crearEvento(newEntity);
     //}
     
     /**
