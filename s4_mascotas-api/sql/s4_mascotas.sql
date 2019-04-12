@@ -5,6 +5,8 @@ delete from ArticuloEntity;
 delete from EventoEntity;
 delete from MascotaEnAdopcionEntity;
 delete from CalificacionEntity;
+delete from MascotaExtraviadaEntity;
+delete from RecompensaEntity;
 
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (100, '12345', 'pc@gmail.com', 'Pablo Cruz', 'pccruz', 352714);
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (200, '2929', 'ct@gmail.com', 'Carolina Tobón', 'ctobon', 324817);
@@ -25,3 +27,13 @@ insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasa
 insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (3 , 1, '06/20/2019' , '06/15/2019', 'Come mucho y es muy inquieta', 'no me gustó tener mascota' , 300 , 300);
 
 insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (1, 2 , 'la mascota no era la de la foto',3);
+
+--faltan foreign keys
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (1,'cra91#792','Santiago de Chile','PENDIENTE');
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (2,'cra20#895','Estocolmo','PENDIENTE');
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (3,'cra92#893','Bogotá','PENDIENTE');
+
+--faltan foreign keys
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (1,'efectivo', 1500.0, 'PENDIENTE');
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (2,'efectivo', 2500.0, 'PENDIENTE');
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (3,'efectivo', 4500.0, 'PENDIENTE');

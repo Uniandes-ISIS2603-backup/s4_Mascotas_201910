@@ -34,8 +34,8 @@ public class MascotaEnAdopcionLogic {
      */
     public MascotaEnAdopcionEntity createMascotaEnAdopcion(MascotaEnAdopcionEntity entity) throws BusinessLogicException{
         
-        if(entity.isAdoptada()) throw new BusinessLogicException("el proceso se tiene que inicializar en false");
-        if(entity.getFechaInicio() == null) throw new BusinessLogicException("tiene que inicializar el proceso con una fcha");
+        //if(entity.isAdoptada()) throw new BusinessLogicException("el proceso se tiene que inicializar en false");
+        //if(entity.getFechaInicio() == null) throw new BusinessLogicException("tiene que inicializar el proceso con una fcha");
         if(entity.getPasado() == null) throw new BusinessLogicException("el pasado no puede ser nulo");
         if(entity.getRazonAdopcion() == null) throw new BusinessLogicException("tiene que tener una razón para dejarla en adopción");
         

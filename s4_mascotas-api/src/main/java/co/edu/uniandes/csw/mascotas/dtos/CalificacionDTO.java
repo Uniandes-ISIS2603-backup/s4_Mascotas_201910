@@ -32,9 +32,10 @@ public class CalificacionDTO implements Serializable{
 }
     public CalificacionDTO(CalificacionEntity e){
         
+        this.id = e.getId();
         this.calificacion = e.getCalificacion();
         this.comentario = e.getComentario();
-        this.id = e.getId();
+       
     }
 
     /**

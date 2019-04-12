@@ -35,7 +35,7 @@ public class MascotaEnAdopcionPersistence {
    }
    public List<MascotaEnAdopcionEntity> findAll(){
        
-       TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("select u from UsuarioEntity u",MascotaEnAdopcionEntity.class );
+       TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("select u from MascotaEnAdopcionEntity u",MascotaEnAdopcionEntity.class );
        return query.getResultList();
    }
    public MascotaEnAdopcionEntity update(MascotaEnAdopcionEntity entity){
