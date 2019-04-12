@@ -70,6 +70,10 @@ public class MascotaEntity extends BaseEntity implements Serializable
     @PodamExclude
     @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
+    
+    @PodamExclude
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    private MascotaEncontradaEntity procesoMascotaEncontrada;
 
     /** Constructor vacío por defecto */
     public MascotaEntity( )
@@ -160,6 +164,14 @@ public class MascotaEntity extends BaseEntity implements Serializable
      */
     public void setProcesoMascotaExtraviada(MascotaExtraviadaEntity procesoMascotaExtraviada) {
         this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+
+    public MascotaEncontradaEntity getProcesoMascotaEncontrada() {
+        return procesoMascotaEncontrada;
+    }
+
+    public void setProcesoMascotaEncontrada(MascotaEncontradaEntity procesoMascotaEncontrada) {
+        this.procesoMascotaEncontrada = procesoMascotaEncontrada;
     }
 
     /**

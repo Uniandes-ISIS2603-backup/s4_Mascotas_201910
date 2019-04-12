@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import java.io.Serializable;
 import java.util.List;
@@ -56,7 +57,17 @@ public class MascotaDTO implements Serializable
      * Identificador único del proceso que está asociado a la mascota
      */
     private Long idProceso;
+    
+    /**
+     * Proceso de mascota extraviada asociado si existe
+     */
+    private MascotaExtraviadaDTO procesoMascotaExtraviada;
 
+    /**
+     * Proceso de mascota encontrada asociado si existe
+     */
+    private MascotaEncontradaDTO procesoMascotaEncontrada;
+    
     // COSNTRUCTOR
     
     /**
@@ -83,6 +94,8 @@ public class MascotaDTO implements Serializable
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
             this.idProceso = entity.getIdProceso();
+            this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(entity.getProcesoMascotaExtraviada());
+            this.procesoMascotaEncontrada = new MascotaEncontradaDTO(entity.getProcesoMascotaEncontrada());
         }
     }
     
@@ -187,6 +200,8 @@ public class MascotaDTO implements Serializable
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
         entity.setIdProceso(this.getIdProceso());
+        entity.setProcesoMascotaEncontrada(procesoMascotaEncontrada.toEntity());
+        entity.setProcesoMascotaEncontrada(procesoMascotaEncontrada.toEntity());
         return entity;
     }
 
@@ -217,5 +232,23 @@ public class MascotaDTO implements Serializable
     public void setIdProceso(Long idProceso) {
         this.idProceso = idProceso;
     }
+
+    public MascotaExtraviadaDTO getProcesoMascotaExtraviada() {
+        return procesoMascotaExtraviada;
+    }
+
+    public void setProcesoMascotaExtraviada(MascotaExtraviadaDTO procesoMascotaExtraviada) {
+        this.procesoMascotaExtraviada = procesoMascotaExtraviada;
+    }
+
+    public MascotaEncontradaDTO getProcesoMascotaEncontrada() {
+        return procesoMascotaEncontrada;
+    }
+
+    public void setProcesoMascotaEncontrada(MascotaEncontradaDTO procesoMascotaEncontrada) {
+        this.procesoMascotaEncontrada = procesoMascotaEncontrada;
+    }
+    
+    
     
 }
