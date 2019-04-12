@@ -134,18 +134,54 @@ public class ArticuloLogicTest {
     }
     
      /**
-     * Prueba para crear un articulo con el mismo titulo de un articulo que ya
-     * existe.
+     * Prueba para crear un articulo sin titulo
      *
      * @throws BusinessLogicException
      */
-//    @Test(expected = BusinessLogicException.class)
-//    public void createArticuloConMismoTituloTest() throws BusinessLogicException {
-//        ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
-//        newEntity.setTema(ArticuloLogic.CUIDADO);
-//        newEntity.setTitulo(data.get(0).getTitulo());
-//       articuloLogic.crearArticulo(newEntity);
-//    }
+    @Test(expected = BusinessLogicException.class)
+    public void createArticuloSinTituloTest() throws BusinessLogicException {
+         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+         newEntity.setTema(ArticuloLogic.CUIDADO);
+         newEntity.setTitulo(null);
+         articuloLogic.crearArticulo(newEntity);
+    }
+    
+    /**
+     * Prueba para crear un articulo sin contenido
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createArticuloSinContenidoTest() throws BusinessLogicException {
+         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+         newEntity.setTema(ArticuloLogic.CUIDADO);
+         newEntity.setContenido(null);
+         articuloLogic.crearArticulo(newEntity);
+    }
+    
+    /**
+     * Prueba para crear un articulo sin resumen
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createArticuloSinResumenTest() throws BusinessLogicException {
+         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+         newEntity.setTema(ArticuloLogic.CUIDADO);
+         newEntity.setResumen(null);
+         articuloLogic.crearArticulo(newEntity);
+    }
+    
+    /**
+     * Prueba para crear un articulo con tema invalido
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createArticuloConTemaInvalidoTest() throws BusinessLogicException {
+         ArticuloEntity newEntity = factory.manufacturePojo(ArticuloEntity.class);
+         articuloLogic.crearArticulo(newEntity);
+    }
     
      /**
      * Prueba para consultar la lista de articulos.
@@ -192,20 +228,44 @@ public class ArticuloLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getTitulo(), resp.getTitulo());
     }
- 
+
     /**
-     * Actualizar un articulo con el mismo titulo de un articulo que ya
-     * existe.
+     * Prueba para actualizar un articulo sin titulo
      *
      * @throws BusinessLogicException
      */
-//    @Test(expected = BusinessLogicException.class)
-//    public void updateArticuloConMismoTituloTest() throws BusinessLogicException {
-//        ArticuloEntity entity = data.get(0);
-//        entity.setTitulo(data.get(1).getTitulo());
-//        articuloLogic.actualizarArticulo(entity.getId(), entity);
-//    }
+    @Test(expected = BusinessLogicException.class)
+    public void updateArticuloSinTituloTest() throws BusinessLogicException {
+         ArticuloEntity entity = data.get(0);
+         entity.setTitulo(null);
+         articuloLogic.actualizarArticulo(data.get(0).getId(), entity);
+    }
     
+    /**
+     * Prueba para actualizar un articulo sin contenido
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateArticuloSinContenidoTest() throws BusinessLogicException {
+         ArticuloEntity entity = data.get(0);
+         entity.setContenido(null);
+         articuloLogic.actualizarArticulo(data.get(0).getId(), entity);
+    }
+    
+    /**
+     * Prueba para actualizar un articulo sin resumen
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateArticuloSinResumenTest() throws BusinessLogicException {
+        ArticuloEntity entity = data.get(0);
+        entity.setResumen(null);
+        articuloLogic.actualizarArticulo(data.get(0).getId(), entity);
+    }
+    
+
     /**
      * Prueba para eliminar un articulo.
      */
