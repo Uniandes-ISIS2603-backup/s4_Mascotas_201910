@@ -133,17 +133,28 @@ public class EventoLogicTest {
     }
     
     /**
-     * Prueba para crear un evento con el mismo nombre de un evento que ya
-     * existe.
+     * Prueba para crear un evento sin nombre
      *
      * @throws BusinessLogicException
      */
- // @Test(expected = BusinessLogicException.class)
-   // public void createEventoConMismoNombreTest() throws BusinessLogicException {
-     //   EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-     //   newEntity.setNombre(data.get(0).getNombre());
-     //   eventoLogic.crearEvento(newEntity);
-    //}
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoSinNombreTest() throws BusinessLogicException {
+          EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+          newEntity.setNombre(null);
+          eventoLogic.crearEvento(newEntity);
+    }
+    
+       /**
+     * Prueba para crear un evento sin descripcion
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoSinDescripcionTest() throws BusinessLogicException {
+          EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+          newEntity.setDescripcion(null);
+          eventoLogic.crearEvento(newEntity);
+    }
     
     /**
      * Prueba para consultar la lista de eventos.
@@ -190,19 +201,29 @@ public class EventoLogicTest {
         Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
     }
     
-     /**
-     * Actualizar un articulo con el mismo titulo de un evento que ya
-     * existe.
+    /**
+     * Prueba para actualizar un evento sin nombre
      *
      * @throws BusinessLogicException
      */
- //   @Test(expected = BusinessLogicException.class)
-   // public void updateEventoConMismoNombreTest() throws BusinessLogicException {
-     //   EventoEntity entity = data.get(0);
-       // entity.setNombre(data.get(1).getNombre());
-        //eventoLogic.actualizarEvento(entity.getId(), entity);
-    //}
+    @Test(expected = BusinessLogicException.class)
+    public void updateEventoSinNombreTest() throws BusinessLogicException {
+         EventoEntity entity = data.get(0);
+         entity.setNombre(null);
+         eventoLogic.actualizarEvento(data.get(0).getId(), entity);
+    }
     
+       /**
+     * Prueba para actualizar un evento sin descripcion
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateEventoSinDescripcionTest() throws BusinessLogicException {
+         EventoEntity entity = data.get(0);
+         entity.setDescripcion(null);
+         eventoLogic.actualizarEvento(data.get(0).getId(), entity);
+    }
      /**
      * Prueba para eliminar un evento.
      */

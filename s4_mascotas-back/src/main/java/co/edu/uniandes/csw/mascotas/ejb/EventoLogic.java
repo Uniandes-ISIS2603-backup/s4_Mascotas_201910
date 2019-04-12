@@ -33,14 +33,13 @@ public class EventoLogic {
     public EventoEntity crearEvento(EventoEntity evento) throws BusinessLogicException{
         
         //Validacion reglas de negocio
-        /*
         if(evento.getNombre()== null){
              throw new BusinessLogicException("Un evento debe tener un nombre");
         }
          if(evento.getDescripcion()== null){
              throw new BusinessLogicException("Un evento debe tener una descripcion");
         }
-     */
+         
         evento = persistence.create(evento);
         return evento;
     }
