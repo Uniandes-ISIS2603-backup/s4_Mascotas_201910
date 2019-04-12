@@ -72,6 +72,18 @@ public class UsuarioResource {
       logica.deleteUsuario(id);     
     
     }
+    
+    
+    @GET
+    @Path("/buscar/{usuario}")
+    public UsuarioDTO buscarPorUsuario(@PathParam("usuario") String usuario)throws BusinessLogicException, WebApplicationException
+    {
+        UsuarioEntity usuarioBuscad = logica.buscarUsuarioXUsuario(usuario);
+        if (usuarioBuscad==null){
+           throw new WebApplicationException("");
+        }
+        return new UsuarioDTO(usuarioBuscad);
+    }
 //    /**
 //     * Metodo que retorna todos los usuarios
 //     * @return todos los usuarios
@@ -111,6 +123,7 @@ public class UsuarioResource {
     }
     
         
+   
     
         /**
      * Busca y devuelve todas las editoriales que existen en la aplicacion.

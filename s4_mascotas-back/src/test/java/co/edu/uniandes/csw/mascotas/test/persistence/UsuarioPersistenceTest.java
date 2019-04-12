@@ -146,6 +146,7 @@ public class UsuarioPersistenceTest {
         UsuarioEntity resul = persistence.create(entity);
         UsuarioEntity resulP=persistence.findByUser(entity.getUsuario());
         Assert.assertEquals(resulP.getNombre(),entity.getNombre());
+        
     }
     /**
      * prueba el error de crear un usuario sin correo repetido
