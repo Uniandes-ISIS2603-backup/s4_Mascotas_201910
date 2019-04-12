@@ -1,7 +1,10 @@
+
 delete from MascotaEntity;
+delete from UsuarioEntity;
 delete from ArticuloEntity;
 delete from EventoEntity;
-delete from UsuarioEntity;
+delete from MascotaEnAdopcionEntity;
+delete from CalificacionEntity;
 
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (100, '12345', 'pc@gmail.com', 'Pablo Cruz', 'pccruz', 352714);
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (200, '2929', 'ct@gmail.com', 'Carolina Tobón', 'ctobon', 324817);
@@ -16,3 +19,9 @@ insert into EventoEntity (id, nombre, descripcion, imagen, fechaInicio, fechaFin
 insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (100, 'Max', 'PERRO', 'Labrador', 'Max es un labrador de 4 años');
 insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (200, 'Lola', 'PERRO', 'Boston Terrier', 'Lola es una perra de dos años');
 insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (300, 'Mia', 'GATO', 'Criollo', 'Mia es una gatita de 5 años');
+
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (1 , 0, '04/20/2019' , '04/15/2019', 'La encontramos en la calle hace 3 años y nos enamoramos de ella', 'mi esposa se murió y me pone muy triste ver a mi mascota' , 100 , 100);
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (2 , 0, '05/20/2019' , '05/15/2019', 'Siempre ha sido una mascota muy inquieta y la queremos así como es', 'nos tenemos que mudar a un apartamento más pequeño y queremos que sea libre' , 200 , 200);
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (3 , 1, '06/20/2019' , '06/15/2019', 'Come mucho y es muy inquieta', 'no me gustó tener mascota' , 300 , 300);
+
+insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (1, 2 , 'la mascota no era la de la foto',3);
