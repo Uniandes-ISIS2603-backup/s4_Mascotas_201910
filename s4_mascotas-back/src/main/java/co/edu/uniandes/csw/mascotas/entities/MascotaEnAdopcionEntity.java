@@ -27,7 +27,7 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * el estado de la mascota
      */
-    private boolean adoptada;
+    private Boolean adoptada;
     /**
      * el pasado de la mascota
      */
@@ -95,7 +95,7 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
     /**
      * @return the adoptada
      */
-    public boolean isAdoptada() {
+    public Boolean isAdoptada() {
         return adoptada;
     }
 
