@@ -212,6 +212,8 @@
 						"id": "42926a88-a855-4fdb-b97c-6c06c9fb41c1",
 						"exec": [
 							"var data= JSON.parse(responseBody);",
+							"var data=data[0]",
+							"postman.setGlobalVariable(\"new_id_buscar\",data.usuario);",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -469,6 +471,69 @@
 						"s4_mascotas-api",
 						"api",
 						"articulos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar por username",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "963e811f-1ffe-4940-a9dd-8c117dafb330",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3ce67d6-2fe8-4f6e-9101-ec318a125402",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_borrar\",data.id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\":{{new_id_buscar}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/buscar/{{bew_id_buscar}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"usuario",
+						"buscar",
+						"{{bew_id_buscar}}"
 					]
 				}
 			},
