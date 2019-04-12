@@ -185,5 +185,24 @@ public class UsuarioLogicTest {
     }
     
     
+    @Test
+    public void buscarUsuarioXUsuarioTest()throws BusinessLogicException
+    {
+        
+        UsuarioEntity entity= logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+        UsuarioEntity encontrado = logic.buscarUsuarioXUsuario(entity.getUsuario());
+        Assert.assertEquals(entity.getUsuario(),encontrado.getUsuario());
+        Assert.assertEquals(entity.getDayBirth(),encontrado.getDayBirth());
+        Assert.assertEquals(entity,encontrado);
+        
+        
+    }
     
+    @Test(expected =BusinessLogicException.class)
+    public void buscarUsuarioXUsuarioErrorTest() throws BusinessLogicException
+    {
+  
+        UsuarioEntity entity2 = factory.manufacturePojo(UsuarioEntity.class);
+        UsuarioEntity encontrado1 = logic.buscarUsuarioXUsuario(entity2.getUsuario());
+    }
 }

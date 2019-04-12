@@ -41,12 +41,11 @@ public class UsuarioLogic {
     public UsuarioEntity crearUsuario(UsuarioEntity usuario) throws BusinessLogicException {
         List<UsuarioEntity> usuarios = persistencia.findAll();
 
-        if(persistencia.findByUser(usuario.getUsuario())!=null){
+        if (persistencia.findByUser(usuario.getUsuario()) != null) {
             throw new BusinessLogicException("El usuario ya esta registrado");
         }
 
-
-        if (persistencia.findByCorreo(usuario.getCorreo())!=null) {
+        if (persistencia.findByCorreo(usuario.getCorreo()) != null) {
             throw new BusinessLogicException("El correo ya tiene un usuario registrado");
         }
         persistencia.create(usuario);
@@ -56,18 +55,20 @@ public class UsuarioLogic {
 
     /**
      * Retorna el usuario del sistema
+     *
      * @param id - id del usuario a buscar
      * @return El usuario del sistema asociado al id
      * @throws BusinessLogicException
      */
-    public UsuarioEntity getUsuario(Long id){
+    public UsuarioEntity getUsuario(Long id) {
         UsuarioEntity usuario = persistencia.find(id);
 
         return usuario;
     }
 
     /**
-     *  Retorna la lista de todos los usuarios
+     * Retorna la lista de todos los usuarios
+     *
      * @return La lista de todos los usuarios
      */
     public List<UsuarioEntity> getUsuarios() {
@@ -75,9 +76,10 @@ public class UsuarioLogic {
     }
 
     /**
-     * Eliman un usuario 
+     * Eliman un usuario
+     *
      * @param id - id del usuario a eliminar
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
     public void deleteUsuario(Long id) throws BusinessLogicException {
         //Revisar no puede tener nada pendiente
@@ -113,15 +115,14 @@ public class UsuarioLogic {
 
     public UsuarioEntity actualizarInformacion(Long id, UsuarioEntity usuario) throws BusinessLogicException {
         UsuarioEntity entity = getUsuario(id);
-        System.out.print("Parametro:"+entity.getUsuario()+'\n');
-        System.out.print("Encontrado:"+usuario.getUsuario()+'\n');
-        
-        
+        System.out.print("Parametro:" + entity.getUsuario() + '\n');
+        System.out.print("Encontrado:" + usuario.getUsuario() + '\n');
+
         if (!entity.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
-         
+
             throw new BusinessLogicException("El usuario no se puede modificar");
         }
-        if(!entity.getCorreo().equalsIgnoreCase(usuario.getCorreo())){
+        if (!entity.getCorreo().equalsIgnoreCase(usuario.getCorreo())) {
             throw new BusinessLogicException("El correo del usuario no se puede modificar");
         }
 //        if(usuario.getId()!= entity.getId()){
@@ -130,9 +131,23 @@ public class UsuarioLogic {
 
         return persistencia.update(usuario);
     }
-    
-    
-    
-    
-    
+
+    /**
+     * Retorna el usuario que corresponde al usuario pasaod por parametro si no
+     * existe lanza excepcion
+     *
+     * @param usuario - el usuario que se desea buscar
+     * @return retorna un objeto de tipo Usuario entity
+     * @throws BusinessLogicException - si el usuario no existe
+     */
+    public UsuarioEntity buscarUsuarioXUsuario(String usuario) throws BusinessLogicException {
+        UsuarioEntity encontrado = persistencia.findByUser(usuario);
+        if (encontrado != null) {
+            return encontrado;
+        } else {
+            throw new BusinessLogicException("EL usuario no Existe");
+        }
+
+    }
+
 }
