@@ -7,16 +7,16 @@
 	},
 	"item": [
 		{
-			"name": "http://{{ip}}:{{puerto}}:8080/s4_mascotas-api/api/articulos",
+			"name": "Obtener todos los articulos",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "769cb005-f0b5-4875-8b9f-cad402c81087",
 						"exec": [
-							"",
-							"tests [\"No genera error en el GET\"] = responseCode.code === 200;",
-							""
+							"var data= JSON.parse(responseBody);",
+							"tests [\"No genera error en el GET ALL\"] = responseCode.code === 200;",
+							"tests[\"Articulos count\"] = data.length >= 0;"
 						],
 						"type": "text/javascript"
 					}
@@ -30,16 +30,187 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}:8080/s4_mascotas-api/api/articulos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos",
 					"protocol": "http",
 					"host": [
-						"{{ip}}:{{puerto}}"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_mascotas-api",
 						"api",
 						"articulos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un articulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "527dcabe-dbc6-481d-9fa0-bd73cda0057c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_arti\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"contenido\": \"Pasos para manejar las alergias\",\n        \"resumen\": \"Pueden generan alergias\",\n        \"tema\": \"SALUD\",\n        \"titulo\": \"Animales en la casa\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un articulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b68efcb0-f9ac-42b4-a773-8cbace10108c",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						"{{new_id_arti}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un articulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e46b1f04-aa7a-497b-b80c-0468b390cac9",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"contenido\": \"Las alergias causadas por perros y gatos, en general, son por el pelo\",\n        \"resumen\": \"Pueden generan alergias\",\n        \"tema\": \"SALUD\",\n        \"titulo\": \"Animales en la casa\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						"{{new_id_arti}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un articulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec743ea5-ce84-4bb9-a0ee-16eef07c4d4d",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						"{{new_id_arti}}"
 					]
 				}
 			},

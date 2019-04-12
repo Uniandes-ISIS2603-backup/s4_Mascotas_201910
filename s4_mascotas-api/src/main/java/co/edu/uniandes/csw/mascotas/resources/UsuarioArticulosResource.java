@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class UsuarioArticulosResource {
     
-     @Inject
+    @Inject
     private UsuarioArticulosLogic usuarioArticulosLogic;
 
     @Inject

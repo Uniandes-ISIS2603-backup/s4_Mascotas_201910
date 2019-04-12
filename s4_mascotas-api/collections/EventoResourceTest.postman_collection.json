@@ -6,15 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos",
+			"name": "Obtener todos los eventos",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "c4d1fd78-2a97-495d-ae5f-8cd77d0aff4b",
 						"exec": [
-							"",
-							"tests [\"No genera error en el GET\"] = responseCode.code === 200;",
+							"var data= JSON.parse(responseBody);",
+							"tests [\"No genera error en el GET ALL\"] = responseCode.code === 200;",
+							"tests[\"Eventos count\"] = data.length >= 0;",
 							""
 						],
 						"type": "text/javascript"
@@ -39,6 +40,177 @@
 						"s4_mascotas-api",
 						"api",
 						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05c02515-ba2b-4247-8572-96098c449a7c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_event\", data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"fechaInicio\": \"2019-04-20\",\n        \"fechaFin\": \"2019-04-24\",\n        \"descripcion\": \"Todo lo que tu mejor amigo necesita en un solo lugar\",\n        \"imagen\": \"https://www.lanetanoticias.com/wp-content/uploads/2017/07/images-1.jpg\",\n        \"nombre\": \"Feria canina\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un  evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f991b3ed-e5bb-4186-98ad-b5b77debedab",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos/{{new_id_event}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos",
+						"{{new_id_event}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f44d0d6a-a6f2-4b3e-9313-04f8b534c76c",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"fechaInicio\": \"2019-04-20\",\n        \"fechaFin\": \"2019-04-22\",\n        \"descripcion\": \"Todo lo que tu mejor amigo necesita en un solo lugar\",\n        \"imagen\": \"https://www.lanetanoticias.com/wp-content/uploads/2017/07/images-1.jpg\",\n        \"nombre\": \"Feria canina\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos/{{new_id_event}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos",
+						"{{new_id_event}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83221d63-2ac2-489f-8cd5-4057e87f4e84",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos/{{new_id_event}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos",
+						"{{new_id_event}}"
 					]
 				}
 			},
