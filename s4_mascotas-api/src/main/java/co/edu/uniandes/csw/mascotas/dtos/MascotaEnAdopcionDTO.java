@@ -37,7 +37,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
      * estado de adopción de la mascota
      */
     
-    private boolean adoptada;
+    private Boolean adoptada;
     /**
      * constructor con un entity como parámetro
      * @param entity 
@@ -132,7 +132,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
     /**
      * @return the adoptada
      */
-    public boolean isAdoptada() {
+    public Boolean isAdoptada() {
         return adoptada;
     }
 
