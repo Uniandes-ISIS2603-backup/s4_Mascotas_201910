@@ -1,12 +1,12 @@
 
-delete from MascotaEntity;
-delete from UsuarioEntity;
 delete from ArticuloEntity;
 delete from EventoEntity;
-delete from MascotaEnAdopcionEntity;
 delete from CalificacionEntity;
 delete from MascotaExtraviadaEntity;
 delete from RecompensaEntity;
+delete from MascotaEnAdopcionEntity;
+delete from MascotaEntity;
+delete from UsuarioEntity;
 
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (100, '12345', 'pc@gmail.com', 'Pablo Cruz', 'pccruz', 352714);
 insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (200, '2929', 'ct@gmail.com', 'Carolina Tobón', 'ctobon', 324817);
