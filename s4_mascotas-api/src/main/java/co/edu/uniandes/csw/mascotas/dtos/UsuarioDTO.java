@@ -59,17 +59,17 @@ public class UsuarioDTO implements Serializable{
     private Boolean recibeNotificaciones;
     
     /**
-     * 
+     * Dia de nacimiento
      */
     private String dayBirth;
     
     /**
-     * 
+     * Mes de nacimiento
      */
     private String monthBirth;
     
     /**
-     * 
+     * Año de nacimiento
      */
     private String yearBirth;
     
@@ -94,6 +94,7 @@ public class UsuarioDTO implements Serializable{
     public UsuarioDTO(UsuarioEntity e)
     {
         if (e!=null){
+            
             this.usuario= e.getUsuario();
             this.contrasenha = e.getContrasenha();
             this.correo = e.getCorreo();

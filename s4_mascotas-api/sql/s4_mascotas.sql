@@ -8,9 +8,9 @@ delete from MascotaEnAdopcionEntity;
 delete from MascotaEntity;
 delete from UsuarioEntity;
 
-insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (100, '12345', 'pc@gmail.com', 'Pablo Cruz', 'pccruz', 352714);
-insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (200, '2929', 'ct@gmail.com', 'Carolina Tobón', 'ctobon', 324817);
-insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono) values (300, 'holahola', 'tp@gmail.com', 'Tomás Paramo', 'tomip', 328974);
+insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono,dayBirth,monthBirth,yearBirth) values (100, '12345', 'pc@gmail.com', 'Pablo Cruz', 'pccruz', "352714","28","08","1996");
+insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono,dayBirth,monthBirth,yearBirth) values (200, '2929', 'ct@gmail.com', 'Carolina Tobón', 'ctobon', "324817","28","08","1996");
+insert into UsuarioEntity (id, contrasenha, correo, nombre, usuario, telefono,dayBirth,monthBirth,yearBirth) values (300, 'holahola', 'tp@gmail.com', 'Tomás Paramo', 'tomip', "328974","28","08","1996");
 
 insert into ArticuloEntity (id, titulo, tema, contenido, resumen, autor_id) values (100, 'Lo bueno de tener una mascota en casa', 'SALUD', 'Sin duda, las mascotas se han convertido en un miembro más de la familia. Cada día son más valoradas, pues más allá de brindar diversión y compañía.', 'La presencia de una mascota en el hogar puede mejorar la calidad de vida y contribuir a mejorar la salud física y mental de las personas.', 200);
 insert into ArticuloEntity (id, titulo, tema, contenido, resumen, autor_id) values (200, 'Premios saludables que puedes darle a tu perro', 'CIUDADO', 'Los expertos en educación canina, tanto la vertiente más tradicional como la que aboga por una educación en positivo, son partidarios de los premios para perros.', 'La obesidad y el sobrepeso canino afectan a un porcentaje muy elevado de mascotas, por lo que debemos prestar especial atención a su alimentación. También a los premios que les ofrecemos: mejor caseros y saludables.', 300);

@@ -74,6 +74,36 @@ public class UsuarioResource {
     }
     
     
+    /**
+     * Busca y los usuarios.
+     *
+     * @return JSONArray {@link EditorialDetailDTO} - Las editoriales
+     * encontradas en la aplicación. Si no hay ninguna retorna una lista vacía.
+     */
+    @GET
+    @Path("/tododetalles")
+    public List<UsuarioDetailDTO> getUsuarios() {
+      try{
+        List<UsuarioDetailDTO>listaUsuarioDetailDTO = listEntity2DetailDTO(logica.getUsuarios());
+        return listaUsuarioDetailDTO;
+      }
+      catch(Exception e){
+          e.printStackTrace();
+          return null;
+      }
+        
+    }
+    
+    @GET
+    public List<UsuarioDTO> getUsuariosno(){
+        List<UsuarioDTO> usuarios = new ArrayList();
+        for(UsuarioEntity usuario: logica.getUsuarios()){
+            usuarios.add(new UsuarioDTO(usuario));
+        }
+        return usuarios;
+    }
+    
+    
     @GET
     @Path("/buscar/{usuario}")
     public UsuarioDTO buscarPorUsuario(@PathParam("usuario") String usuario)throws BusinessLogicException, WebApplicationException
@@ -125,19 +155,7 @@ public class UsuarioResource {
         
    
     
-        /**
-     * Busca y devuelve todas las editoriales que existen en la aplicacion.
-     *
-     * @return JSONArray {@link EditorialDetailDTO} - Las editoriales
-     * encontradas en la aplicación. Si no hay ninguna retorna una lista vacía.
-     */
-    @GET
-    public List<UsuarioDetailDTO> getUsuarios() {
-      
-        List<UsuarioDetailDTO>listaUsuarioDetailDTO = listEntity2DetailDTO(logica.getUsuarios());
-
-        return listaUsuarioDetailDTO;
-    }
+ 
 
     
     

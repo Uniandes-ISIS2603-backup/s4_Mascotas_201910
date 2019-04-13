@@ -72,14 +72,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      * Lista de articulos
      */
     @PodamExclude
-    @OneToMany( mappedBy = "autor" )
+    @OneToMany( mappedBy = "autor",cascade = CascadeType.ALL )
     private List<ArticuloEntity> articulos;
     
      /**
      * Lista de eventos
      */
      @PodamExclude
-     @OneToMany(mappedBy = "organizador")
+     @OneToMany(mappedBy = "organizador",cascade = CascadeType.ALL)
     private List<EventoEntity> eventos;
 //    
     /**
@@ -137,7 +137,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return eventos;
     }
     
-    public boolean isRecibeNotificaciones() {
+    public Boolean isRecibeNotificaciones() {
         return recibeNotificaciones;
     }
 
