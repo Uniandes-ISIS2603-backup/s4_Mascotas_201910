@@ -98,7 +98,7 @@ public class UsuarioDTO implements Serializable{
             this.usuario= e.getUsuario();
             this.contrasenha = e.getContrasenha();
             this.correo = e.getCorreo();
-            this.recibeNotificaciones = e.isRecibeNotificaciones();
+            this.recibeNotificaciones = e.getRecibeNotificaciones();
             this.telefono = e.getTelefono();
             this.nombre = e.getNombre();
             this.id=e.getId();

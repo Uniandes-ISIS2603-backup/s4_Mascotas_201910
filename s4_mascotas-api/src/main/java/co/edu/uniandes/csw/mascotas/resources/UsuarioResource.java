@@ -81,7 +81,6 @@ public class UsuarioResource {
      * encontradas en la aplicación. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    @Path("/tododetalles")
     public List<UsuarioDetailDTO> getUsuarios() {
       try{
         List<UsuarioDetailDTO>listaUsuarioDetailDTO = listEntity2DetailDTO(logica.getUsuarios());
@@ -94,14 +93,14 @@ public class UsuarioResource {
         
     }
     
-    @GET
-    public List<UsuarioDTO> getUsuariosno(){
-        List<UsuarioDTO> usuarios = new ArrayList();
-        for(UsuarioEntity usuario: logica.getUsuarios()){
-            usuarios.add(new UsuarioDTO(usuario));
-        }
-        return usuarios;
-    }
+  //  @GET
+    //public List<UsuarioDTO> getUsuariosno(){
+      //  List<UsuarioDTO> usuarios = new ArrayList();
+        //for(UsuarioEntity usuario: logica.getUsuarios()){
+          //  usuarios.add(new UsuarioDTO(usuario));
+        //}
+        //return usuarios;
+   // }
     
     
     @GET
