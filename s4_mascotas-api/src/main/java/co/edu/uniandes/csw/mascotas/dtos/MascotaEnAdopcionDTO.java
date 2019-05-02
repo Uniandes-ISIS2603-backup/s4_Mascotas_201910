@@ -140,7 +140,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
     /**
      * @param adoptada the adoptada to set
      */
-    public void setAdoptada(boolean adoptada) {
+    public void setAdoptada(Boolean adoptada) {
         this.adoptada = adoptada;
     }
     
