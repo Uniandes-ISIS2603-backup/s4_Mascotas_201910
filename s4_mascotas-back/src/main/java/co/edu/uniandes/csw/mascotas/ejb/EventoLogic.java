@@ -89,6 +89,7 @@ public class EventoLogic {
         //     throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
         //}
         
+        nuevo.setId(id);
         EventoEntity cambiado = persistence.actualizarEvento(nuevo);
         
         return cambiado;

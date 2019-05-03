@@ -126,6 +126,7 @@ public class ArticuloLogic {
             throw new BusinessLogicException("Un articulo debe tener un resumen");
         }
         
+        nuevo.setId(id);
         ArticuloEntity cambiada = persistence.actualizarArticulo(nuevo);
         
         return cambiada;
