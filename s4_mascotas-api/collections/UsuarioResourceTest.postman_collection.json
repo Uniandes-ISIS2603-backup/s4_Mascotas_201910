@@ -14,7 +14,7 @@
 						"id": "9c7f9441-5acb-4428-acfc-bec6eef26169",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"postman.setGlobalVariable(\"new_id_as\",data.id);",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -111,6 +111,7 @@
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_id_borrar\",data.id);",
+							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -212,8 +213,7 @@
 						"id": "42926a88-a855-4fdb-b97c-6c06c9fb41c1",
 						"exec": [
 							"var data= JSON.parse(responseBody);",
-							"var data=data[0]",
-							"postman.setGlobalVariable(\"new_id_buscar\",data.usuario);",
+							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -284,7 +284,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"usuario\":\"andy123\",\n \"nombre\": \"Andres Gonzalez\" ,\n \"correo\": \"angon19006@gmail.com\",\n \"telefono\": 3113569,\n \"recibeNotificaciones\": true,\n \"contrasenha\": \"fofof1234\"\n }"
+					"raw": " {\n \"usuario\":\"fer1234rom\",\n \"nombre\": \"Fernando Romero\" ,\n \"correo\": \"ferRom19896@gmail.com\",\n \"telefono\": \"3113569\",\n \"recibeNotificaciones\": false,\n \"contrasenha\":\"chddd123\",\n  \"dayBirth\":\"28\",\n \"monthBirth\":\"09\",\n \"yearBirth\":\"1997\"\n\n }"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_p}}",
@@ -298,6 +298,67 @@
 						"api",
 						"usuario",
 						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dar Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c7e8f07-7970-44b8-9da4-f6306c442b8e",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "230dcc3c-4389-4146-8e03-59e44bbe43a1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/100",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"usuario",
+						"100"
 					]
 				}
 			},
@@ -335,7 +396,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_p}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_borrar}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -345,7 +406,7 @@
 						"s4_mascotas-api",
 						"api",
 						"usuario",
-						"{{new_id_p}}"
+						"{{new_id_borrar}}"
 					]
 				}
 			},
@@ -433,7 +494,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_p}}/articulos/{{new_id_a}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/{{new_id_as}}/articulos/{{new_id_a}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -443,7 +504,7 @@
 						"s4_mascotas-api",
 						"api",
 						"usuario",
-						"{{new_id_p}}",
+						"{{new_id_as}}",
 						"articulos",
 						"{{new_id_a}}"
 					]
@@ -494,11 +555,7 @@
 					"script": {
 						"id": "e3ce67d6-2fe8-4f6e-9101-ec318a125402",
 						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_borrar\",data.id);",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -519,10 +576,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"user\":{{new_id_buscar}}\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/buscar/{{bew_id_buscar}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/usuario/buscar/{{new_id_buscar}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -533,7 +590,7 @@
 						"api",
 						"usuario",
 						"buscar",
-						"{{bew_id_buscar}}"
+						"{{new_id_buscar}}"
 					]
 				}
 			},

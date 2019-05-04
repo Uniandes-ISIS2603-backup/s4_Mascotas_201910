@@ -38,7 +38,7 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
      * Conjunto de procesos de adopciòn de mascota que puede tener un usuario
      */
     public List<MascotaEnAdopcionDTO> procesosMascotaAdopcion;
-    
+
     /**
      * Falta clase de MascotaEncontrada - JOHAN VIVAS
      */
