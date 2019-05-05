@@ -34,16 +34,33 @@ public class UsuarioResource {
     @Inject
     private UsuarioLogic logica;
 
+    /**
+     * Recurso que crea un usuario,
+     *
+     * @param usuario - objeto de tipo DTO
+     * @return un objeto de tipo UsuarioDTO con el usuario creado
+     * @throws BusinessLogicException
+     * @throws WebApplicationException
+     */
     @POST
-    public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException,WebApplicationException {
+    public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException, WebApplicationException {
         UsuarioEntity entidad = usuario.toEntity();
         entidad = logica.crearUsuario(entidad);
-        if(entidad == null){
-            throw new WebApplicationException("El usuario no se pudo crear",404);
+        if (entidad == null) {
+            throw new WebApplicationException("El usuario no se pudo crear", 404);
         }
         return new UsuarioDTO(entidad);
     }
 
+    /**
+     * Retorna el objeto de tipo detailUsuarioDTO segun el id del usuario creado
+     *
+     * @param id- id de un usuario
+     * @return retorna el objeto de tipo DetailUsuarioDTO segun el id que pasa
+     * en el recurso
+     * @throws BusinessLogicException si no existe el usuario
+     * @throws WebApplicationException si no existe el recurso
+     */
     @GET
     @Path("{id: \\d+}")
     public UsuarioDetailDTO darUsuario(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException {
@@ -54,12 +71,20 @@ public class UsuarioResource {
         }
         UsuarioEntity usuario = logica.getUsuario(id);
         if (usuario == null) {
-            throw new WebApplicationException("El recurso /usuario/"+id+ " no existe", 404);
+            throw new WebApplicationException("El recurso /usuario/" + id + " no existe", 404);
         }
         return new UsuarioDetailDTO(usuario);
 
     }
 
+    /**
+     * Actualiza los parametros permitido del usuario pasado por parametro
+     *
+     * @param id
+     * @param usuario
+     * @return Retorna el usuario actualizado
+     * @throws BusinessLogicException
+     */
     @PUT
     @Path("{id: \\d+}")
     public UsuarioDTO actualizar(@PathParam("id") Long id, UsuarioDTO usuario) throws BusinessLogicException {
@@ -67,20 +92,26 @@ public class UsuarioResource {
         UsuarioEntity usr = usuario.toEntity();
 
         UsuarioEntity resp = logica.actualizarInformacion(id, usr);
-        if(resp==null){
-            throw new WebApplicationException("El recurso /usuario/"+id+" no existe",404);
+        if (resp == null) {
+            throw new WebApplicationException("El recurso /usuario/" + id + " no existe", 404);
         }
         UsuarioDTO fo = new UsuarioDTO(resp);
 
         return fo;
     }
 
+    /**
+     * Elimina el usuario con el id pasado por parametro
+     * @param id
+     * @throws BusinessLogicException
+     * @throws WebApplicationException 
+     */
     @DELETE
     @Path("{id: \\d+}")
-    public void eliminarUsuario(@PathParam("id") Long id) throws BusinessLogicException,WebApplicationException {
+    public void eliminarUsuario(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException {
         UsuarioEntity usuario = logica.getUsuario(id);
-        if(usuario == null){
-            throw new WebApplicationException("El usuario con el id: "+ id + " no existe");
+        if (usuario == null) {
+            throw new WebApplicationException("El usuario con el id: " + id + " no existe");
         }
         logica.deleteUsuario(id);
 
@@ -108,7 +139,7 @@ public class UsuarioResource {
     }
 
     /**
-     * Retorna el Usuario segun su nombre de usuario 
+     * Retorna el Usuario segun su nombre de usuario
      *
      * @param usuario
      * @return retorna un detailDto de usuario
@@ -120,7 +151,7 @@ public class UsuarioResource {
     public UsuarioDetailDTO buscarPorUsuario(@PathParam("usuario") String usuario) throws BusinessLogicException, WebApplicationException {
         UsuarioEntity usuarioBuscad = logica.buscarUsuarioXUsuario(usuario);
         if (usuarioBuscad == null) {
-            throw new WebApplicationException("El recurso /usuario/buscar/"+ usuario + " no existe",404);
+            throw new WebApplicationException("El recurso /usuario/buscar/" + usuario + " no existe", 404);
         }
         return new UsuarioDetailDTO(usuarioBuscad);
     }
@@ -140,15 +171,15 @@ public class UsuarioResource {
      * Error de lógica que se genera cuando no se encuentra la editorial.
      */
     @Path("{usuarioId: \\d+}/articulos")
-    public Class<UsuarioArticulosResource> getUsuarioArticulosResource(@PathParam("usuarioId") Long usuarioId) throws WebApplicationException{
+    public Class<UsuarioArticulosResource> getUsuarioArticulosResource(@PathParam("usuarioId") Long usuarioId) throws WebApplicationException {
         //if (usuarioLogic.getUsuario(usuarioId) == null) {
         //    throw new WebApplicationException("El recurso /usuarios/" + usuarioId + " no existe.", 404);
         //}
         UsuarioEntity usuarioArt = logica.getUsuario(usuarioId);
-        if(usuarioArt==null){
-            throw new WebApplicationException("El recurso /usuario/"+usuarioId+"/articulos no existe",404);
+        if (usuarioArt == null) {
+            throw new WebApplicationException("El recurso /usuario/" + usuarioId + "/articulos no existe", 404);
         }
-        
+
         return UsuarioArticulosResource.class;
     }
 
