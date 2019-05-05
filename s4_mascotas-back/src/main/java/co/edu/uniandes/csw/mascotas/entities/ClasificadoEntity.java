@@ -20,13 +20,11 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class ClasificadoEntity extends BaseEntity implements Serializable {
     
     private String nombre;
-    
     private String contenido; 
-    
     private String enlace;
     
     @PodamExclude
-    @OneToOne
+    @ManyToOne
     private UsuarioEntity autor;
     
     public ClasificadoEntity()
