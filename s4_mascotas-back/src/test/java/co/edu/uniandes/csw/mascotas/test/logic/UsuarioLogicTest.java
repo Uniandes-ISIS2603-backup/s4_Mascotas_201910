@@ -6,6 +6,9 @@
 package co.edu.uniandes.csw.mascotas.test.logic;
 
 import co.edu.uniandes.csw.mascotas.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.mascotas.entities.ArticuloEntity;
+import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 
@@ -68,7 +71,6 @@ public class UsuarioLogicTest {
 
     private void clearData() {
         em.createQuery("delete from UsuarioEntity").executeUpdate();
-        
 
     }
 
@@ -80,7 +82,7 @@ public class UsuarioLogicTest {
             em.joinTransaction();
             inicializacionListaPrueba();
             clearData();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -102,42 +104,39 @@ public class UsuarioLogicTest {
         Assert.assertEquals(resu.getCorreo(), fu.getCorreo());
 
     }
-    
-    @Test(expected=BusinessLogicException.class)
-    public void createUsuarioRepetida()throws BusinessLogicException
-    {
 
-     UsuarioEntity nuevaEn= factory.manufacturePojo(UsuarioEntity.class);
-     UsuarioEntity nueva2= factory.manufacturePojo(UsuarioEntity.class);
-     em.persist(nueva2);
-     nuevaEn.setUsuario(nueva2.getUsuario());
-     UsuarioEntity us = logic.crearUsuario(nuevaEn);
-        
+    @Test(expected = BusinessLogicException.class)
+    public void createUsuarioRepetida() throws BusinessLogicException {
+
+        UsuarioEntity nuevaEn = factory.manufacturePojo(UsuarioEntity.class);
+        UsuarioEntity nueva2 = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(nueva2);
+        nuevaEn.setUsuario(nueva2.getUsuario());
+        UsuarioEntity us = logic.crearUsuario(nuevaEn);
+
     }
-    
-    @Test(expected= BusinessLogicException.class)
-    public void crearUsuarioCorreoRepetido()throws BusinessLogicException{
-           UsuarioEntity nuevaEn= factory.manufacturePojo(UsuarioEntity.class);
-     UsuarioEntity nueva2= factory.manufacturePojo(UsuarioEntity.class);
-     em.persist(nueva2);
-     nuevaEn.setCorreo(nueva2.getCorreo());
-     UsuarioEntity us = logic.crearUsuario(nuevaEn);
-        
+
+    @Test(expected = BusinessLogicException.class)
+    public void crearUsuarioCorreoRepetido() throws BusinessLogicException {
+        UsuarioEntity nuevaEn = factory.manufacturePojo(UsuarioEntity.class);
+        UsuarioEntity nueva2 = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(nueva2);
+        nuevaEn.setCorreo(nueva2.getCorreo());
+        UsuarioEntity us = logic.crearUsuario(nuevaEn);
+
     }
- 
+
     @Test
-    public void getUsuario() 
-    {
-        UsuarioEntity nuevaEn= factory.manufacturePojo(UsuarioEntity.class);
+    public void getUsuario() {
+        UsuarioEntity nuevaEn = factory.manufacturePojo(UsuarioEntity.class);
         em.persist(nuevaEn);
         UsuarioEntity is = logic.getUsuario(nuevaEn.getId());
-        Assert.assertEquals(nuevaEn.getId(),is.getId());
-        
+        Assert.assertEquals(nuevaEn.getId(), is.getId());
+
     }
-    
+
     @Test
-    public void updateUsuario()throws BusinessLogicException
-    {      
+    public void updateUsuario() throws BusinessLogicException {
         UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
         UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
         podamEntity.setId(entity.getId());
@@ -145,31 +144,28 @@ public class UsuarioLogicTest {
         podamEntity.setCorreo(entity.getCorreo());
         logic.actualizarInformacion(entity.getId(), podamEntity);
         UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
-        Assert.assertEquals(podamEntity.getId(),resp.getId());
-        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getId(), resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(), resp.getContrasenha());
         Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
-            
-        
+
     }
-         
-    @Test(expected =BusinessLogicException.class)
-    public void updateUsuarioCambiarNombreUsuario()throws BusinessLogicException
-    {
-    UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateUsuarioCambiarNombreUsuario() throws BusinessLogicException {
+        UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
         UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
         podamEntity.setId(entity.getId());
-        
+
         podamEntity.setCorreo(entity.getCorreo());
         logic.actualizarInformacion(entity.getId(), podamEntity);
         UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
-        Assert.assertEquals(podamEntity.getId(),resp.getId());
-        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getId(), resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(), resp.getContrasenha());
         Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
     }
-    
-     @Test(expected =BusinessLogicException.class)
-    public void updateUsuarioCambiarCorreoUsuario()throws BusinessLogicException
-    {      
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateUsuarioCambiarCorreoUsuario() throws BusinessLogicException {
         UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
         UsuarioEntity podamEntity = factory.manufacturePojo(UsuarioEntity.class);
         podamEntity.setId(entity.getId());
@@ -177,32 +173,105 @@ public class UsuarioLogicTest {
 
         logic.actualizarInformacion(entity.getId(), podamEntity);
         UsuarioEntity resp = em.find(UsuarioEntity.class, entity.getId());
-        Assert.assertEquals(podamEntity.getId(),resp.getId());
-        Assert.assertEquals(podamEntity.getContrasenha(),resp.getContrasenha());
+        Assert.assertEquals(podamEntity.getId(), resp.getId());
+        Assert.assertEquals(podamEntity.getContrasenha(), resp.getContrasenha());
         Assert.assertEquals(podamEntity.getUsuario(), resp.getUsuario());
-            
-        
+
     }
-    
-    
+
     @Test
-    public void buscarUsuarioXUsuarioTest()throws BusinessLogicException
-    {
-        
-        UsuarioEntity entity= logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
+    public void buscarUsuarioXUsuarioTest() throws BusinessLogicException {
+
+        UsuarioEntity entity = logic.crearUsuario(factory.manufacturePojo(UsuarioEntity.class));
         UsuarioEntity encontrado = logic.buscarUsuarioXUsuario(entity.getUsuario());
-        Assert.assertEquals(entity.getUsuario(),encontrado.getUsuario());
-        Assert.assertEquals(entity.getDayBirth(),encontrado.getDayBirth());
-        Assert.assertEquals(entity,encontrado);
-        
-        
+        Assert.assertEquals(entity.getUsuario(), encontrado.getUsuario());
+        Assert.assertEquals(entity.getDayBirth(), encontrado.getDayBirth());
+        Assert.assertEquals(entity, encontrado);
+
     }
-    
-    @Test(expected =BusinessLogicException.class)
-    public void buscarUsuarioXUsuarioErrorTest() throws BusinessLogicException
-    {
-  
+
+    @Test(expected = BusinessLogicException.class)
+    public void buscarUsuarioXUsuarioErrorTest() throws BusinessLogicException {
+
         UsuarioEntity entity2 = factory.manufacturePojo(UsuarioEntity.class);
         UsuarioEntity encontrado1 = logic.buscarUsuarioXUsuario(entity2.getUsuario());
+    }
+
+    @Test()
+    public void getUsuarios() {
+        clearData();
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(entity1U);
+        UsuarioEntity entity2U = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(entity2U);
+        UsuarioEntity entity3U = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(entity3U);
+        Assert.assertEquals(logic.getUsuarios().size(), 3);
+
+    }
+
+    @Test()
+    public void verificarContrasenha() throws BusinessLogicException {
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+        entity1U.setContrasenha("1234prueba");
+        em.persist(entity1U);
+        Assert.assertTrue(logic.verificarContrasenha(entity1U.getUsuario(), "1234prueba"));
+
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void verificarContrasenhaExcepcion() throws BusinessLogicException {
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+        entity1U.setContrasenha("1234prueba");
+        em.persist(entity1U);
+        UsuarioEntity entity2U = factory.manufacturePojo(UsuarioEntity.class);
+
+        Assert.assertTrue(logic.verificarContrasenha(entity2U.getUsuario(), "1234prueba"));
+
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void eliminarUsuarioTieneListaEventos() throws BusinessLogicException {
+        EventoEntity evento = factory.manufacturePojo(EventoEntity.class);
+
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+
+        List<EventoEntity> eventos = new ArrayList<EventoEntity>();
+        eventos.add(evento);
+        entity1U.setEventos(eventos);
+        em.persist(entity1U);
+        Long id = logic.buscarUsuarioXUsuario(entity1U.getUsuario()).getId();
+        logic.deleteUsuario(id);
+    }
+
+    
+      @Test(expected = BusinessLogicException.class)
+    public void eliminarUsuarioTieneListaArticulos() throws BusinessLogicException {
+        ArticuloEntity articulo = factory.manufacturePojo(ArticuloEntity.class);
+
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+
+        List<ArticuloEntity> articulos = new ArrayList<ArticuloEntity>();
+        articulos.add(articulo);
+        entity1U.setArticulos(articulos);
+        em.persist(entity1U);
+        Long id = logic.buscarUsuarioXUsuario(entity1U.getUsuario()).getId();
+        logic.deleteUsuario(id);
+    }
+    
+    
+    
+       @Test(expected = BusinessLogicException.class)
+    public void eliminarUsuarioTieneListaProcesosMascotaExtraviada() throws BusinessLogicException {
+       MascotaExtraviadaEntity mascotaEx = factory.manufacturePojo( MascotaExtraviadaEntity.class);
+
+        UsuarioEntity entity1U = factory.manufacturePojo(UsuarioEntity.class);
+
+        List< MascotaExtraviadaEntity> procesosMascotaEx = new ArrayList< MascotaExtraviadaEntity>();
+        procesosMascotaEx.add(mascotaEx);
+        entity1U.setProcesosMascotaExtraviada(procesosMascotaEx);
+        em.persist(entity1U);
+        Long id = logic.buscarUsuarioXUsuario(entity1U.getUsuario()).getId();
+        logic.deleteUsuario(id);
     }
 }
