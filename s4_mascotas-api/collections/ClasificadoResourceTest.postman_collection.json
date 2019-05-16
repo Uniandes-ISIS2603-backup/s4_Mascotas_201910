@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "76561c67-6d03-4047-9a24-88e4ee08e581",
+		"name": "ClasificadoResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los clasificados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "769cb005-f0b5-4875-8b9f-cad402c81087",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests [\"No genera error en el GET ALL\"] = responseCode.code === 200;",
+							"tests[\"Articulos count\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"clasificados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un clasificado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "527dcabe-dbc6-481d-9fa0-bd73cda0057c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_clasi\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"contenido\": \"Jornada de adopcion de perros de gatos.\",\n        \"enlace\": \"adoptame.com.co\",\n        \"id\": 100,\n        \"nombre\": \"Jornada de adopcion\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"clasificados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener clasificado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b68efcb0-f9ac-42b4-a773-8cbace10108c",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"clasificados",
+						"{{new_id_clasi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un clasificado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e46b1f04-aa7a-497b-b80c-0468b390cac9",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contenido\": \"Jornada de adopcion de mascotas\",\n    \"enlace\": \"adoptame.com\",\n    \"id\": 2,\n    \"nombre\": \"Jornada de adopcion\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"clasificados",
+						"{{new_id_clasi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un clasificado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec743ea5-ce84-4bb9-a0ee-16eef07c4d4d",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"clasificados",
+						"{{new_id_clasi}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
