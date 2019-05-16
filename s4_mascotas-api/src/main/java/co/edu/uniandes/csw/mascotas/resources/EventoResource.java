@@ -9,7 +9,10 @@ import co.edu.uniandes.csw.mascotas.dtos.EventoDTO;
 import co.edu.uniandes.csw.mascotas.ejb.EventoLogic;
 import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -200,13 +203,15 @@ public class EventoResource {
      */ 
     @GET
     @Path("filtrar/{fecha}")
-    public List<EventoDTO> filtrarPorFechaInicio(@PathParam("fecha") String fecha) throws WebApplicationException {
+    public List<EventoDTO> filtrarPorFechaInicio(@PathParam("fecha") String fecha) throws WebApplicationException, ParseException {
+        
+       Date fechai=new SimpleDateFormat("yyyy-MM-dd").parse(fecha);  
         
         List<EventoDTO> todos = darEventos();
         List<EventoDTO> eventos = new ArrayList();
         
         for (int i = 0; i < todos.size(); i++) {
-            if(todos.get(i).getFechaInicio().equals(fecha)){
+            if(todos.get(i).getFechaInicio().equals(fechai)){
                 eventos.add(todos.get(i));
             }
         }

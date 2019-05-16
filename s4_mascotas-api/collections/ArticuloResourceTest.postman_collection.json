@@ -215,6 +215,73 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Filtrar por tema",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/filtrar/SALUD",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						"filtrar",
+						"SALUD"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener articulo por nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b68efcb0-f9ac-42b4-a773-8cbace10108c",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/Lo bueno de tener una mascota en casa",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"articulos",
+						"Lo bueno de tener una mascota en casa"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
