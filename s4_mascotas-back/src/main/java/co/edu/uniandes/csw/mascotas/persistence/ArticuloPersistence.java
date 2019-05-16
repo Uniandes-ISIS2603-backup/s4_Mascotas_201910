@@ -85,31 +85,5 @@ public class ArticuloPersistence {
          em.remove(entity);
      }
      
-     /**
-     * Busca si hay algun articulo con el titulo que se envía de argumento
-     *
-     * @param nombre: titulo del articulo que se está buscando
-     * @return null si no existe ningun articulo con el nombre del argumento.
-     * Si existe alguno devuelve el primero.
-     */
-     public ArticuloEntity findByName(String nombre){
-         
-         TypedQuery query = em.createQuery("Select e From ArticuloEntity e where e.titulo = :titulo", ArticuloEntity.class);
-         
-         query = query.setParameter("titulo", nombre);
-         
-         List<ArticuloEntity> mismoNombre = query.getResultList();
-         
-         ArticuloEntity resultado;
-         
-         if(mismoNombre == null){
-             resultado = null;
-         } else if (mismoNombre.isEmpty()){
-             resultado = null;
-         } else{
-             resultado = mismoNombre.get(0);
-         }
-         
-         return resultado;
-     }
+
 }

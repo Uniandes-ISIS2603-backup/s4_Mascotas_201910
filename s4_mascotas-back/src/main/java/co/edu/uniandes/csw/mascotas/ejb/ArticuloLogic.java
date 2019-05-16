@@ -142,22 +142,4 @@ public class ArticuloLogic {
         persistence.delete(id);
     } 
     
-    /**
-     * Busca un articulo por su titulo
-     *
-     * @param titulo: titulo del articulo que se busca
-     * @return el articulo con el titulo enviado por parametro.
-     * @throws BusinessLogicException Si el titulo que se busca no es  valido.
-     */
-    public ArticuloEntity buscarArticuloPorTitulo(String titulo) throws BusinessLogicException{
-        
-        if(titulo == null){
-            throw new BusinessLogicException("El titulo buscado debe ser valido");
-        }
-        
-        ArticuloEntity articulo = persistence.findByName(titulo);
-       
-        return articulo;    
-    }
-    
 }

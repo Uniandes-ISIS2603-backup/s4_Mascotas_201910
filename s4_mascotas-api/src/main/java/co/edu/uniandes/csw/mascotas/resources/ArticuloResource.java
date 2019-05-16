@@ -117,19 +117,61 @@ public class ArticuloResource {
         return articulo;
     }
     
+    
+     /**
+     * Devuelve todos los articulos con el titulo dado por parametro
+     *
+     * @param titulo Titulo que se busca
+     * @return lista de articulos con ese titulo
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error que se genera cuando no se encuentran articulos con ese titulo.
+     */
     @GET
     @Path("/{titulo}")
-    public ArticuloDTO darArticuloPorTitulo(@PathParam("titulo") String titulo) throws WebApplicationException, BusinessLogicException {
+    public List<ArticuloDTO> darArticulosPorTitulo(@PathParam("titulo") String titulo) throws WebApplicationException {
         
-        ArticuloEntity articuloEntity = articuloLogic.buscarArticuloPorTitulo(titulo);
+        List<ArticuloDTO> todos = darArticulos();
+        List<ArticuloDTO> articulos = new ArrayList();
         
-        if(articuloEntity == null){
-            throw new WebApplicationException("No existe un articulo con ese nombre", 404);
+        for (int i = 0; i < todos.size(); i++) {
+            if(todos.get(i).getTitulo().equals(titulo)){
+                articulos.add(todos.get(i));
+            }
         }
-        
-        ArticuloDTO articulo = new ArticuloDTO(articuloEntity);
+       
+        if(articulos.isEmpty()){
+            throw new WebApplicationException("No existe ningun articulo con ese nombre", 404);
+        }
 
-        return articulo;
+        return articulos;
+    }
+    
+    /**
+     * Devuelve todos los articulos con el tema por parametro
+     *
+     * @param tema Tema con el que se busca filtrar
+     * @return lista de articulos con ese tema
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error que se genera cuando no se encuentran articulos con ese tema.
+     */ 
+    @GET
+    @Path("filtrar/{tema}")
+    public List<ArticuloDTO> filtrarPorTema(@PathParam("tema") String tema) throws WebApplicationException {
+        
+        List<ArticuloDTO> todos = darArticulos();
+        List<ArticuloDTO> articulos = new ArrayList();
+        
+        for (int i = 0; i < todos.size(); i++) {
+            if(todos.get(i).getTema().equals(tema)){
+                articulos.add(todos.get(i));
+            }
+        }
+       
+        if(articulos.isEmpty()){
+            throw new WebApplicationException("No existe ningun articulo con ese tema", 404);
+        }
+
+        return articulos;
     }
 
     /**

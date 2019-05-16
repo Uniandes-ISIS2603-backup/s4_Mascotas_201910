@@ -105,22 +105,4 @@ public class EventoLogic {
         persistence.delete(id);
     } 
     
-    /**
-     * Busca un evento por su nombre
-     *
-     * @param nombre: nombre del evento que se busca
-     * @return el evento con el nombre enviado por parametro.
-     * @throws BusinessLogicException Si el nombre que se busca no es  valido.
-     */
-    public EventoEntity buscarEventoPorNombre(String nombre) throws BusinessLogicException{
-        
-        if(nombre == null){
-            throw new BusinessLogicException("El nombre buscado debe ser valido");
-        }
-        
-        EventoEntity evento = persistence.findByName(nombre);
-       
-        return evento;    
-    }
-    
 }

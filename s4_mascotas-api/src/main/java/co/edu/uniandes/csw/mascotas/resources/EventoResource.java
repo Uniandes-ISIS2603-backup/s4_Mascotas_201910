@@ -114,21 +114,6 @@ public class EventoResource {
         return evento;
     }
     
-    @GET
-    @Path("/{nombre}")
-    public EventoDTO darEventoPorNombre(@PathParam("nombre") String nombre) throws WebApplicationException, BusinessLogicException {
-        
-        EventoEntity eventoEntity = eventoLogic.buscarEventoPorNombre(nombre);
-        
-        if(eventoEntity == null){
-            throw new WebApplicationException("No existe un evento con ese nombre", 404);
-        }
-        
-        EventoDTO evento = new EventoDTO(eventoEntity);
-
-        return evento;
-    }
-    
     /**
      * Actualiza el evento con el id recibido por parametro con la informacion
      * que se recibe en el cuerpo de la petición.
@@ -177,7 +162,61 @@ public class EventoResource {
         
     }
     
+    /**
+     * Devuelve todos los eventos con el nombre dado por parametro
+     *
+     * @param nombre Nombre que se busca
+     * @return lista de eventos con ese nombre
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error que se genera cuando no se encuentran eventos con ese nombre.
+     */    
+    @GET
+    @Path("/{nombre}")
+    public List<EventoDTO> darEventoPorNombre(@PathParam("nombre") String nombre) throws WebApplicationException {
+        
+        List<EventoDTO> todos = darEventos();
+        List<EventoDTO> eventos = new ArrayList();
+        
+        for (int i = 0; i < todos.size(); i++) {
+            if(todos.get(i).getNombre().equals(nombre)){
+                eventos.add(todos.get(i));
+            }
+        }
+       
+        if(eventos.isEmpty()){
+            throw new WebApplicationException("No existe ningun evento con ese nombre", 404);
+        }
+
+        return eventos;
+    }
     
-    
+    /**
+     * Devuelve todos los eventos con la fecha de inicio por parametro
+     *
+     * @param fecha Fecha de inicio con la que se busca filtrar
+     * @return lista de eventos con esa fecha de inicio
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error que se genera cuando no se encuentran eventos con esa fehca de inicio.
+     */ 
+    @GET
+    @Path("filtrar/{fecha}")
+    public List<EventoDTO> filtrarPorFechaInicio(@PathParam("fecha") String fecha) throws WebApplicationException {
+        
+        List<EventoDTO> todos = darEventos();
+        List<EventoDTO> eventos = new ArrayList();
+        
+        for (int i = 0; i < todos.size(); i++) {
+            if(todos.get(i).getFechaInicio().equals(fecha)){
+                eventos.add(todos.get(i));
+            }
+        }
+       
+        if(eventos.isEmpty()){
+            throw new WebApplicationException("No existe ningun evento con esa fecha de inicio", 404);
+        }
+
+        return eventos;
+    }
+
     
 }
