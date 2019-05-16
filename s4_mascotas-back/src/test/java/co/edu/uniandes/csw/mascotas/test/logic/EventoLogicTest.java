@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mascotas.entities.EventoEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.EventoPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -36,6 +37,10 @@ public class EventoLogicTest {
     
     
     private PodamFactory factory = new PodamFactoryImpl();
+    
+    private Date fecha1;
+    private Date fecha2;
+    
      
     /**
      * Inyección de la dependencia a la clase EventoLogic cuyos métodos se
@@ -123,8 +128,14 @@ public class EventoLogicTest {
     }
 
     @Test
-    public void crearEventoTest() throws BusinessLogicException {
+    public void crearEventoTest() throws BusinessLogicException {        
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+   
+        fecha1 = new Date(2019, 6, 20);
+        fecha2 = new Date(2019, 6, 22);
+        newEntity.setFechaInicio(fecha1);
+        newEntity.setFechaFin(fecha2);
+       
         EventoEntity result = eventoLogic.crearEvento(newEntity);
         Assert.assertNotNull(result);
         EventoEntity entity = em.find(EventoEntity.class, result.getId());
@@ -153,6 +164,23 @@ public class EventoLogicTest {
     public void createEventoSinDescripcionTest() throws BusinessLogicException {
           EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
           newEntity.setDescripcion(null);
+          eventoLogic.crearEvento(newEntity);
+    }
+    
+           /**
+     * Prueba para crear un evento fecha de inicio antes que fecha fin
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoFechasMalTest() throws BusinessLogicException {
+          EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+          
+          fecha1 = new Date(2019, 6, 24);
+          fecha2 = new Date(2019, 6, 22);
+          newEntity.setFechaInicio(fecha1);
+          newEntity.setFechaFin(fecha2);
+          
           eventoLogic.crearEvento(newEntity);
     }
     
@@ -195,6 +223,12 @@ public class EventoLogicTest {
         EventoEntity entity = data.get(0);
         EventoEntity pojoEntity = factory.manufacturePojo(EventoEntity.class);
         pojoEntity.setId(entity.getId());
+        
+        fecha1 = new Date(2019, 6, 20);
+        fecha2 = new Date(2019, 6, 22);
+        pojoEntity.setFechaInicio(fecha1);
+        pojoEntity.setFechaFin(fecha2);
+        
         eventoLogic.actualizarEvento(pojoEntity.getId(), pojoEntity);
         EventoEntity resp = em.find(EventoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
@@ -224,6 +258,24 @@ public class EventoLogicTest {
          entity.setDescripcion(null);
          eventoLogic.actualizarEvento(data.get(0).getId(), entity);
     }
+    
+    /**
+     * Prueba para actualizar un evento fecha de inicio antes que fecha fin
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateEventoFechasMalTest() throws BusinessLogicException {
+          EventoEntity entity = data.get(0);
+          
+          fecha1 = new Date(2019, 6, 24);
+          fecha2 = new Date(2019, 6, 22);
+          entity.setFechaInicio(fecha1);
+          entity.setFechaFin(fecha2);
+          
+          eventoLogic.actualizarEvento(data.get(0).getId(), entity);
+    }
+    
      /**
      * Prueba para eliminar un evento.
      */

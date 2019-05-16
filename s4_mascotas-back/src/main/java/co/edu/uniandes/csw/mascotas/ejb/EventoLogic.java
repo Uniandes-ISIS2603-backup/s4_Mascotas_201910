@@ -39,6 +39,10 @@ public class EventoLogic {
          if(evento.getDescripcion()== null){
              throw new BusinessLogicException("Un evento debe tener una descripcion");
         }
+         if(evento.getFechaInicio().compareTo(evento.getFechaFin())>0){
+              throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha de fin");
+         }
+         
          
         evento = persistence.create(evento);
         return evento;
@@ -85,9 +89,9 @@ public class EventoLogic {
         if(nuevo.getDescripcion()== null){
              throw new BusinessLogicException("La nueva descripcion debe ser valida");
         }
-       // if(nuevo.getFechaInicio().compareTo(nuevo.getFechaFin())>0){
-        //     throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
-        //}
+        if(nuevo.getFechaInicio().compareTo(nuevo.getFechaFin())>0){
+             throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
+        }
         
         nuevo.setId(id);
         EventoEntity cambiado = persistence.actualizarEvento(nuevo);
