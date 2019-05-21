@@ -88,6 +88,7 @@ public class MascotaEnAdopcionResource {
         
         return listaDTOs;
     }
+    
     /**
      * borra un proceso de adopción por id
      * @param id

@@ -33,7 +33,7 @@ public class CalificacionPersistence {
    }
    public List<CalificacionEntity> findAll(){
        
-       TypedQuery<CalificacionEntity> query = em.createQuery("select u from CalificacionEntity u",CalificacionEntity.class );
+       TypedQuery<CalificacionEntity> query = em.createQuery("select u from CalificacionEntity u WHERE u.calificacion > 3",CalificacionEntity.class );
        return query.getResultList();
    }
    
