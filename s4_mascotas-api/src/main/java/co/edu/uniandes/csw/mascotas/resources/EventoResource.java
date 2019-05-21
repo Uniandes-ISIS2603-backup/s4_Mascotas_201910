@@ -180,11 +180,14 @@ public class EventoResource {
         List<EventoDTO> todos = darEventos();
         List<EventoDTO> eventos = new ArrayList();
         
-        for (int i = 0; i < todos.size(); i++) {
+        if(nombre!=null){
+            for (int i = 0; i < todos.size(); i++) {
             if(todos.get(i).getNombre().equals(nombre)){
                 eventos.add(todos.get(i));
             }
+            }
         }
+        
        
         if(eventos.isEmpty()){
             throw new WebApplicationException("No existe ningun evento con ese nombre", 404);
@@ -200,6 +203,7 @@ public class EventoResource {
      * @return lista de eventos con esa fecha de inicio
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error que se genera cuando no se encuentran eventos con esa fehca de inicio.
+     * @throws java.text.ParseException
      */ 
     @GET
     @Path("filtrar/{fecha}")
@@ -210,9 +214,11 @@ public class EventoResource {
         List<EventoDTO> todos = darEventos();
         List<EventoDTO> eventos = new ArrayList();
         
-        for (int i = 0; i < todos.size(); i++) {
+        if(fecha!=null){
+            for (int i = 0; i < todos.size(); i++) {
             if(todos.get(i).getFechaInicio().equals(fechai)){
                 eventos.add(todos.get(i));
+            }
             }
         }
        
