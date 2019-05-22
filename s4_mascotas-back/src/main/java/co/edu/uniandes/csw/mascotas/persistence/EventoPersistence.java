@@ -81,33 +81,5 @@ public class EventoPersistence {
          EventoEntity entity = em.find(EventoEntity.class, id);
          em.remove(entity);
      }
-    
-      /**
-     * Busca si hay algun evento con el nombre que se envía de argumento
-     *
-     * @param nombre: nombre del evento que se está buscando
-     * @return null si no existe ningun evento con el nombre del argumento.
-     * Si existe alguno devuelve el primero.
-     */
-     public EventoEntity findByName(String nombre){
-         
-         TypedQuery query = em.createQuery("Select e From EventoEntity e where e.nombre = :nombre", EventoEntity.class);
-         
-         query = query.setParameter("nombre", nombre);
-         
-         List<EventoEntity> mismoNombre = query.getResultList();
-         
-         EventoEntity resultado;
-         
-         if(mismoNombre == null){
-             resultado = null;
-         } else if (mismoNombre.isEmpty()){
-             resultado = null;
-         } else{
-             resultado = mismoNombre.get(0);
-         }
-         
-         return resultado;
-     }
      
 }

@@ -19,6 +19,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -70,7 +71,10 @@ public class MascotaEncontradaResource
     @Path("{id: \\d+}")
     public MascotaEncontradaDTO darMascotaEncontradaPorId(@PathParam("id") Long id) throws BusinessLogicException
     {
-        return new MascotaEncontradaDTO(logica.getProcesoMascotaEncontrada(id));
+        MascotaEncontradaEntity m = logica.getProcesoMascotaEncontrada(id);
+        if(m == null)
+            throw new WebApplicationException("El proceso de mascota encontrada con id:" + id + " no existe.", 404 );
+        return new MascotaEncontradaDTO(m);
     }
     
 }

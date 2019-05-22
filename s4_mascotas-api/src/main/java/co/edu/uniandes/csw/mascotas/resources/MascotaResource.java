@@ -81,6 +81,8 @@ public class MascotaResource {
     {
         List<MascotaDTO> mascotas = new ArrayList<>();
         List<MascotaEntity> entidades = logica.darMascotasPorEstado(pEstado);
+        if(entidades == null)
+            throw new WebApplicationException("No existen mascotas con estado " + pEstado, 404);
         entidades.forEach((entidad) -> { mascotas.add(new MascotaDTO(entidad));});
         return mascotas;
     }
@@ -129,6 +131,8 @@ public class MascotaResource {
     {
         List<MascotaDTO> respuesta = new ArrayList<>();
         List<MascotaEntity> list = logica.darMascotasPorTipo(pTipo);
+        if(list == null)
+            throw new WebApplicationException("No existen mascotas de tipo " + pTipo,404);
         list.forEach((entity) -> {
             respuesta.add(new MascotaDTO(entity));
         });

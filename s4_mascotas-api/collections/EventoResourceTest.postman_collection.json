@@ -215,6 +215,59 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Obtener evento por nombre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos/Feria canina",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos",
+						"Feria canina"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar eventos por fecha de inicio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/eventos/filtrar/2019-04-20",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_mascotas-api",
+						"api",
+						"eventos",
+						"filtrar",
+						"2019-04-20"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -153,7 +153,7 @@ public class MascotaLogic
      */
     public List<MascotaEntity> darMascotasPorTipo(String pTipo) throws BusinessLogicException
     {
-        if(!pTipo.equals(PERRO) || !pTipo.equals(GATO))
+       if(!pTipo.equals(PERRO) || !pTipo.equals(GATO))
         {
             throw new BusinessLogicException("El tipo ingresado debe ser PERRO o GATO");
         }

@@ -48,6 +48,9 @@ public class CalificacionLogic {
         
         return persistence.findAll();
     }
+    public CalificacionEntity getCalificacionByProceso(Long id){
+        return persistence.getCalificacionByProceso(id);
+    }
     /**
      * devuelve una calificacion si existe en la base de datos
      * @param id

@@ -23,9 +23,15 @@ public class ClasificadoLogic {
     @Inject
     private ClasificadoPersistence persistence;
     
+    /**
+     * Crea un clasificado a partir de la entidad ingresada por parámetro
+     * @param clasif
+     * @return entidad del clasificado creado
+     * @throws BusinessLogicException 
+     */
     public ClasificadoEntity createClasificado(ClasificadoEntity clasif) throws BusinessLogicException{
         
-        if( clasif.getNombre() ==  null){
+        if(clasif.getNombre() ==  null){
             throw new BusinessLogicException("El clasificado debe tener un nombre");
         }
         
@@ -36,14 +42,62 @@ public class ClasificadoLogic {
         return persistence.create(clasif);
     }
     
+    /**
+     * Busca todos los clasificados
+     * @return clasificados
+     */
     public List<ClasificadoEntity> getClasificados(){
-        return persistence.findAll();
-    }
-    
-    public ClasificadoEntity buscarClasificado( String nombreC){
-        ClasificadoEntity sookClasif = persistence.find(nombreC);
         
-        return sookClasif;
+        List<ClasificadoEntity> clas = persistence.findAll();
+        return clas;
     }
     
+    /**
+     * Busca un clasificado por su id
+     * @param clasifId Llave del clasificado
+     * @return elClasificado
+     */
+    public ClasificadoEntity buscarClasificadoPorId(Long clasifId){
+        
+        ClasificadoEntity elClasificado = persistence.find(clasifId);
+        return elClasificado;
+    }
+    
+    /**
+     *
+     * Actualizar un clasificado.
+     *
+     * @param id: id del clasificado que se quiere actualizar para buscarlo en la base de
+     * datos.
+     * @param nuevo: clasificado con los cambios para ser actualizado.
+     * por ejemplo el nombre.
+     * @throws BusinessLogicException si la informacion nueva no cumple las reglas de negocio.
+     * @return el clasificado con los cambios actualizados en la base de datos.
+     */
+    public ClasificadoEntity actualizarClasificado(Long id, ClasificadoEntity nuevo) throws BusinessLogicException{
+        
+        //Validacion reglas de negocio
+       if(nuevo.getNombre() ==  null){
+            throw new BusinessLogicException("El clasificado debe tener un nombre");
+        }
+        
+        if(nuevo.getContenido() == null){
+            throw new BusinessLogicException("El contenido del clasificado no puede estar vacío");
+        }
+        
+        nuevo.setId(id);
+        ClasificadoEntity cambiada = persistence.actualizarClasificado(nuevo);
+        
+        return cambiada;
+    }
+    
+    /**
+     * Borrar un clasificado
+     *
+     * @param id: id del clasificado a borrar.
+     */
+    public void eliminarClasificado(Long id) {
+        
+        persistence.delete(id);
+    } 
 }

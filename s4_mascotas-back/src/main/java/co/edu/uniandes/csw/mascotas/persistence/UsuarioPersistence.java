@@ -110,6 +110,9 @@ public class UsuarioPersistence {
         }
         return result;
     }
+    
+    
+    
 }
             
             

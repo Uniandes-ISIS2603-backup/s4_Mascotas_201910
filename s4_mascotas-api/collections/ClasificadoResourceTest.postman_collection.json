@@ -1,13 +1,12 @@
 {
 	"info": {
-		"_postman_id": "0fb6c3e8-de16-41d3-ae78-20f74ea35413",
-		"name": "ArticuloResourceTest",
-		"description": "Articulo Resource Test",
+		"_postman_id": "76561c67-6d03-4047-9a24-88e4ee08e581",
+		"name": "ClasificadoResourceTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Obtener todos los articulos",
+			"name": "Obtener todos los clasificados",
 			"event": [
 				{
 					"listen": "test",
@@ -30,7 +29,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -39,14 +38,14 @@
 					"path": [
 						"s4_mascotas-api",
 						"api",
-						"articulos"
+						"clasificados"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Crear un articulo",
+			"name": "Crear un clasificado",
 			"event": [
 				{
 					"listen": "test",
@@ -54,7 +53,7 @@
 						"id": "527dcabe-dbc6-481d-9fa0-bd73cda0057c",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_arti\",data.id);",
+							"postman.setGlobalVariable(\"new_id_clasi\",data.id);",
 							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -73,10 +72,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"contenido\": \"Pasos para manejar las alergias\",\n        \"resumen\": \"Pueden generan alergias\",\n        \"tema\": \"SALUD\",\n        \"titulo\": \"Animales en la casa\"\n}"
+					"raw": "{\n        \"contenido\": \"Jornada de adopcion de perros de gatos.\",\n        \"enlace\": \"adoptame.com.co\",\n        \"id\": 100,\n        \"nombre\": \"Jornada de adopcion\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -85,14 +84,14 @@
 					"path": [
 						"s4_mascotas-api",
 						"api",
-						"articulos"
+						"clasificados"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener un articulo",
+			"name": "Obtener clasificado",
 			"event": [
 				{
 					"listen": "test",
@@ -115,7 +114,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -124,15 +123,15 @@
 					"path": [
 						"s4_mascotas-api",
 						"api",
-						"articulos",
-						"{{new_id_arti}}"
+						"clasificados",
+						"{{new_id_clasi}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Actualizar un articulo",
+			"name": "Actualizar un clasificado",
 			"event": [
 				{
 					"listen": "test",
@@ -159,10 +158,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"contenido\": \"Las alergias causadas por perros y gatos, en general, son por el pelo\",\n        \"resumen\": \"Pueden generan alergias\",\n        \"tema\": \"SALUD\",\n        \"titulo\": \"Animales en la casa\"\n}"
+					"raw": "{\n    \"contenido\": \"Jornada de adopcion de mascotas\",\n    \"enlace\": \"adoptame.com\",\n    \"id\": 2,\n    \"nombre\": \"Jornada de adopcion\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -171,15 +170,15 @@
 					"path": [
 						"s4_mascotas-api",
 						"api",
-						"articulos",
-						"{{new_id_arti}}"
+						"clasificados",
+						"{{new_id_clasi}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Eliminar un articulo",
+			"name": "Eliminar un clasificado",
 			"event": [
 				{
 					"listen": "test",
@@ -200,7 +199,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/{{new_id_arti}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/clasificados/{{new_id_clasi}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -209,75 +208,8 @@
 					"path": [
 						"s4_mascotas-api",
 						"api",
-						"articulos",
-						"{{new_id_arti}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Filtrar por tema",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/filtrar/SALUD",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_mascotas-api",
-						"api",
-						"articulos",
-						"filtrar",
-						"SALUD"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener articulo por nombre",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b68efcb0-f9ac-42b4-a773-8cbace10108c",
-						"exec": [
-							"console.log(responseBody);",
-							"var data = JSON.parse(responseBody);",
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_mascotas-api/api/articulos/Lo bueno de tener una mascota en casa",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_mascotas-api",
-						"api",
-						"articulos",
-						"Lo bueno de tener una mascota en casa"
+						"clasificados",
+						"{{new_id_clasi}}"
 					]
 				}
 			},

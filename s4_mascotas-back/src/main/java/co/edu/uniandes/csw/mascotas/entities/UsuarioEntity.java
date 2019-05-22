@@ -137,10 +137,10 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return eventos;
     }
     
-    public Boolean isRecibeNotificaciones() {
+    public Boolean getRecibeNotificaciones(){
         return recibeNotificaciones;
     }
-
+    
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }

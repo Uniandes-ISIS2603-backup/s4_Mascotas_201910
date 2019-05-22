@@ -39,7 +39,6 @@ public class UsuarioLogic {
      * @throws BusinessLogicException
      */
     public UsuarioEntity crearUsuario(UsuarioEntity usuario) throws BusinessLogicException {
-        List<UsuarioEntity> usuarios = persistencia.findAll();
 
         if (persistencia.findByUser(usuario.getUsuario()) != null) {
             throw new BusinessLogicException("El usuario ya esta registrado");
@@ -92,13 +91,13 @@ public class UsuarioLogic {
 //        List<ClasificadoEntity> clasificados = entity.getClasificados();
         List<MascotaEnAdopcionEntity> procesosMascotasAdopcion = entity.getProcesosMascotaAdopcion();
 
-        if (eventos != null && eventos.size() > 0) {
+        if (eventos != null && !eventos.isEmpty()) {
             throw new BusinessLogicException("El usuario no puede ser organizaddor de ningun evento");
         }
-        if (articulos != null && articulos.size() > 0) {
+        if (articulos != null && !articulos.isEmpty()) {
             throw new BusinessLogicException("El usuario a eliminar no puede ser autor de articulos");
         }
-        if (procesosMascotaExtraviada != null && procesosMascotaExtraviada.size() > 0) {
+        if (procesosMascotaExtraviada != null && !procesosMascotaExtraviada.isEmpty()) {
             throw new BusinessLogicException("El usuario no puede tener ningun proceso de mascota extraviada");
         }
 //        if(procesoMascotaEncontrada != null && procesoMascotaEncontrada.size()>0){
@@ -107,7 +106,8 @@ public class UsuarioLogic {
 //        if(clasificados != null&& clasificados.size()>0){
 //            throw new BusinessLogicException("El usuario no puede ser autor de ningun clasificado");
 //        }
-        if (procesosMascotasAdopcion != null && procesosMascotasAdopcion.size() > 0) {
+        if (procesosMascotasAdopcion != null
+                && !procesosMascotasAdopcion.isEmpty()) {
             throw new BusinessLogicException("El usuario no puede tener procesos");
         }
         persistencia.delete(id);
@@ -115,8 +115,7 @@ public class UsuarioLogic {
 
     public UsuarioEntity actualizarInformacion(Long id, UsuarioEntity usuario) throws BusinessLogicException {
         UsuarioEntity entity = getUsuario(id);
-        System.out.print("Parametro:" + entity.getUsuario() + '\n');
-        System.out.print("Encontrado:" + usuario.getUsuario() + '\n');
+
 
         if (!entity.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
 
@@ -150,4 +149,22 @@ public class UsuarioLogic {
 
     }
 
+    /**
+     * Retorna si la contraseña corresponde
+     * @param usuario - nombre de usuario
+     * @param contrasenha - contraseña a verificar del usuario
+     * @return boolean - verdadero si corresponde
+     * @throws BusinessLogicException - si el usuario no existe
+     */
+    public Boolean verificarContrasenha(String usuario, String contrasenha) throws BusinessLogicException {
+        UsuarioEntity encontrado = buscarUsuarioXUsuario(usuario);
+     
+        if (encontrado == null) {
+            throw new BusinessLogicException("El usuario verificado no existe");
+        } else {
+            Boolean respuesta = contrasenha.equals(encontrado.getContrasenha())?true:false;
+            return respuesta;
+        }
+
+    }
 }

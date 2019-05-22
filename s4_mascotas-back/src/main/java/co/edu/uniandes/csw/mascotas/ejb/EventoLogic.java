@@ -39,6 +39,10 @@ public class EventoLogic {
          if(evento.getDescripcion()== null){
              throw new BusinessLogicException("Un evento debe tener una descripcion");
         }
+         if(evento.getFechaInicio().compareTo(evento.getFechaFin())>0){
+              throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha de fin");
+         }
+         
          
         evento = persistence.create(evento);
         return evento;
@@ -85,10 +89,11 @@ public class EventoLogic {
         if(nuevo.getDescripcion()== null){
              throw new BusinessLogicException("La nueva descripcion debe ser valida");
         }
-       // if(nuevo.getFechaInicio().compareTo(nuevo.getFechaFin())>0){
-        //     throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
-        //}
+        if(nuevo.getFechaInicio().compareTo(nuevo.getFechaFin())>0){
+             throw new BusinessLogicException("La fecha de inicio debe ser antes de la fecha final");
+        }
         
+        nuevo.setId(id);
         EventoEntity cambiado = persistence.actualizarEvento(nuevo);
         
         return cambiado;
@@ -103,23 +108,5 @@ public class EventoLogic {
         
         persistence.delete(id);
     } 
-    
-    /**
-     * Busca un evento por su nombre
-     *
-     * @param nombre: nombre del evento que se busca
-     * @return el evento con el nombre enviado por parametro.
-     * @throws BusinessLogicException Si el nombre que se busca no es  valido.
-     */
-    public EventoEntity buscarEventoPorNombre(String nombre) throws BusinessLogicException{
-        
-        if(nombre == null){
-            throw new BusinessLogicException("El nombre buscado debe ser valido");
-        }
-        
-        EventoEntity evento = persistence.findByName(nombre);
-       
-        return evento;    
-    }
     
 }
