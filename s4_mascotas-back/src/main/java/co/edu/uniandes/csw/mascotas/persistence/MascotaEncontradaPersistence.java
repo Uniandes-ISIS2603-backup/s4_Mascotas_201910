@@ -34,10 +34,11 @@ public class MascotaEncontradaPersistence {
      * @param mascotaEncontradaEntity
      * @return 
      */
-    public MascotaEncontradaEntity create(MascotaEncontradaEntity mascotaEncontradaEntity){
-        
+    public MascotaEncontradaEntity create(MascotaEncontradaEntity mascotaEncontradaEntity)
+    {
+        LOGGER.info("Persistiendo nuevo proceso de mascota encontrada");
         em.persist(mascotaEncontradaEntity);
-        
+        LOGGER.info("Proceso persistido satisfactoriamente");
         return mascotaEncontradaEntity;
     }
     
@@ -46,8 +47,9 @@ public class MascotaEncontradaPersistence {
      * @param mascotaEncontradaId
      * @return 
      */
-    public MascotaEncontradaEntity find(Long mascotaEncontradaId){
-        
+    public MascotaEncontradaEntity find(Long mascotaEncontradaId)
+    {
+        LOGGER.info("Buscando proceso de mascota encontrada con identificador " + mascotaEncontradaId);
         return em.find(MascotaEncontradaEntity.class, mascotaEncontradaId);
     }
     
@@ -55,21 +57,26 @@ public class MascotaEncontradaPersistence {
      * Retorna una lista con todos los procesos de mascotas encontradas
      * @return 
      */
-    public List<MascotaEncontradaEntity> findAll(){
-        
+    public List<MascotaEncontradaEntity> findAll()
+    {
+        LOGGER.info("Listando todos los procesos de mascota encontrada en la base de datos");
         TypedQuery<MascotaEncontradaEntity> query = em.createQuery("select u from MascotaEncontradaEntity u", MascotaEncontradaEntity.class);
-        
-        return query.getResultList();
+        List<MascotaEncontradaEntity> list = query.getResultList();
+        if(list != null)
+            LOGGER.info("Listando procesos de mascota encontrada: Listo!");
+        return list;
     }
     
     /**
      * Elimina el registro de una mascota encontrada de la base de datos
      * @param id 
      */
-    public void delete(Long id){
+    public void delete(Long id)
+    {
+        LOGGER.info("Borrando el proceso de mascota encontrada con id " + id);
         MascotaEncontradaEntity entity = em.find(MascotaEncontradaEntity.class, id);
-        
         em.remove(entity);
+        LOGGER.info("Proceso removido satisfactoriamente.");
     }
     
     /**
@@ -77,8 +84,9 @@ public class MascotaEncontradaPersistence {
      * @param mascota
      * @return 
      */
-    public MascotaEncontradaEntity update( MascotaEncontradaEntity mascota ){
-        
+    public MascotaEncontradaEntity update( MascotaEncontradaEntity mascota )
+    {
+        LOGGER.info("Modificando la información del proceso de mascota encontrada " + mascota.getId());
         return em.merge(mascota);
     }
 }
