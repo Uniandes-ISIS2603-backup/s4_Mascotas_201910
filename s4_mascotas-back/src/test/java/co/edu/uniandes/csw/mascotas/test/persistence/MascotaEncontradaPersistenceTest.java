@@ -155,12 +155,11 @@ public class MascotaEncontradaPersistenceTest {
         Assert.assertNotNull(e);
         
         MascotaEncontradaEntity m = persistence.find(mascota.getId());
-        MascotaEncontradaEntity m2 = em.find(MascotaEncontradaEntity.class, mascota);
+        MascotaEncontradaEntity m2 = em.find(MascotaEncontradaEntity.class, mascota.getId());
         
          Assert.assertEquals(m2.getId(), mascota.getId());
          Assert.assertEquals(m2.getEstado(), mascota.getEstado());
          Assert.assertEquals(m2.getUbicacion(), mascota.getUbicacion());
-         Assert.assertEquals(m2.getFechaInicializacion(), mascota.getFechaInicializacion());
     }
 
     /**
