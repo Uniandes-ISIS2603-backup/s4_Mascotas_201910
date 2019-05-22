@@ -43,7 +43,9 @@ public class MascotaEnAdopcionLogic {
         
         return persistence.create(entity);
     }
-    
+    public List<MascotaEnAdopcionEntity> getProcesosPorTipo(String tipo){
+        return persistence.findByType(tipo);
+    }
     /**
      * devuelve un proceso siempre y cuando exista en la base de datos
      * @param id
@@ -86,5 +88,12 @@ public class MascotaEnAdopcionLogic {
     public void deleteMascotaEnAdopcion(Long id) throws BusinessLogicException{
         
         persistence.delete(id);
+    }
+    /**
+     * devuelve los procesos no terminados
+     * @return 
+     */
+    public List<MascotaEnAdopcionEntity> getMascotasSinAdoptar(){
+        return persistence.findSinAdoptar();
     }
 }

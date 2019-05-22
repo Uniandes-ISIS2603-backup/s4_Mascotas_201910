@@ -70,6 +70,31 @@ public class MascotaEnAdopcionResource {
         return new MascotaEnAdopcionDTO(logic.getMascotaEnAdopcion(id));
     }
     /**
+     * devuelve la lista de las mascotas que están sin adoptar
+     * @return
+     * @throws Exception 
+     */
+    @GET
+    @Path("/sinAdoptar")
+    public List<MascotaEnAdopcionDTO> getMascotasSinAdoptar() throws Exception{
+        List<MascotaEnAdopcionEntity> listaEntities = logic.getMascotasSinAdoptar();
+      
+        return toDTO(listaEntities);
+    }
+    /**
+     * devuelve la lista de las mascotas filtradas por el tipo
+     * @param raza
+     * @return
+     * @throws Exception 
+     */
+    @GET
+    @Path("/filtrar/{tipo}")
+    public List<MascotaEnAdopcionDTO> getProcesosPorRaza(@PathParam("tipo")String tipo) throws Exception{
+        List<MascotaEnAdopcionEntity> listaEntities = logic.getProcesosPorTipo(tipo);
+      
+        return toDTO(listaEntities);
+    }
+    /**
      * devuelve todos los procesos de adopción 
      * @return
      * @throws Exception 
@@ -77,10 +102,18 @@ public class MascotaEnAdopcionResource {
     @GET
     public List<MascotaEnAdopcionDTO> getMascotasEnAdopcion() throws Exception{
         
-        List<MascotaEnAdopcionDTO> listaDTOs = new ArrayList<>();
-        List<MascotaEnAdopcionEntity> listaEntities = logic.getMascotasEnAdopcion();
-                
         
+        List<MascotaEnAdopcionEntity> listaEntities = logic.getMascotasEnAdopcion();
+      
+        return toDTO(listaEntities);
+    }
+    /**
+     * converts a list from entities to dto
+     * @param listaEntities
+     * @return 
+     */
+    public List<MascotaEnAdopcionDTO> toDTO(List<MascotaEnAdopcionEntity> listaEntities){
+        List<MascotaEnAdopcionDTO> listaDTOs = new ArrayList<>();
         for(MascotaEnAdopcionEntity actual : listaEntities){
             
          listaDTOs.add(new MascotaEnAdopcionDTO(actual));
