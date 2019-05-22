@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.dtos;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
+import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import java.io.Serializable;
 
 
@@ -42,6 +43,11 @@ public class MascotaExtraviadaDTO implements Serializable{
     private RecompensaDTO recompensa;
     
     /**
+     * La mascota relacionada con el proceso
+     */
+    private MascotaDTO mascota;
+    
+    /**
      * Las siguientes dos constantes contienen los dos valores
      * que puede tener el atributo 'estado'
      */
@@ -71,6 +77,12 @@ public class MascotaExtraviadaDTO implements Serializable{
                 this.recompensa = new RecompensaDTO(e.getRecompensa());
             }else{
                 this.recompensa = null;
+            }
+            
+            if(e.getMascota() != null){
+                this.mascota = new MascotaDTO(e.getMascota());
+            }else{
+                this.mascota = null;
             }
         }
     }
@@ -155,6 +167,22 @@ public class MascotaExtraviadaDTO implements Serializable{
     public void setRecompensa(RecompensaDTO recompensa) {
         this.recompensa = recompensa;
     }
+
+    /**
+     * 
+     * @return La mascota relacionada con el proceso
+     */
+    public MascotaDTO getMascota() {
+        return mascota;
+    }
+    
+    /**
+     * Modifica la mascota relacionada con el proceso
+     * @param mascota 
+     */
+    public void setMascota(MascotaDTO mascota) {
+        this.mascota = mascota;
+    }
     
     /**
      * Convertir de DTO a Entity
@@ -165,7 +193,9 @@ public class MascotaExtraviadaDTO implements Serializable{
         entity.setCiudad(this.ciudad);
         entity.setDireccion(this.direccion);
         entity.setEstado(this.estado);
-        
+        entity.setRecompensa(this.recompensa.toEntity());
+        entity.setMascota(this.mascota.toEntity());
+
         return entity;
     }
     

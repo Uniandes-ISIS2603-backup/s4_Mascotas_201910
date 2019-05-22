@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.resources;
 import co.edu.uniandes.csw.mascotas.dtos.MascotaExtraviadaDTO;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaProcesoLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -45,6 +46,12 @@ public class MascotaExtraviadaResource {
     @Inject
     private MascotaExtraviadaRecompensaLogic mascotaExtraviadaRecompensaLogic;
     
+    /**
+     * La lógica que maneja consultas que involucran la mascota y el proceso
+     */
+    @Inject
+    private MascotaProcesoLogic mascotaProcesoLogic;
+    
     private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaResource.class.getName());
     
     /**
@@ -80,6 +87,18 @@ public class MascotaExtraviadaResource {
             throw new WebApplicationException("El proceso de mascota extraviada con id = " + id + "no existe.", 404);
         }
         return new MascotaExtraviadaDTO(entity);
+    }
+    
+    @GET
+    @Path("{precio: \\d+}")
+    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") double precio) throws Exception{
+        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
+    }
+    
+    @GET
+    @Path("{nombre: [a-zA-Z][a-zA-Z_0-9]*}")
+    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConNombreDeMascotaIgualA(@PathParam("nombre")String nombreMascota) throws Exception{
+        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConNombreDeMascotaIgualA(nombreMascota));
     }
     
     /**
