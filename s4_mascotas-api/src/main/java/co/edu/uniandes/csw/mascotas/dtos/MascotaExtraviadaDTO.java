@@ -48,6 +48,11 @@ public class MascotaExtraviadaDTO implements Serializable{
     private MascotaDTO mascota;
     
     /**
+     * El usuario que creó el proceso
+     */
+    private UsuarioDTO usuario;
+    
+    /**
      * Las siguientes dos constantes contienen los dos valores
      * que puede tener el atributo 'estado'
      */
@@ -83,6 +88,12 @@ public class MascotaExtraviadaDTO implements Serializable{
                 this.mascota = new MascotaDTO(e.getMascota());
             }else{
                 this.mascota = null;
+            }
+            
+            if(e.getUsuario() != null){
+                this.usuario = new UsuarioDTO(e.getUsuario());
+            }else{
+                this.usuario = null;
             }
         }
     }
@@ -183,6 +194,22 @@ public class MascotaExtraviadaDTO implements Serializable{
     public void setMascota(MascotaDTO mascota) {
         this.mascota = mascota;
     }
+
+    /**
+     * 
+     * @return El usuario que creó el proceso
+     */
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * Modifica el usuario que creó el proceso
+     * @param usuario 
+     */
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
     
     /**
      * Convertir de DTO a Entity
@@ -195,6 +222,7 @@ public class MascotaExtraviadaDTO implements Serializable{
         entity.setEstado(this.estado);
         entity.setRecompensa(this.recompensa.toEntity());
         entity.setMascota(this.mascota.toEntity());
+        entity.setUsuario(this.usuario.toEntity());
 
         return entity;
     }

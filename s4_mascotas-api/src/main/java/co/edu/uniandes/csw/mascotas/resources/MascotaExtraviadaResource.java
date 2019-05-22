@@ -89,16 +89,55 @@ public class MascotaExtraviadaResource {
         return new MascotaExtraviadaDTO(entity);
     }
     
+    /**
+     * Retorna una lista filtrada con los procesos de mascota extraviada cuya 
+     * recompensa es menor o igual a un precio dado
+     * @param precio
+     * @return Lista de procesos
+     * @throws Exception 
+     */
     @GET
     @Path("{precio: \\d+}")
     public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") double precio) throws Exception{
         return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
     }
     
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas del nombre especificado
+     * @param nombreMascota
+     * @return Lista de procesos
+     * @throws Exception 
+     */
     @GET
     @Path("{nombre: [a-zA-Z][a-zA-Z_0-9]*}")
     public List<MascotaExtraviadaDTO> darProcesosExtraviadaConNombreDeMascotaIgualA(@PathParam("nombre")String nombreMascota) throws Exception{
         return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConNombreDeMascotaIgualA(nombreMascota));
+    }
+    
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas de la raza especificada
+     * @param raza
+     * @return Lista de procesos
+     */
+    @GET
+    @Path("{raza: [a-zA-Z][a-zA-Z_0-9]*}")
+    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConRazaIgualA(@PathParam("raza") String raza){
+        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConRazaIgualA(raza));
+    }
+    
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas del tipo especificado
+     * @param tipo
+     * @return Lista de procesos
+     * @throws Exception 
+     */
+    @GET
+    @Path("{tipo: [a-zA-Z][a-zA-Z_0-9]*}")
+    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConTipoIgualA(@PathParam("tipo") String tipo)throws Exception{
+        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConTipoIgualA(tipo));
     }
     
     /**
