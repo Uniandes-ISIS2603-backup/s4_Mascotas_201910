@@ -10,10 +10,7 @@
     <packaging>pom</packaging>
     <name>s4_mascotas</name>
  
-    <modules>
-        <module>s4_mascotas-api</module>
-        <module>s4_mascotas-back</module>
-    </modules>
+    <modules></modules>
     
     <repositories>
         <repository>
