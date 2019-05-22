@@ -13,11 +13,12 @@ import co.edu.uniandes.csw.mascotas.persistence.RecompensaPersistence;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-
+import javax.ejb.Stateless;
 /**
  *
  * @author Sebastián Lemus Cadena (s.lemus)
  */
+@Stateless
 public class RecompensaLogic {
     
     private static final Logger LOGGER = Logger.getLogger(RecompensaLogic.class.getName());
