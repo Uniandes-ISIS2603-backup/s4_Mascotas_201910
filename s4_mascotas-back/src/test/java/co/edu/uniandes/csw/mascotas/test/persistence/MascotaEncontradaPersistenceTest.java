@@ -31,17 +31,33 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class MascotaEncontradaPersistenceTest {
 
+    /**
+     * Clase de persistencia a probar
+     */
     @Inject
     private MascotaEncontradaPersistence persistence;
 
+    /**
+     * Manejador de persistencia estándar para hacer las comparaciones
+     */
     @PersistenceContext
     protected EntityManager em;
     
+    /**
+     * Lista con algunos datos que se usarán para las pruebas
+     */
     private List<MascotaEncontradaEntity> listaPrueba = new ArrayList<>();
     
+    /**
+     * Trasacción
+     */
     @Inject
     private UserTransaction utx;
 
+    /**
+     * Método de despliegue
+     * @return 
+     */
     @Deployment
     public static JavaArchive createDeployment() {
 
@@ -52,6 +68,9 @@ public class MascotaEncontradaPersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
+    /**
+     * Crea una lista con 10 elementos que se utilizará en las pruebas
+     */
     private void inicializacionListaPrueba(){
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 10; i++){
@@ -61,11 +80,17 @@ public class MascotaEncontradaPersistenceTest {
         }
     }
     
+    /**
+     * Borra la información de las pruebas de la base de datos
+     */
     private void clearData() 
     {
         em.createQuery("delete from MascotaEncontradaEntity").executeUpdate();
     }
     
+    /**
+     * Configuración de las pruebas
+     */
     @Before
     public void configTest() {
         try {
@@ -84,6 +109,9 @@ public class MascotaEncontradaPersistenceTest {
         }
     }
 
+    /**
+     * Prueba para el método de crear un proceso de mascota encontrada
+     */
     @Test
     public void createMascotaEncontradaTest() {
 
@@ -102,6 +130,9 @@ public class MascotaEncontradaPersistenceTest {
 
     }
     
+    /**
+     * Prueba para el método de eliminar un proceso de mascota encontrada por su id
+     */
     @Test
     public void deleteMascotaEncontradaTest()
     {
@@ -111,6 +142,9 @@ public class MascotaEncontradaPersistenceTest {
         Assert.assertNull(deleted);
     }
     
+    /***
+     * Prueba para el método de encontrar un proceso de mascota encontrada por su id
+     */
     @Test
     public void findTest()
     {
@@ -129,4 +163,18 @@ public class MascotaEncontradaPersistenceTest {
          Assert.assertEquals(m2.getFechaInicializacion(), mascota.getFechaInicializacion());
     }
 
+    /**
+     * Prueba para el método de buscar todos los elementos de la lista
+     */
+    public void findAllTest( )
+    {
+        for(MascotaEncontradaEntity m : listaPrueba )
+        {
+            MascotaEncontradaEntity mascota = persistence.find(m.getId());
+            Assert.assertEquals(m.getId(), mascota.getId());
+            Assert.assertEquals(m.getEstado(), mascota.getEstado());
+            Assert.assertEquals(m.getUbicacion(), mascota.getUbicacion());
+            Assert.assertEquals(m.getFechaInicializacion(), mascota.getFechaInicializacion());
+        }
+    }
 }
