@@ -61,7 +61,8 @@ public class MascotaEncontradaPersistenceTest {
         }
     }
     
-    private void clearData() {
+    private void clearData() 
+    {
         em.createQuery("delete from MascotaEncontradaEntity").executeUpdate();
     }
     
@@ -102,11 +103,30 @@ public class MascotaEncontradaPersistenceTest {
     }
     
     @Test
-    public void deleteMascotaEncontradaTest(){
+    public void deleteMascotaEncontradaTest()
+    {
         MascotaEncontradaEntity entityP = listaPrueba.get(7);
         persistence.delete(entityP.getId());
         MascotaEncontradaEntity deleted = em.find(MascotaEncontradaEntity.class, entityP.getId());
         Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void findTest()
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEncontradaEntity e = factory.manufacturePojo(MascotaEncontradaEntity.class);
+        MascotaEncontradaEntity mascota = persistence.create(e);
+        
+        Assert.assertNotNull(e);
+        
+        MascotaEncontradaEntity m = persistence.find(mascota.getId());
+        MascotaEncontradaEntity m2 = em.find(MascotaEncontradaEntity.class, mascota);
+        
+         Assert.assertEquals(m2.getId(), mascota.getId());
+         Assert.assertEquals(m2.getEstado(), mascota.getEstado());
+         Assert.assertEquals(m2.getUbicacion(), mascota.getUbicacion());
+         Assert.assertEquals(m2.getFechaInicializacion(), mascota.getFechaInicializacion());
     }
 
 }
