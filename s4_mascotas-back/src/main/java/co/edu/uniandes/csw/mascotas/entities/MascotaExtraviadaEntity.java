@@ -68,8 +68,9 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
     /**
      * Constructor por defecto
      */
-    public MascotaExtraviadaEntity() {
-        
+    public MascotaExtraviadaEntity() 
+    {
+      // Constructor vacío por defecto  
     }
     
     /**
