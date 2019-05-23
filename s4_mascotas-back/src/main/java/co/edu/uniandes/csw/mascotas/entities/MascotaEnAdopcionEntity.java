@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.mascotas.entities;
+import co.edu.uniandes.csw.mascotas.podam.DateStrategy;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -55,8 +57,10 @@ public class MascotaEnAdopcionEntity extends BaseEntity implements Serializable{
      * fecha en la que comienza el proceso y en la que termina
      */
     @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaFinal;
     /**
      * calificación asignada al proceso de adopción
