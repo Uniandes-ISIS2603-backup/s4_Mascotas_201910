@@ -123,21 +123,33 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
         this.ubicacion = ubicacion;
     }
     
+    /**
+     * @return this.usuario
+     */
     public UsuarioEntity getUsuario( )
     {
         return usuario;
     }
     
+    /**
+     * @param usuario to set
+     */
     public void setUsuario( UsuarioEntity usuario )
     {
         this.usuario = usuario;
     }
     
+    /**
+     * @return this.mascota
+     */
     public MascotaEntity getMascota( )
     {
         return mascota;
     }
     
+    /**
+     * @param mascota to set
+     */
     public void setMascota( MascotaEntity mascota )
     {
         this.mascota = mascota;
