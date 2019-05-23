@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author Sebastián Lemus Cadena (s.lemus)
  */
 @Stateless
-public class MascotaExtraviadaPersistence {
+public class MascotaExtraviadaPersistence{
     
     private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaPersistence.class.getName());
     
