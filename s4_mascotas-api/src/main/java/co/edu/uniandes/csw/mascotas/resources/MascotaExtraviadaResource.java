@@ -96,11 +96,11 @@ public class MascotaExtraviadaResource {
      * @return Lista de procesos
      * @throws Exception 
      */
-    @GET
-    @Path("{precio: \\d+}")
-    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") Double precio) throws Exception{
-        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
-    }
+//    @GET
+//    @Path("{precio: \\d+}")
+//    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") Double precio) throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
+//    }
     
     /**
      * Retorna una lista de los procesos de mascota extraviada
@@ -109,11 +109,11 @@ public class MascotaExtraviadaResource {
      * @return Lista de procesos
      * @throws Exception 
      */
-    @GET
-    @Path("{nombre: [a-zA-Z][a-zA-Z_0-9]*}")
-    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConNombreDeMascotaIgualA(@PathParam("nombre")String nombreMascota) throws Exception{
-        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConNombreDeMascotaIgualA(nombreMascota));
-    }
+//    @GET
+//    @Path("{nombre: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConNombreDeMascotaIgualA(@PathParam("nombre")String nombreMascota) throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConNombreDeMascotaIgualA(nombreMascota));
+//    }
     
     /**
      * Retorna una lista de los procesos de mascota extraviada
@@ -121,11 +121,11 @@ public class MascotaExtraviadaResource {
      * @param raza
      * @return Lista de procesos
      */
-    @GET
-    @Path("{raza: [a-zA-Z][a-zA-Z_0-9]*}")
-    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConRazaIgualA(@PathParam("raza") String raza){
-        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConRazaIgualA(raza));
-    }
+//    @GET
+//    @Path("{raza: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConRazaIgualA(@PathParam("raza") String raza){
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConRazaIgualA(raza));
+//    }
     
     /**
      * Retorna una lista de los procesos de mascota extraviada
@@ -134,11 +134,11 @@ public class MascotaExtraviadaResource {
      * @return Lista de procesos
      * @throws Exception 
      */
-    @GET
-    @Path("{tipo: [a-zA-Z][a-zA-Z_0-9]*}")
-    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConTipoIgualA(@PathParam("tipo") String tipo)throws Exception{
-        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConTipoIgualA(tipo));
-    }
+//    @GET
+//    @Path("{tipo: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConTipoIgualA(@PathParam("tipo") String tipo)throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConTipoIgualA(tipo));
+//    }
     
     /**
      * Elimina un proceso de mascota extraviada correspondiente
