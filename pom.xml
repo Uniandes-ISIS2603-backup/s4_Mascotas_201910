@@ -11,8 +11,8 @@
     <name>s4_mascotas</name>
  
     <modules>
-        <module>s4_mascotas-api</module>
         <module>s4_mascotas-back</module>
+        <module>s4_mascotas-api</module>
     </modules>
     
     <repositories>
