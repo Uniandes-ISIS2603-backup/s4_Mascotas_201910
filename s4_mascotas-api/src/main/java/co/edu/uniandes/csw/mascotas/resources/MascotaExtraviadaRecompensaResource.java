@@ -60,6 +60,7 @@ public class MascotaExtraviadaRecompensaResource {
     public RecompensaDTO createRecompensa(@PathParam("procesoId") Long procesoId, RecompensaDTO recompensa) throws Exception{
         System.out.println("entrando al post createRecompensa");
         RecompensaEntity r = recompensa.toEntity();
+        r.setEstado(RecompensaEntity.PENDIENTE);
         MascotaExtraviadaEntity p = procesoLogic.getProcesoMascotaExtraviada(procesoId);
         if(p.getRecompensa() != null){
             throw new BusinessLogicException("El proceso con id = " + procesoId + " ya tiene asociado una recompensa");

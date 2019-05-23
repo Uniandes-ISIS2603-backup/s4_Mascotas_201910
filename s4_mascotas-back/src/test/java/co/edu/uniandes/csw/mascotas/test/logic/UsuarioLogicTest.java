@@ -261,7 +261,7 @@ public class UsuarioLogicTest {
     
     
     
-       @Test(expected = BusinessLogicException.class)
+      @Test(expected = BusinessLogicException.class)
     public void eliminarUsuarioTieneListaProcesosMascotaExtraviada() throws BusinessLogicException {
        MascotaExtraviadaEntity mascotaEx = factory.manufacturePojo( MascotaExtraviadaEntity.class);
 
