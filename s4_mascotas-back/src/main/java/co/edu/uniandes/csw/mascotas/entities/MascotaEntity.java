@@ -207,5 +207,36 @@ public class MascotaEntity extends BaseEntity implements Serializable
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+  
+    /**
+     * @return this.procesoMascotaEncontrada
+     */
+    public MascotaEncontradaEntity getProcesoMascotaEncontrada()
+    {
+        return procesoMascotaEncontrada;
+    }
     
+    /**
+     * @param proceso to set
+     */
+    public void setProcesoMascotaEncontrada(MascotaEncontradaEntity proceso)
+    {
+        procesoMascotaEncontrada = proceso;
+    }
+    
+    /**
+     * @return this.procesoMascotaEnAdopcion
+     */
+    public MascotaEnAdopcionEntity getProcesoMascotaEnAdopcion( )
+    {
+        return procesoMascotaEnAdopcion;
+    }
+    
+    /**
+     * @param proceso to set
+     */
+    public void setProcesoMascotaEnAdopcion( MascotaEnAdopcionEntity proceso )
+    {
+        procesoMascotaEnAdopcion = proceso;
+    }
 }

@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -52,6 +55,24 @@ public class MascotaDTO implements Serializable
      */
     private String descripcion;
 
+    /**
+     * El proceso de mascota extraviada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
+    
+    /**
+     * El proceso de mascota encontrada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    private MascotaEncontradaEntity procesoMascotaEncontrada;
+    
+    /**
+    * El proceso de mascota en adopción que contiene la 
+    * información de la mascota (solo si existe dicho proceso)
+    */
+    private MascotaEnAdopcionEntity procesoMascotaEnAdopcion;
+    
     // CONSTRUCTOR
     
     /**
@@ -77,6 +98,9 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
+            this.procesoMascotaEnAdopcion = entity.getProcesoMascotaEnAdopcion();
+            this.procesoMascotaEncontrada = entity.getProcesoMascotaEncontrada();
+            this.procesoMascotaExtraviada = entity.getProcesoMascotaExtraviada();
         }
     }
     
@@ -180,6 +204,9 @@ public class MascotaDTO implements Serializable
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
+        entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada);
+        entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion);
+        entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada);
         return entity;
     }
 
