@@ -51,19 +51,18 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     private String telefono;
     
-    
      /**
-     * 
+     * ..
      */
     private String dayBirth;
     
     /**
-     * 
+     * ..
      */
     private String monthBirth;
     
     /**
-     * 
+     * ..
      */
     private String yearBirth;
     
@@ -100,7 +99,8 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @ManyToMany(mappedBy = "postulados", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion;
     
-    public UsuarioEntity(){
+    public UsuarioEntity()
+    {
         
     }
     
@@ -156,8 +156,6 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-   
 
     public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;

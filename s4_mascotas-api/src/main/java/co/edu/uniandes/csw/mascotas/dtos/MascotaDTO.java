@@ -95,15 +95,15 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
-            if(procesoMascotaEnAdopcion != null)
+            if(entity.getProcesoMascotaEnAdopcion() != null)
                 this.procesoMascotaEnAdopcion = new MascotaEnAdopcionDTO(entity.getProcesoMascotaEnAdopcion());
             else
                 this.procesoMascotaEnAdopcion = null;
-            if(procesoMascotaEncontrada != null)
+            if(entity.getProcesoMascotaEncontrada() != null)
                 this.procesoMascotaEncontrada = new MascotaEncontradaDTO(entity.getProcesoMascotaEncontrada());
             else
                 this.procesoMascotaEncontrada = null;
-            if(procesoMascotaExtraviada != null)
+            if(entity.getProcesoMascotaExtraviada() != null)
                 this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(entity.getProcesoMascotaExtraviada());
             else
                 this.procesoMascotaExtraviada = null;

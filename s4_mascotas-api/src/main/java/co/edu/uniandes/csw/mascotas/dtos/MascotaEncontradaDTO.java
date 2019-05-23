@@ -44,7 +44,7 @@ public class MascotaEncontradaDTO implements Serializable{
     /**
      * Mascota Asociada al proceso
      */
-    private MascotaEntity mascota;
+    private MascotaDTO mascota;
     
     /**
      * Constructor vacío por defecto
@@ -67,7 +67,10 @@ public class MascotaEncontradaDTO implements Serializable{
             this.fechaFin = e.getFechaFinalizacion();
             this.fechaInicio = e.getFechaInicializacion();
             this.ubicacion = e.getUbicacion();
-            this.mascota = e.getMascota();
+            if(e.getMascota()!=null)
+                this.mascota = new MascotaDTO(e.getMascota());
+            else
+                this.mascota = null;
         }
     }
 
@@ -83,7 +86,7 @@ public class MascotaEncontradaDTO implements Serializable{
         e.setFechaInicializacion(fechaInicio);
         e.setId(id);
         e.setUbicacion(ubicacion);
-        e.setMascota(mascota);
+        e.setMascota(mascota.toEntity());
         return e;
     }
     /**

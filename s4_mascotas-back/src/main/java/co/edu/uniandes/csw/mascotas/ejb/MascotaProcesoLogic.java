@@ -93,11 +93,9 @@ public class MascotaProcesoLogic {
         List<MascotaExtraviadaEntity> procesos = mascotaExtraviadaPersistence.findAll();
         List<MascotaExtraviadaEntity> procesosFiltrados = new LinkedList<>();
         
-        for( MascotaExtraviadaEntity p : procesos){
-            if(p.getMascota().getNombre().equals(nombreMascota)){
-                procesosFiltrados.add(p);
-            }
-        }
+        procesos.stream().filter((p) -> (p.getMascota().getNombre().equals(nombreMascota))).forEachOrdered((p) -> {
+            procesosFiltrados.add(p);
+        });
         
         return procesosFiltrados;
     }
@@ -123,8 +121,9 @@ public class MascotaProcesoLogic {
     /**
      * Retorna una lista de los procesos de mascota extraviada
      * con las mascotas del tipo especificado
-     * @param raza
+     * @param tipo
      * @return Lista de procesos
+     * @throws java.lang.Exception
      */
     public List<MascotaExtraviadaEntity> darProcesosExtraviadaConTipoIgualA(String tipo)throws Exception{
         
@@ -151,8 +150,11 @@ public class MascotaProcesoLogic {
      * @throws Exception 
      */
     public List<MascotaEntity> darMascotasPorEstado (String estado) throws Exception{
-        if(!estado.equals(MascotaEntity.Estados_mascota.ADOPTADO) && !estado.equals(MascotaEntity.Estados_mascota.EXTRAVIADO)
-                && !estado.equals(MascotaEntity.Estados_mascota.ENCONTRADO) && !estado.equals(MascotaEntity.Estados_mascota.EN_ADOPCION)){
+        if(!estado.equals(MascotaEntity.Estados_mascota.ADOPTADO.name()) 
+            && !estado.equals(MascotaEntity.Estados_mascota.EXTRAVIADO.name())
+            && !estado.equals(MascotaEntity.Estados_mascota.ENCONTRADO.name()) 
+            && !estado.equals(MascotaEntity.Estados_mascota.EN_ADOPCION.name()))
+            {
             throw new BusinessLogicException("El estado de la mascota no es correcto");
         }
         
@@ -160,7 +162,7 @@ public class MascotaProcesoLogic {
         List<MascotaEntity> mascotasFiltrados = new LinkedList<>();
         
         for(MascotaEntity m : mascotas){
-            if(m.getEstado().equals(estado)){
+            if(m.getEstado().name().equals(estado)){
                 mascotasFiltrados.add(m);
             }
         }
