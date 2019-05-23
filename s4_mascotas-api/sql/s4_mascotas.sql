@@ -27,21 +27,21 @@ insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (100, 'Ma
 insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (200, 'Lola', 'PERRO', 'Boston Terrier', 'Lola es una perra de dos años');
 insert into MascotaEntity (id, nombre, tipo, raza, descripcion) values (300, 'Mia', 'GATO', 'Criollo', 'Mia es una gatita de 5 años');
 
-insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (1 , 0, '04/20/2019' , '04/15/2019', 'La encontramos en la calle hace 3 años y nos enamoramos de ella', 'mi esposa se murió y me pone muy triste ver a mi mascota' , 100 , 100);
-insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (2 , 1, '05/20/2019' , '05/15/2019', 'Siempre ha sido una mascota muy inquieta y la queremos así como es', 'nos tenemos que mudar a un apartamento más pequeño y queremos que sea libre' , 200 , 200);
-insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (3 , 1, '06/20/2019' , '06/15/2019', 'Come mucho y es muy inquieta', 'no me gustó tener mascota' , 300 , 300);
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (100 , 0, '04/20/2019' , '04/15/2019', 'La encontramos en la calle hace 3 años y nos enamoramos de ella', 'mi esposa se murió y me pone muy triste ver a mi mascota' , 100 , 100);
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (200 , 1, '05/20/2019' , '05/15/2019', 'Siempre ha sido una mascota muy inquieta y la queremos así como es', 'nos tenemos que mudar a un apartamento más pequeño y queremos que sea libre' , 200 , 200);
+insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasado, razonAdopcion, duenio_id, mascota_id) values (300 , 1, '06/20/2019' , '06/15/2019', 'Come mucho y es muy inquieta', 'no me gustó tener mascota' , 300 , 300);
 
-insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (1, 5 , 'Excelente servicio, el proceso fue muy confiable y el dueño muy amable',3);
-insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (2, 4 , 'Me enamoré de la mascota en el instante que la adopté, ¡ahora soy muy feliz!',2);
+insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (100, 5 , 'Excelente servicio, el proceso fue muy confiable y el dueño muy amable',300);
+insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (200, 4 , 'Me enamoré de la mascota en el instante que la adopté, ¡ahora soy muy feliz!',200);
 
-insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (200,1);
-insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (300,1);
+insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (200,100);
+insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (300,100);
 --faltan foreign keys
-insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (1,'cra91#792','Santiago de Chile','PENDIENTE');
-insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (2,'cra20#895','Estocolmo','PENDIENTE');
-insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (3,'cra92#893','Bogotá','PENDIENTE');
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (100,'cra91#792','Santiago de Chile','PENDIENTE');
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (200,'cra20#895','Estocolmo','PENDIENTE');
+insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (300,'cra92#893','Bogotá','PENDIENTE');
 
 --faltan foreign keys
-insert into RecompensaEntity(id, medioDePago, valor, estado) values (1,'efectivo', 1500.0, 'PENDIENTE');
-insert into RecompensaEntity(id, medioDePago, valor, estado) values (2,'efectivo', 2500.0, 'PENDIENTE');
-insert into RecompensaEntity(id, medioDePago, valor, estado) values (3,'efectivo', 4500.0, 'PENDIENTE');
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (100,'efectivo', 1500.0, 'PENDIENTE');
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (200,'efectivo', 2500.0, 'PENDIENTE');
+insert into RecompensaEntity(id, medioDePago, valor, estado) values (300,'efectivo', 4500.0, 'PENDIENTE');
