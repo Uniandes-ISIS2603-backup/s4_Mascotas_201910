@@ -23,14 +23,25 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class UsuarioEntity extends BaseEntity implements Serializable{
     
-      /**
+    
+    /**
+     * constante que representa un usuario de tipo administrador
+     */
+    public static final String  ADMIN = "ADMIN";
+    
+    
+    /**
+     * Constante que representa un usuario normal
+     */
+    public static final String  NORMAL = "NORMAL";
+    
+    /**
      * Usuario con el que queda registrado
      */
-   
     private String usuario;
     
     
-    
+   
     /**
      * Contraseña correspondiente al usuario
      */
@@ -53,20 +64,31 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     
     
      /**
-     * 
+     * dia de nacimiento
      */
     private String dayBirth;
     
     /**
-     * 
+     * Mes de nacimiento
      */
     private String monthBirth;
     
     /**
-     * 
+     * Año de nacimiento
      */
     private String yearBirth;
     
+    /**
+     * Rol que tiene el usuario 
+     */
+    private String rol;
+    
+    /**
+     * Ruta imagen perfil
+     */
+    private String rutaImagen;
+    
+
     
     /**
      * Lista de articulos
@@ -100,6 +122,9 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @ManyToMany(mappedBy = "postulados", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion;
     
+    /**
+     * 
+     */
     public UsuarioEntity(){
         
     }
@@ -109,118 +134,261 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     private Boolean recibeNotificaciones;
 
+    /**
+     * 
+     * @return 
+     */
     public String getUsuario() {
         return usuario;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getContrasenha() {
         return contrasenha;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getCorreo() {
         return correo;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getTelefono() {
         return this.telefono;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public List<ArticuloEntity> getArticulos(){
         return articulos;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public List<EventoEntity> getEventos(){
         return eventos;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public Boolean getRecibeNotificaciones(){
         return recibeNotificaciones;
     }
-    
+    /**
+     * 
+     * @param usuario 
+     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * 
+     * @param contrasenha 
+     */
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
     }
 
+    /**
+     * 
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * 
+     * @param correo 
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
    
 
+    /**
+     * 
+     * @param recibeNotificaciones 
+     */
     public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
     }
     
+    /**
+     * 
+     * @param articulos 
+     */
     public void setArticulos(List<ArticuloEntity> articulos){
         this.articulos = articulos;
     }
     
+    /**
+     * 
+     * @param eventos 
+     */
     public void setEventos(List<EventoEntity> eventos){
         this.eventos = eventos;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public List<MascotaExtraviadaEntity> getProcesosMascotaExtraviada() {
         return procesosMascotaExtraviada;
     }
 
+    /**
+     * 
+     * @param procesosMascotaExtraviada 
+     */
     public void setProcesosMascotaExtraviada(List<MascotaExtraviadaEntity> procesosMascotaExtraviada) {
         this.procesosMascotaExtraviada = procesosMascotaExtraviada;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public List<MascotaEnAdopcionEntity> getProcesosMascotaAdopcion() {
         return procesosMascotaAdopcion;
     }
 
+    /**
+     * 
+     * @param procesosMascotaAdopcion 
+     */
     public void setProcesosMascotaAdopcion(List<MascotaEnAdopcionEntity> procesosMascotaAdopcion) {
         this.procesosMascotaAdopcion = procesosMascotaAdopcion;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public List<MascotaEnAdopcionEntity> getPostulacionesMascotaAdopcion() {
         return postulacionesMascotaAdopcion;
     }
 
+    /**
+     * 
+     * @param postulacionesMascotaAdopcion 
+     */
     public void setPostulacionesMascotaAdopcion(List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion) {
         this.postulacionesMascotaAdopcion = postulacionesMascotaAdopcion;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getDayBirth() {
         return dayBirth;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getMonthBirth() {
         return monthBirth;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getYearBirth() {
         return yearBirth;
     }
 
+    /**
+     * 
+     * @param dayBirth 
+     */
     public void setDayBirth(String dayBirth) {
         this.dayBirth = dayBirth;
     }
 
+    /**
+     * 
+     * @param monthBirth 
+     */
     public void setMonthBirth(String monthBirth) {
         this.monthBirth = monthBirth;
     }
 
+    /**
+     * 
+     * @param yearBirth 
+     */
     public void setYearBirth(String yearBirth) {
         this.yearBirth = yearBirth;
     }
+    /**
+     * 
+     * @param telefono 
+     */
      public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
+     /**
+      * 
+      * @return 
+      */
+    public String getRol() {
+        return rol;
+    }
+
+    /**
+     * 
+     * @param rol 
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+    
+    /**
+     * 
+     * @param rutaImagen 
+     */
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+
+    
+    
     
 }
