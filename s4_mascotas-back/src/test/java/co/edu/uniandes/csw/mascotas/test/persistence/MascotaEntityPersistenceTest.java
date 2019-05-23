@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -109,5 +110,25 @@ public class MascotaEntityPersistenceTest
         Assert.assertEquals(mascota.getTipo(), mascota2.getTipo());
         Assert.assertEquals(mascota.getRaza(), mascota2.getRaza());
         
+    }
+    
+    @Test
+    public void buscarMascotaPorNombreTest()
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEntity newEntity = factory.manufacturePojo(MascotaEntity.class);
+        MascotaEntity mascota = ep.create(newEntity);
+        
+        Assert.assertNotNull(mascota);
+        
+        List<MascotaEntity> mascotas = ep.darMascotasPorNombre(mascota.getNombre());
+        
+        Assert.assertNotNull(mascotas);
+        Assert.assertTrue(mascotas.size()>0);
+        
+        for( MascotaEntity m : mascotas )
+        {
+            Assert.assertEquals(m.getNombre(), mascota.getNombre());
+        }
     }
 }

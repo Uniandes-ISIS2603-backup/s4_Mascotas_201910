@@ -250,8 +250,8 @@ public class MascotaLogicTest {
     {
         Random random = new Random();
         MascotaEntity.Estados_mascota estado = MascotaEntity.Estados_mascota.values()[random.nextInt(MascotaEntity.Estados_mascota.values().length)];
-        int i = 0;
-        while(i<data.size())
+        int i;
+        for( i = 0; i < data.size(); i++)
         {
             if(!data.get(i).getEstado().equals(estado))
             {   
@@ -259,14 +259,32 @@ public class MascotaLogicTest {
                 logica.cambiarEstadoMascota(data.get(i));
                 break;
             }
-            i++;
         }
         Assert.assertEquals(data.get(i).getEstado(), estado);
     }
     
+    @Test (expected = Exception.class)
     public void actualizarEstadoMascotaConEstadoNoValidoTest( )
     {
-        
+        //Genera un String aleatorio de 8 caracteres
+        int length = 8;
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+             + "abcdefghijklmnopqrstuvwxyz"
+             + "0123456789";
+        String str = new Random().ints(length, 0, chars.length())
+                         .mapToObj(i -> "" + chars.charAt(i))
+                         .collect(Collectors.joining());
+        MascotaEntity m = data.get(0);
+        m.setEstado(MascotaEntity.Estados_mascota.valueOf(str));
+        try
+        {
+            logica.cambiarEstadoMascota(m);
+            Assert.fail();
+        }
+        catch(BusinessLogicException e)
+        {
+            //
+        }
     }
     
     /**
@@ -279,6 +297,9 @@ public class MascotaLogicTest {
         String nombre = data.get(0).getNombre();
         List<MascotaEntity> mascotasConNombre = logica.darMascotasPorNombre(nombre);
         
+        Assert.assertNotNull(mascotasConNombre);
+        Assert.assertTrue(mascotasConNombre.size()>0);
+       
         for(MascotaEntity m : mascotasConNombre )
         {
             Assert.assertEquals(m.getNombre(), nombre);

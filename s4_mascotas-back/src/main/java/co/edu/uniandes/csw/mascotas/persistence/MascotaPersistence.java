@@ -84,7 +84,7 @@ public class MascotaPersistence
      */
     public List<MascotaEntity> darMascotasPorNombre( String pNombre )
     {
-        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.estado LIKE '%:name%' ", MascotaEntity.class);
+        TypedQuery<MascotaEntity> query= em.createQuery("select u from MascotaEntity u where u.nombre = :name ", MascotaEntity.class);
         query.setParameter("name", pNombre);
         return query.getResultList();
     }
