@@ -26,6 +26,11 @@ public class CalificacionPersistence {
        em.persist(calificacionEntity);
        return calificacionEntity;
    }
+   public CalificacionEntity getCalificacionByProceso(Long id){
+       
+       TypedQuery<CalificacionEntity> query = em.createQuery("SELECT u FROM CalificacionEntity u, MascotaEnAdopcionEntity m WHERE u.procesoMascotaEnAdopcion = m AND m.id = :id " ,CalificacionEntity.class );
+       return query.setParameter("id", id).getSingleResult();
+   }
    
    public CalificacionEntity find(Long calificacionEntity){
        
@@ -33,7 +38,7 @@ public class CalificacionPersistence {
    }
    public List<CalificacionEntity> findAll(){
        
-       TypedQuery<CalificacionEntity> query = em.createQuery("select u from CalificacionEntity u",CalificacionEntity.class );
+       TypedQuery<CalificacionEntity> query = em.createQuery("select u from CalificacionEntity u WHERE u.calificacion > 3",CalificacionEntity.class );
        return query.getResultList();
    }
    

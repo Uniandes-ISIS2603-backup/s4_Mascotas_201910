@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -66,7 +64,8 @@ public class MascotaExtraviadaPersistence {
      * @param entity - Entity del proceso de mascota extraviada
      * @return Entity del proceso de mascota extraviada
      */
-    public MascotaExtraviadaEntity update(MascotaExtraviadaEntity entity){
+    public MascotaExtraviadaEntity update(MascotaExtraviadaEntity entity)
+    {
         return em.merge(entity);
     }
     
@@ -74,7 +73,8 @@ public class MascotaExtraviadaPersistence {
      * Elimina el proceso de mascota extraviada asociado al id
      * @param id - El id del proceso a borrar
      */
-    public void delete(Long id){
+    public void delete(Long id)
+    {
         MascotaExtraviadaEntity entity = em.find(MascotaExtraviadaEntity.class, id);
         em.remove(entity);
     }

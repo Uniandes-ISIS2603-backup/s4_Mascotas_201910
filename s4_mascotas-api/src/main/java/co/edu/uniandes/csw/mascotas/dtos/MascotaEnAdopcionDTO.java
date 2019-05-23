@@ -34,6 +34,20 @@ public class MascotaEnAdopcionDTO implements Serializable{
     private Date fechaFinal;
     
     /**
+     * dueño del proceso
+     */
+    private UsuarioDTO duenio;
+     /**
+     * relación con calificacion
+     */
+    private CalificacionDTO calificacion;
+    
+    /**
+     * relacion con mascota asociada al proceso
+     */
+    private MascotaDTO mascota;
+    
+    /**
      * estado de adopción de la mascota
      */
     
@@ -52,6 +66,26 @@ public class MascotaEnAdopcionDTO implements Serializable{
             fechaInicio = entity.getFechaInicio();
             fechaFinal = entity.getFechaFinal();
             adoptada = entity.isAdoptada();
+            
+            if(entity.getDuenio() != null){
+                this.duenio = new UsuarioDTO(entity.getDuenio());
+            }else{
+                this.duenio = null;
+            }
+            
+            if(entity.getCalificacion() != null){
+                this.calificacion = new CalificacionDTO(entity.getCalificacion());
+            }else{
+                this.calificacion = null;
+            }
+            
+            if(entity.getMascota() != null){
+                this.mascota = new MascotaDTO(entity.getMascota());
+            }
+            else{
+                this.mascota = null;
+            }
+            
         }
         
     
@@ -134,7 +168,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
      * @return the adoptada
      */
     public Boolean isAdoptada() {
-        return adoptada;
+        return getAdoptada();
     }
 
     /**
@@ -147,13 +181,73 @@ public class MascotaEnAdopcionDTO implements Serializable{
     public MascotaEnAdopcionEntity toEntity(){
         
         MascotaEnAdopcionEntity entity = new MascotaEnAdopcionEntity();
-        entity.setAdoptada(adoptada);
+        entity.setAdoptada(getAdoptada());
         entity.setFechaFinal(fechaFinal);
         entity.setFechaInicio(fechaInicio);
         entity.setPasado(pasado);
         entity.setRazonAdopcion(razonAdopcion);
+       
+         if(this.duenio != null){
+             entity.setDuenio(this.duenio.toEntity());
+         }
+         
+         if(this.calificacion != null){
+             entity.setCalificacion(this.calificacion.toEntity());
+         }
         
+         if(this.mascota != null){
+             entity.setMascota(this.mascota.toEntity());
+         }
         return entity;
+    }
+
+    /**
+     * @return the duenio
+     */
+    public UsuarioDTO getDuenio() {
+        return duenio;
+    }
+
+    /**
+     * @param duenio the duenio to set
+     */
+    public void setDuenio(UsuarioDTO duenio) {
+        this.duenio = duenio;
+    }
+
+    /**
+     * @return the mascota
+     */
+    public MascotaDTO getMascota() {
+        return mascota;
+    }
+
+    /**
+     * @param mascota the mascota to set
+     */
+    public void setMascota(MascotaDTO mascota) {
+        this.mascota = mascota;
+    }
+
+    /**
+     * @return the adoptada
+     */
+    public Boolean getAdoptada() {
+        return adoptada;
+    }
+
+    /**
+     * @return the calificacion
+     */
+    public CalificacionDTO getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(CalificacionDTO calificacion) {
+        this.calificacion = calificacion;
     }
     
 }

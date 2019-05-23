@@ -133,12 +133,14 @@ public class ArticuloResource {
         List<ArticuloDTO> todos = darArticulos();
         List<ArticuloDTO> articulos = new ArrayList();
         
-        for (int i = 0; i < todos.size(); i++) {
+        if(titulo!=null){
+            for (int i = 0; i < todos.size(); i++) {
             if(todos.get(i).getTitulo().equals(titulo)){
                 articulos.add(todos.get(i));
             }
+            }
         }
-       
+        
         if(articulos.isEmpty()){
             throw new WebApplicationException("No existe ningun articulo con ese nombre", 404);
         }
@@ -161,11 +163,14 @@ public class ArticuloResource {
         List<ArticuloDTO> todos = darArticulos();
         List<ArticuloDTO> articulos = new ArrayList();
         
-        for (int i = 0; i < todos.size(); i++) {
+        if(tema!=null){
+            for (int i = 0; i < todos.size(); i++) {
             if(todos.get(i).getTema().equals(tema)){
                 articulos.add(todos.get(i));
             }
+            }
         }
+        
        
         if(articulos.isEmpty()){
             throw new WebApplicationException("No existe ningun articulo con ese tema", 404);

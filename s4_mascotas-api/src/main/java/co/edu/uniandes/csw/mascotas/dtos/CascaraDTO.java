@@ -35,7 +35,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ISIS2603
  */
-public class CascaraDTO implements Serializable {
+public class CascaraDTO implements Serializable 
+{
+    /**
+     * Constructor
+     */
+    public CascaraDTO()
+    {
+        //Constructor vacío por defecto
+    }
 
     @Override
     public String toString() {

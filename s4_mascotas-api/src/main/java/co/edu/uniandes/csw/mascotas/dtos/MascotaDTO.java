@@ -51,20 +51,15 @@ public class MascotaDTO implements Serializable
      * Descripción de la mascota
      */
     private String descripcion;
-    
-    /**
-     * Identificador único del proceso que está asociado a la mascota
-     */
-    private Long idProceso;
 
-    // COSNTRUCTOR
+    // CONSTRUCTOR
     
     /**
      * Constructor vacío
      */
     public MascotaDTO( )
     {
-        
+        // Constructor vacío para la serialización
     }
     
     /**
@@ -82,7 +77,6 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
-            this.idProceso = entity.getIdProceso();
         }
     }
     
@@ -186,7 +180,6 @@ public class MascotaDTO implements Serializable
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
-        entity.setIdProceso(this.getIdProceso());
         return entity;
     }
 
@@ -202,20 +195,6 @@ public class MascotaDTO implements Serializable
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    /**
-     * @return the idProceso
-     */
-    public Long getIdProceso() {
-        return idProceso;
-    }
-
-    /**
-     * @param idProceso the idProceso to set
-     */
-    public void setIdProceso(Long idProceso) {
-        this.idProceso = idProceso;
     }
     
 }

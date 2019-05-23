@@ -20,29 +20,72 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class MascotaEnAdopcionPersistence {
     
+    /**
+     * para acceder a la base de datos
+     */
      @PersistenceContext(unitName="mascotasPU")
     protected EntityManager em;
     
+     /**
+      * crea un nuevo proceso de adopción
+      * @param mascotaEnAdopcionEntity
+      * @return 
+      */
    public MascotaEnAdopcionEntity create(MascotaEnAdopcionEntity mascotaEnAdopcionEntity){
        
        em.persist(mascotaEnAdopcionEntity);
        return mascotaEnAdopcionEntity;
    }
-   
+   /**
+    * encuentra un proceso por su id
+    * @param id
+    * @return 
+    */
    public MascotaEnAdopcionEntity find(Long id){
        
        return em.find(MascotaEnAdopcionEntity.class, id);
    }
+   /**
+    * devuelve todos los procesos de adopción
+    * @return 
+    */
    public List<MascotaEnAdopcionEntity> findAll(){
        
        TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("select u from MascotaEnAdopcionEntity u",MascotaEnAdopcionEntity.class );
        return query.getResultList();
    }
+   /**
+    * devuelve todos los procesos sin adoptar
+    * @return 
+    */
+   public List<MascotaEnAdopcionEntity> findSinAdoptar(){
+       
+       TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("Select u from MascotaEnAdopcionEntity u where u.adoptada = false" ,MascotaEnAdopcionEntity.class );
+       return query.getResultList();
+   }
+   /**
+    * modifica el proceso
+    * @param entity
+    * @return 
+    */
    public MascotaEnAdopcionEntity update(MascotaEnAdopcionEntity entity){
        
        return em.merge(entity);
    }
+   /**
+    * devuelve los procesos por tipo
+    * @param type
+    * @return 
+    */
+   public List<MascotaEnAdopcionEntity> findByType(String type){
+       TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("Select u from MascotaEnAdopcionEntity u where u.mascota.tipo = :type" ,MascotaEnAdopcionEntity.class );
+       return query.setParameter("type", type).getResultList();
+   }
    
+   /**
+    * borra un proceso por su id
+    * @param id 
+    */
    public void delete(long id){
        
          em.remove(em.find(MascotaEnAdopcionEntity.class , id));

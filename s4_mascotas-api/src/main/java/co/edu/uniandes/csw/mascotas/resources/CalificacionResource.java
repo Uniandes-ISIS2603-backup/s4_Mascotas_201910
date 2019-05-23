@@ -95,6 +95,22 @@ public class CalificacionResource {
       return dto;
     }
     /**
+     * devuelve la calificación asociada al proceso
+     * @param id
+     * @return
+     * @throws BusinessLogicException 
+     */
+    @GET
+    @Path("proceso/{id}")
+    public CalificacionDTO getCalificacionByProceso(@PathParam("id") Long id) throws BusinessLogicException{
+        
+      CalificacionEntity entity = logic.getCalificacionByProceso(id);
+      if(entity == null) throw new WebApplicationException("no se encontró una calificacion con id de proceso:  " + id, 404);
+      CalificacionDTO dto = new CalificacionDTO(entity);
+      
+      return dto;
+    }
+    /**
      * borra una calificación por id
      * @param id
      * @throws BusinessLogicException 
