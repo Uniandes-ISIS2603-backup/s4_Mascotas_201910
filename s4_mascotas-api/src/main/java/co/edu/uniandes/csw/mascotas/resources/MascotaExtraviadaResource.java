@@ -98,7 +98,7 @@ public class MascotaExtraviadaResource {
      */
     @GET
     @Path("{precio: \\d+}")
-    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") double precio) throws Exception{
+    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") Double precio) throws Exception{
         return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
     }
     

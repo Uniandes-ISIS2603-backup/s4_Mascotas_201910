@@ -65,7 +65,7 @@ public class MascotaProcesoLogic {
      * @return Lista de procesos de mascota extraviada
      * @throws Exception 
      */
-    public List<MascotaExtraviadaEntity> darProcesosConRecompensaMenorA(double precio) throws Exception{
+    public List<MascotaExtraviadaEntity> darProcesosConRecompensaMenorA(Double precio) throws Exception{
         
         if(precio < 0){
             throw new BusinessLogicException("El precio de una recompensa no puede ser negativo");
