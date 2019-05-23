@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.resources;
 import co.edu.uniandes.csw.mascotas.dtos.MascotaExtraviadaDTO;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaProcesoLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -45,6 +46,12 @@ public class MascotaExtraviadaResource {
     @Inject
     private MascotaExtraviadaRecompensaLogic mascotaExtraviadaRecompensaLogic;
     
+    /**
+     * La lógica que maneja consultas que involucran la mascota y el proceso
+     */
+    @Inject
+    private MascotaProcesoLogic mascotaProcesoLogic;
+    
     private static final Logger LOGGER = Logger.getLogger(MascotaExtraviadaResource.class.getName());
     
     /**
@@ -81,6 +88,57 @@ public class MascotaExtraviadaResource {
         }
         return new MascotaExtraviadaDTO(entity);
     }
+    
+    /**
+     * Retorna una lista filtrada con los procesos de mascota extraviada cuya 
+     * recompensa es menor o igual a un precio dado
+     * @param precio
+     * @return Lista de procesos
+     * @throws Exception 
+     */
+//    @GET
+//    @Path("{precio: \\d+}")
+//    public List<MascotaExtraviadaDTO> darProcesosConRecompensaMenorA(@PathParam("precio") Double precio) throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosConRecompensaMenorA(precio));
+//    }
+    
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas del nombre especificado
+     * @param nombreMascota
+     * @return Lista de procesos
+     * @throws Exception 
+     */
+//    @GET
+//    @Path("{nombre: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConNombreDeMascotaIgualA(@PathParam("nombre")String nombreMascota) throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConNombreDeMascotaIgualA(nombreMascota));
+//    }
+    
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas de la raza especificada
+     * @param raza
+     * @return Lista de procesos
+     */
+//    @GET
+//    @Path("{raza: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConRazaIgualA(@PathParam("raza") String raza){
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConRazaIgualA(raza));
+//    }
+    
+    /**
+     * Retorna una lista de los procesos de mascota extraviada
+     * con las mascotas del tipo especificado
+     * @param tipo
+     * @return Lista de procesos
+     * @throws Exception 
+     */
+//    @GET
+//    @Path("{tipo: [a-zA-Z][a-zA-Z_0-9]*}")
+//    public List<MascotaExtraviadaDTO> darProcesosExtraviadaConTipoIgualA(@PathParam("tipo") String tipo)throws Exception{
+//        return listaEntidadesADTO(mascotaProcesoLogic.darProcesosExtraviadaConTipoIgualA(tipo));
+//    }
     
     /**
      * Elimina un proceso de mascota extraviada correspondiente
@@ -144,5 +202,18 @@ public class MascotaExtraviadaResource {
             throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + procesoId + " no existe.", 404);
         }
         return MascotaExtraviadaRecompensaResource.class;
+    }
+    
+    /**
+     * Conexiòn con el servicio de la mascota para un proceso de mascota
+     * extraviada
+     * @param procesoId
+     * @return Clase con los recursos de mascota para un proceso de mascotaExtraviada
+     */
+    public Class<MascotaProcesoResource> getMascotaProcesoResource(@PathParam("procesoId") Long procesoId) throws Exception{
+        if (mascotaExtraviadaLogic.getProcesoMascotaExtraviada(procesoId) == null) {
+            throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + procesoId + " no existe.", 404);
+        }
+        return MascotaProcesoResource.class;        
     }
 }
