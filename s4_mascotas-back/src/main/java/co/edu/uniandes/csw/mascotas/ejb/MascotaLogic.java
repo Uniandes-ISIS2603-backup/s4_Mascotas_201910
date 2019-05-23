@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Clase que se encarga de validar las reglas de negocio relacionadas con el Recurso Mascota
@@ -27,12 +26,12 @@ public class MascotaLogic
     /**
      * Constante que define el tipo de mascota perro 
      */
-    public final static String PERRO = "PERRO";
+    public static final String PERRO = "PERRO";
     
     /**
      * Constante que define el tipo de mascota gato
      */
-    public final static String GATO = "GATO";
+    public static final String GATO = "GATO";
         
     /**
      * Instancia inyectada de la persistencia que permite el acceso a la base de datos
@@ -72,8 +71,7 @@ public class MascotaLogic
      */
     public MascotaEntity buscarMascotaPorId( Long id )
     {
-        MascotaEntity buscada = persistencia.find(id);
-        return buscada;
+        return persistencia.find(id);
     }
     
     /**
@@ -82,9 +80,7 @@ public class MascotaLogic
      */
     public List<MascotaEntity> darTodasLasMascotas( )
     {
-        List<MascotaEntity> respuesta = persistencia.findAll();
-        return respuesta;
-        
+        return persistencia.findAll();
     }
     
     /**
