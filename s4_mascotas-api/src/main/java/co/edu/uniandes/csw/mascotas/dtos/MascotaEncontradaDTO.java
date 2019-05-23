@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.dtos;
 import java.io.Serializable;
 import java.util.Date;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 
 /**
  *
@@ -39,7 +40,12 @@ public class MascotaEncontradaDTO implements Serializable{
      * Ubicación donde fue encontrada la mascota.
      */
     private String ubicacion;
-        
+    
+    /**
+     * Mascota Asociada al proceso
+     */
+    private MascotaEntity mascota;
+    
     /**
      * Constructor vacío por defecto
      */
@@ -61,6 +67,7 @@ public class MascotaEncontradaDTO implements Serializable{
             this.fechaFin = e.getFechaFinalizacion();
             this.fechaInicio = e.getFechaInicializacion();
             this.ubicacion = e.getUbicacion();
+            this.mascota = e.getMascota();
         }
     }
 
@@ -76,6 +83,7 @@ public class MascotaEncontradaDTO implements Serializable{
         e.setFechaInicializacion(fechaInicio);
         e.setId(id);
         e.setUbicacion(ubicacion);
+        e.setMascota(mascota);
         return e;
     }
     /**

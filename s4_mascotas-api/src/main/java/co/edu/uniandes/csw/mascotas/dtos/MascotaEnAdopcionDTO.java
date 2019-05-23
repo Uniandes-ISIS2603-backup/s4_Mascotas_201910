@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.dtos;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -52,6 +53,12 @@ public class MascotaEnAdopcionDTO implements Serializable{
      */
     
     private Boolean adoptada;
+    
+    /**
+     * usuarios postulados
+     */
+    
+    private List<UsuarioDTO> postulados;
     /**
      * constructor con un entity como parámetro
      * @param entity 
@@ -85,6 +92,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
             else{
                 this.mascota = null;
             }
+            this.postulados = null;
             
         }
         
@@ -198,6 +206,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
          if(this.mascota != null){
              entity.setMascota(this.mascota.toEntity());
          }
+         entity.setPostulados(null);
         return entity;
     }
 
@@ -248,6 +257,20 @@ public class MascotaEnAdopcionDTO implements Serializable{
      */
     public void setCalificacion(CalificacionDTO calificacion) {
         this.calificacion = calificacion;
+    }
+
+    /**
+     * @return the postulados
+     */
+    public List<UsuarioDTO> getPostulados() {
+        return postulados;
+    }
+
+    /**
+     * @param postulados the postulados to set
+     */
+    public void setPostulados(List<UsuarioDTO> postulados) {
+        this.postulados = postulados;
     }
     
 }

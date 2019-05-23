@@ -67,6 +67,12 @@ public class RecompensaDTO implements Serializable{
             this.medioDePago = e.getMedioDePago();
             this.valor = e.getValor();
             this.estado = e.getEstado();
+            
+            if(procesoMascotaExtraviada != null){
+                this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(e.getProcesoMascotaExtraviada());
+            }else{
+                this.procesoMascotaExtraviada = null;
+            }
         }
     }
     
@@ -159,6 +165,7 @@ public class RecompensaDTO implements Serializable{
         e.setMedioDePago(medioDePago);
         e.setValor(valor);
         e.setEstado(estado);
+        e.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada.toEntity());
         
         return e;
     }

@@ -6,11 +6,13 @@
 package co.edu.uniandes.csw.mascotas.resources;
 import co.edu.uniandes.csw.mascotas.dtos.CalificacionDTO;
 import co.edu.uniandes.csw.mascotas.dtos.MascotaEnAdopcionDTO;
+import co.edu.uniandes.csw.mascotas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mascotas.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaEnAdopcionLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.entities.CalificacionEntity;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,25 @@ public class MascotaEnAdopcionResource {
       
         return toDTO(listaEntities);
     }
+    /**
+     * devuele los postulados del proceso asociado
+     * @param id
+     * @return
+     * @throws Exception 
+     */
+    @GET
+    @Path("/postulados/{id}")
+    public List<UsuarioDTO> getPostuladosByProceso(@PathParam("id")Long id) throws Exception{
+        List<UsuarioEntity> listaEntities = logic.getPostuladosByProceso(id);
+        List<UsuarioDTO> listaDTOs = new ArrayList<>();
+        for(UsuarioEntity actual : listaEntities){
+            
+         listaDTOs.add(new UsuarioDTO(actual));
+        }
+        
+        return listaDTOs;
+    }
+    
     /**
      * devuelve la lista de las mascotas filtradas por el tipo
      * @param raza
