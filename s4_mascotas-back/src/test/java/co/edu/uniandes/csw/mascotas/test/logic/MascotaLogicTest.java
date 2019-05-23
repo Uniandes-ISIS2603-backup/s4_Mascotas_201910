@@ -263,4 +263,25 @@ public class MascotaLogicTest {
         }
         Assert.assertEquals(data.get(i).getEstado(), estado);
     }
+    
+    public void actualizarEstadoMascotaConEstadoNoValidoTest( )
+    {
+        
+    }
+    
+    /**
+     * Test que valida el método de listar mascotas por nombre
+     * @throws BusinessLogicException 
+     */
+    @Test
+    public void darMascotasPorNombreTest() throws BusinessLogicException
+    {
+        String nombre = data.get(0).getNombre();
+        List<MascotaEntity> mascotasConNombre = logica.darMascotasPorNombre(nombre);
+        
+        for(MascotaEntity m : mascotasConNombre )
+        {
+            Assert.assertEquals(m.getNombre(), nombre);
+        }
+    }
 }
