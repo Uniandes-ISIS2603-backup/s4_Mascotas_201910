@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mascotas.persistence;
 
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -53,6 +54,15 @@ public class MascotaEnAdopcionPersistence {
        
        TypedQuery<MascotaEnAdopcionEntity> query = em.createQuery("select u from MascotaEnAdopcionEntity u",MascotaEnAdopcionEntity.class );
        return query.getResultList();
+   }
+   /**
+    * devuelve la lista de los postulados al proceso asociado
+    * @param id
+    * @return 
+    */
+   public List<UsuarioEntity> postuladosByProceso(Long id){
+       TypedQuery<UsuarioEntity> query = em.createQuery(" Select u from UsuarioEntity u where u.postulacionesMascotaAdopcion != :id" ,UsuarioEntity.class );
+       return query.setParameter("id", id).getResultList();
    }
    /**
     * devuelve todos los procesos sin adoptar

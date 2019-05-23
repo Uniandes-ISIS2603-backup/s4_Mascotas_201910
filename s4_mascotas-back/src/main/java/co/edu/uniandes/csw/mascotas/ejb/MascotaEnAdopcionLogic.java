@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mascotas.ejb;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaEnAdopcionPersistence;
 import java.util.List;
@@ -41,10 +42,25 @@ public class MascotaEnAdopcionLogic {
         if(entity.getPasado() == null) throw new BusinessLogicException("el pasado no puede ser nulo");
         if(entity.getRazonAdopcion() == null) throw new BusinessLogicException("tiene que tener una razón para dejarla en adopción");
         
-        return persistence.create(entity);
+        
+        persistence.create(entity);
+        return entity;
     }
+    /**
+     * devuelve los procesos filtrados por el tipo
+     * @param tipo
+     * @return 
+     */
     public List<MascotaEnAdopcionEntity> getProcesosPorTipo(String tipo){
         return persistence.findByType(tipo);
+    }
+    /**
+     * devuelve los postulados del proceso en adopcion
+     * @param id
+     * @return 
+     */
+    public List<UsuarioEntity> getPostuladosByProceso(Long id){
+        return persistence.postuladosByProceso(id);
     }
     /**
      * devuelve un proceso siempre y cuando exista en la base de datos

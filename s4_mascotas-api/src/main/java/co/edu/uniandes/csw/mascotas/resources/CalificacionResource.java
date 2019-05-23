@@ -68,11 +68,15 @@ public class CalificacionResource {
         List<CalificacionDTO> calificaciones = new ArrayList<>();
         List<CalificacionEntity> entidades = logic.getCalificaciones();
         
-        
-        for(CalificacionEntity actual : entidades){
+        //get max 3 random califications
+        int random =(int) (Math.random() * (entidades.size()) + 1);
+        for(int cont = 0; cont < 3 && cont < entidades.size() ; cont++){
+            
+                calificaciones.add(new CalificacionDTO(entidades.get((random++)%entidades.size())));
             
             
-            calificaciones.add(new CalificacionDTO(actual));
+            
+            
         }
         
         return calificaciones;        
