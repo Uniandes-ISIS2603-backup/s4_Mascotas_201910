@@ -220,9 +220,6 @@ public class MascotaExtraviadaDTO implements Serializable{
         entity.setCiudad(this.ciudad);
         entity.setDireccion(this.direccion);
         entity.setEstado(this.estado);
-        entity.setRecompensa(this.recompensa.toEntity());
-        entity.setMascota(this.mascota.toEntity());
-        entity.setUsuario(this.usuario.toEntity());
 
         return entity;
     }

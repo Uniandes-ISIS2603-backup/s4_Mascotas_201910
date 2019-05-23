@@ -1,6 +1,7 @@
 
 delete from ArticuloEntity;
 delete from EventoEntity;
+delete from MASCOTAENADOPCIONENTITY_USUARIOENTITY;
 delete from ClasificadoEntity;
 delete from CalificacionEntity;
 delete from MascotaExtraviadaEntity;
@@ -33,6 +34,8 @@ insert into MascotaEnAdopcionEntity (id, adoptada, fechaFinal, fechaInicio, pasa
 insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (1, 5 , 'Excelente servicio, el proceso fue muy confiable y el dueño muy amable',3);
 insert into CalificacionEntity (id, calificacion, comentario, procesoMascotaEnAdopcion_id) values (2, 4 , 'Me enamoré de la mascota en el instante que la adopté, ¡ahora soy muy feliz!',2);
 
+insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (200,1);
+insert into MASCOTAENADOPCIONENTITY_USUARIOENTITY values (300,1);
 --faltan foreign keys
 insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (1,'cra91#792','Santiago de Chile','PENDIENTE');
 insert into MascotaExtraviadaEntity(id, direccion, ciudad, estado) values (2,'cra20#895','Estocolmo','PENDIENTE');
