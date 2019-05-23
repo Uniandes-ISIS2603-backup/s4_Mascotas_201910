@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mascotas.resources;
 import co.edu.uniandes.csw.mascotas.dtos.RecompensaDTO;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
+import co.edu.uniandes.csw.mascotas.ejb.MascotaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.RecompensaLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
@@ -46,7 +47,7 @@ public class MascotaExtraviadaRecompensaResource {
     
     @Inject
     private MascotaExtraviadaRecompensaLogic procesoRecompensaLogic;
-    
+        
     /**
      * Crea y asocia una nueva recompensa a un proceso de
      * mascota extraviada

@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
+import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
+import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -51,20 +54,33 @@ public class MascotaDTO implements Serializable
      * Descripción de la mascota
      */
     private String descripcion;
+
+    /**
+     * El proceso de mascota extraviada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    private MascotaExtraviadaEntity procesoMascotaExtraviada;
     
     /**
-     * Identificador único del proceso que está asociado a la mascota
+     * El proceso de mascota encontrada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
      */
-    private Long idProceso;
-
-    // COSNTRUCTOR
+    private MascotaEncontradaEntity procesoMascotaEncontrada;
+    
+    /**
+    * El proceso de mascota en adopción que contiene la 
+    * información de la mascota (solo si existe dicho proceso)
+    */
+    private MascotaEnAdopcionEntity procesoMascotaEnAdopcion;
+    
+    // CONSTRUCTOR
     
     /**
      * Constructor vacío
      */
     public MascotaDTO( )
     {
-        
+        // Constructor vacío para la serialización
     }
     
     /**
@@ -82,7 +98,9 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
-            this.idProceso = entity.getIdProceso();
+            this.procesoMascotaEnAdopcion = entity.getProcesoMascotaEnAdopcion();
+            this.procesoMascotaEncontrada = entity.getProcesoMascotaEncontrada();
+            this.procesoMascotaExtraviada = entity.getProcesoMascotaExtraviada();
         }
     }
     
@@ -186,7 +204,9 @@ public class MascotaDTO implements Serializable
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
-        entity.setIdProceso(this.getIdProceso());
+        entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada);
+        entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion);
+        entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada);
         return entity;
     }
 
@@ -202,20 +222,6 @@ public class MascotaDTO implements Serializable
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    /**
-     * @return the idProceso
-     */
-    public Long getIdProceso() {
-        return idProceso;
-    }
-
-    /**
-     * @param idProceso the idProceso to set
-     */
-    public void setIdProceso(Long idProceso) {
-        this.idProceso = idProceso;
     }
     
 }

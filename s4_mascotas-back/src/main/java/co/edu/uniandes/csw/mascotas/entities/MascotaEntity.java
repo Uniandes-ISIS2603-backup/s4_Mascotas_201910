@@ -49,19 +49,35 @@ public class MascotaEntity extends BaseEntity implements Serializable
         
     }
     
+    /**
+    * Lista con las fotos de la mascota
+    */
     private List<String> fotos;
     
+    /**
+     * Raza de la mascota
+     */
     private String raza;
     
+    /**
+     * Descripción de la mascota
+     */
     private String descripcion;
     
+    /**
+     * Tipo de la mascota (PERRO || GATO)
+     */
     private String tipo;
     
+    /**
+     * Estado de la mascota (proceso al que está asociada)
+     */
     private Estados_mascota estado;
     
+    /**
+     * Nombre de la mascota
+     */
     private String nombre;
-    
-    private Long idProceso;
     
     /**
      * El proceso de mascota extraviada que contiene la 
@@ -70,7 +86,23 @@ public class MascotaEntity extends BaseEntity implements Serializable
     @PodamExclude
     @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
+    
+    /**
+     * El proceso de mascota encontrada que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    private MascotaEncontradaEntity procesoMascotaEncontrada;
 
+    /**
+     * El proceso de mascota en adopcion que contiene la 
+     * información de la mascota (solo si existe dicho proceso)
+     */
+    @PodamExclude
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    private MascotaEnAdopcionEntity procesoMascotaEnAdopcion;
+    
     /** Constructor vacío por defecto */
     public MascotaEntity( )
     {
@@ -175,19 +207,36 @@ public class MascotaEntity extends BaseEntity implements Serializable
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+  
     /**
-     * @return the idProceso
+     * @return this.procesoMascotaEncontrada
      */
-    public Long getIdProceso() {
-        return idProceso;
-    }
-
-    /**
-     * @param idProceso the idProceso to set
-     */
-    public void setIdProceso(Long idProceso) {
-        this.idProceso = idProceso;
+    public MascotaEncontradaEntity getProcesoMascotaEncontrada()
+    {
+        return procesoMascotaEncontrada;
     }
     
+    /**
+     * @param proceso to set
+     */
+    public void setProcesoMascotaEncontrada(MascotaEncontradaEntity proceso)
+    {
+        procesoMascotaEncontrada = proceso;
+    }
+    
+    /**
+     * @return this.procesoMascotaEnAdopcion
+     */
+    public MascotaEnAdopcionEntity getProcesoMascotaEnAdopcion( )
+    {
+        return procesoMascotaEnAdopcion;
+    }
+    
+    /**
+     * @param proceso to set
+     */
+    public void setProcesoMascotaEnAdopcion( MascotaEnAdopcionEntity proceso )
+    {
+        procesoMascotaEnAdopcion = proceso;
+    }
 }
