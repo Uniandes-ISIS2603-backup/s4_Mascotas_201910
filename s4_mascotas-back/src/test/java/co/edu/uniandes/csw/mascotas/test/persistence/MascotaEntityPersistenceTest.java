@@ -7,7 +7,12 @@ package co.edu.uniandes.csw.mascotas.test.persistence;
 
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
 import co.edu.uniandes.csw.mascotas.persistence.MascotaPersistence;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -130,5 +135,77 @@ public class MascotaEntityPersistenceTest
         {
             Assert.assertEquals(m.getNombre(), mascota.getNombre());
         }
+    }
+    
+    public void filtrarTest( ) throws IllegalAccessException
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        MascotaEntity newEntity = factory.manufacturePojo(MascotaEntity.class);
+        MascotaEntity mascota = ep.create(newEntity);
+        
+        Assert.assertNotNull(mascota);
+        
+        String[] filtros = new String[2];
+        filtros[0] = "nombre";
+        filtros[1] = "raza";
+        
+        ArrayList<String[]> params = new ArrayList<>();
+        for(int i = 0; i < filtros.length; i++)
+        {
+            String[] nuevo = new String[2];
+            nuevo[0] = filtros[i];
+            String metodo = "get"+filtros[i].substring(0, 1).toUpperCase()+filtros[i].substring(1);
+            try 
+            {
+                Method method = mascota.getClass().getMethod(metodo);
+                nuevo[1] = (String)method.invoke(mascota);
+            } 
+            catch (NoSuchMethodException ex) 
+            {
+                Assert.fail("No debería generar excepción");
+                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            catch (SecurityException ex) 
+            {
+                Assert.fail("No debería generar excepción");
+                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            catch (IllegalArgumentException ex) 
+            {
+                Assert.fail("No debería generar excepción");
+                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            catch (InvocationTargetException ex) 
+            {
+                Assert.fail("No debería generar excepción");
+                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            params.add(nuevo);
+        }
+        
+        List<MascotaEntity> mascotas = ep.filtarPorParametros(params);
+        
+        Assert.assertNotNull(mascotas);
+        Assert.assertTrue(mascotas.size()>0);
+        
+//        for (MascotaEntity m : mascotas) {
+//            String metodo = "get" + filtros[i].substring(0, 1).toUpperCase() + filtros[i].substring(1);
+//            try {
+//                Method method = mascota.getClass().getMethod(metodo);
+//                nuevo[1] = (String) method.invoke(mascota);
+//            } catch (NoSuchMethodException ex) {
+//                Assert.fail("No debería generar excepción");
+//                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (SecurityException ex) {
+//                Assert.fail("No debería generar excepción");
+//                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IllegalArgumentException ex) {
+//                Assert.fail("No debería generar excepción");
+//                Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (InvocationTargetException ex) {
+//                Assert.fail("No debería generar excepción");
+//               Logger.getLogger(MascotaEntityPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//       }
     }
 }

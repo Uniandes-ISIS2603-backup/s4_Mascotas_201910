@@ -100,4 +100,17 @@ public class MascotaPersistence
         query.setParameter("tipo", pTipo);
         return query.getResultList();
     }
+    
+    public List<MascotaEntity> filtarPorParametros(List<String[]> params)
+    {
+        String sqlQuery = "select u from MascotaEntity u where ";
+        for(int i = 0; i < params.size(); i++)
+        {
+            sqlQuery += params.get(i)[0] + " = " + params.get(i)[1];
+            if(i+1<params.size())
+                sqlQuery += " AND ";
+        }
+        TypedQuery<MascotaEntity> query = em.createQuery(sqlQuery, MascotaEntity.class);
+        return query.getResultList();
+    }
 }
