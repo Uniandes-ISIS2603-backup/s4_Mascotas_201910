@@ -62,19 +62,30 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     private String telefono;
     
-    
      /**
+<<<<<<< HEAD
      * dia de nacimiento
+=======
+     * ..
+>>>>>>> ac93a846573e30c6712b5a9232ea0ebd96f3fdde
      */
     private String dayBirth;
     
     /**
+<<<<<<< HEAD
      * Mes de nacimiento
+=======
+     * ..
+>>>>>>> ac93a846573e30c6712b5a9232ea0ebd96f3fdde
      */
     private String monthBirth;
     
     /**
+<<<<<<< HEAD
      * Año de nacimiento
+=======
+     * ..
+>>>>>>> ac93a846573e30c6712b5a9232ea0ebd96f3fdde
      */
     private String yearBirth;
     
@@ -122,10 +133,15 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @ManyToMany(mappedBy = "postulados", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MascotaEnAdopcionEntity> postulacionesMascotaAdopcion;
     
+<<<<<<< HEAD
     /**
      * 
      */
     public UsuarioEntity(){
+=======
+    public UsuarioEntity()
+    {
+>>>>>>> ac93a846573e30c6712b5a9232ea0ebd96f3fdde
         
     }
     
@@ -227,12 +243,15 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.correo = correo;
     }
 
+<<<<<<< HEAD
    
 
     /**
      * 
      * @param recibeNotificaciones 
      */
+=======
+>>>>>>> ac93a846573e30c6712b5a9232ea0ebd96f3fdde
     public void setRecibeNotificaciones(Boolean recibeNotificaciones) {
         this.recibeNotificaciones = recibeNotificaciones;
     }

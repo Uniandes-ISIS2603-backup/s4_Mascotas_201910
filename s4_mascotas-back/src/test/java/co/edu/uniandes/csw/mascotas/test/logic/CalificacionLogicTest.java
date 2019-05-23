@@ -16,6 +16,7 @@ import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import co.edu.uniandes.csw.mascotas.entities.RecompensaEntity;
 import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mascotas.persistence.CalificacionPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -78,6 +79,9 @@ public class CalificacionLogicTest {
      * inicializa la lista de prueba
      */
     private void inicializacionListaPrueba(){
+        pruebaProcesosMascotaEnAdopcion = new ArrayList<>();
+        pruebaCalificaciones = new ArrayList<>();
+        
         for (int i = 0; i < 10; i++) {
             MascotaEnAdopcionEntity p = factory.manufacturePojo(MascotaEnAdopcionEntity.class);
             em.persist(p);

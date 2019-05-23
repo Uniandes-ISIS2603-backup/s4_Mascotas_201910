@@ -84,7 +84,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
      * información de la mascota (solo si existe dicho proceso)
      */
     @PodamExclude
-    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToOne
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
     
     /**
@@ -92,7 +92,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
      * información de la mascota (solo si existe dicho proceso)
      */
     @PodamExclude
-    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToOne
     private MascotaEncontradaEntity procesoMascotaEncontrada;
 
     /**
@@ -100,7 +100,7 @@ public class MascotaEntity extends BaseEntity implements Serializable
      * información de la mascota (solo si existe dicho proceso)
      */
     @PodamExclude
-    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToOne
     private MascotaEnAdopcionEntity procesoMascotaEnAdopcion;
     
     /** Constructor vacío por defecto */

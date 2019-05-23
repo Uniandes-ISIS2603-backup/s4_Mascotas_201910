@@ -5,10 +5,7 @@
  */
 package co.edu.uniandes.csw.mascotas.dtos;
 
-import co.edu.uniandes.csw.mascotas.entities.MascotaEnAdopcionEntity;
-import co.edu.uniandes.csw.mascotas.entities.MascotaEncontradaEntity;
 import co.edu.uniandes.csw.mascotas.entities.MascotaEntity;
-import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -59,19 +56,19 @@ public class MascotaDTO implements Serializable
      * El proceso de mascota extraviada que contiene la 
      * información de la mascota (solo si existe dicho proceso)
      */
-    private MascotaExtraviadaEntity procesoMascotaExtraviada;
+    private MascotaExtraviadaDTO procesoMascotaExtraviada;
     
     /**
      * El proceso de mascota encontrada que contiene la 
      * información de la mascota (solo si existe dicho proceso)
      */
-    private MascotaEncontradaEntity procesoMascotaEncontrada;
+    private MascotaEncontradaDTO procesoMascotaEncontrada;
     
     /**
     * El proceso de mascota en adopción que contiene la 
     * información de la mascota (solo si existe dicho proceso)
     */
-    private MascotaEnAdopcionEntity procesoMascotaEnAdopcion;
+    private MascotaEnAdopcionDTO procesoMascotaEnAdopcion;
     
     // CONSTRUCTOR
     
@@ -98,9 +95,18 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
-            this.procesoMascotaEnAdopcion = entity.getProcesoMascotaEnAdopcion();
-            this.procesoMascotaEncontrada = entity.getProcesoMascotaEncontrada();
-            this.procesoMascotaExtraviada = entity.getProcesoMascotaExtraviada();
+            if(entity.getProcesoMascotaEnAdopcion() != null)
+                this.procesoMascotaEnAdopcion = new MascotaEnAdopcionDTO(entity.getProcesoMascotaEnAdopcion());
+            else
+                this.procesoMascotaEnAdopcion = null;
+            if(entity.getProcesoMascotaEncontrada() != null)
+                this.procesoMascotaEncontrada = new MascotaEncontradaDTO(entity.getProcesoMascotaEncontrada());
+            else
+                this.procesoMascotaEncontrada = null;
+            if(entity.getProcesoMascotaExtraviada() != null)
+                this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(entity.getProcesoMascotaExtraviada());
+            else
+                this.procesoMascotaExtraviada = null;
         }
     }
     
@@ -204,9 +210,9 @@ public class MascotaDTO implements Serializable
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
-        entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada);
-        entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion);
-        entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada);
+        entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada.toEntity());
+        entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion.toEntity());
+        entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada.toEntity());
         return entity;
     }
 

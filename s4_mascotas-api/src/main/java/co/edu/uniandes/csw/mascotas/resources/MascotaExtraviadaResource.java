@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaExtraviadaRecompensaLogic;
 import co.edu.uniandes.csw.mascotas.ejb.MascotaProcesoLogic;
 import co.edu.uniandes.csw.mascotas.entities.MascotaExtraviadaEntity;
-import co.edu.uniandes.csw.mascotas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
