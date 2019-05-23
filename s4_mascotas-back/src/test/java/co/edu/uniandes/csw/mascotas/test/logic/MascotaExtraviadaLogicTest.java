@@ -101,8 +101,8 @@ public class MascotaExtraviadaLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from MascotaExtraviadaEntity").executeUpdate();
         em.createQuery("delete from RecompensaEntity").executeUpdate();
+        em.createQuery("delete from MascotaExtraviadaEntity").executeUpdate();
     }
     
         /**
