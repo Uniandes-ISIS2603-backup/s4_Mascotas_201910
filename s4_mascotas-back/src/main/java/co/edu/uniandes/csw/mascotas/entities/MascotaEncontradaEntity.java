@@ -7,7 +7,9 @@ package co.edu.uniandes.csw.mascotas.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +41,7 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
      * La informaciòn de la mascota relacionada a la mascota
      */
     @PodamExclude
-    @OneToOne
+    @OneToOne(mappedBy = "procesoMascotaEncontrada", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     private MascotaEntity mascota;
         
     /*
@@ -121,4 +123,23 @@ public class MascotaEncontradaEntity extends BaseEntity implements Serializable{
         this.ubicacion = ubicacion;
     }
     
+    public UsuarioEntity getUsuario( )
+    {
+        return usuario;
+    }
+    
+    public void setUsuario( UsuarioEntity usuario )
+    {
+        this.usuario = usuario;
+    }
+    
+    public MascotaEntity getMascota( )
+    {
+        return mascota;
+    }
+    
+    public void setMascota( MascotaEntity mascota )
+    {
+        this.mascota = mascota;
+    }
 }
