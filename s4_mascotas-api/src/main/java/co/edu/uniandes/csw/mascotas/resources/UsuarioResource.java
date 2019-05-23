@@ -34,6 +34,13 @@ public class UsuarioResource {
     @Inject
     private UsuarioLogic logica;
 
+    /**
+     * Recurso que crea un usuario con el objeto recibido
+     * @param usuario - objeto de tipo usuarioDTO
+     * @return el objeto creado
+     * @throws BusinessLogicException - La lanza si 
+     * @throws WebApplicationException 
+     */
     @POST
     public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException,WebApplicationException {
         UsuarioEntity entidad = usuario.toEntity();
@@ -107,6 +114,7 @@ public class UsuarioResource {
 
     }
 
+    
     /**
      * Retorna el Usuario segun su nombre de usuario 
      *
@@ -125,6 +133,26 @@ public class UsuarioResource {
         return new UsuarioDetailDTO(usuarioBuscad);
     }
 
+    
+    @GET
+    @Path("/verificar/{usuario}/{contrasenha}")
+    public UsuarioDetailDTO verificarContra(@PathParam("usuario") String usuario, @PathParam("contrasenha") String contrasenha) throws BusinessLogicException, WebApplicationException
+     {
+        Boolean si = logica.verificarContrasenha(usuario, contrasenha);
+        
+        if(si==null){
+            throw new WebApplicationException("El recurso usuario/verificar/ no existe",404);
+        }
+        else if(si){
+            UsuarioDetailDTO usr= new UsuarioDetailDTO(logica.buscarUsuarioXUsuario(usuario));
+             return usr;
+        }
+        else{
+            throw new WebApplicationException("La contrasenha es incorrecta");
+        }
+       
+    }
+    
     /**
      * Conexión con el servicio de articulos para un usuario.
      * {@link UsuarioArticulosResource}
@@ -151,7 +179,6 @@ public class UsuarioResource {
         
         return UsuarioArticulosResource.class;
     }
-
     /**
      * Convierte una lista de entidades a DTO.
      *

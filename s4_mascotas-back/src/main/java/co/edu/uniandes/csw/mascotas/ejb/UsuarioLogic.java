@@ -162,7 +162,7 @@ public class UsuarioLogic {
         if (encontrado == null) {
             throw new BusinessLogicException("El usuario verificado no existe");
         } else {
-            Boolean respuesta = contrasenha.equals(encontrado.getContrasenha())?true:false;
+            Boolean respuesta = contrasenha.equals(encontrado.getContrasenha());
             return respuesta;
         }
 
