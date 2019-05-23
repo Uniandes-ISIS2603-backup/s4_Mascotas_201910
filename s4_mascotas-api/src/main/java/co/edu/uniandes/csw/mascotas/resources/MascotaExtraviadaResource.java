@@ -203,4 +203,17 @@ public class MascotaExtraviadaResource {
         }
         return MascotaExtraviadaRecompensaResource.class;
     }
+    
+    /**
+     * Conexiòn con el servicio de la mascota para un proceso de mascota
+     * extraviada
+     * @param procesoId
+     * @return Clase con los recursos de mascota para un proceso de mascotaExtraviada
+     */
+    public Class<MascotaProcesoResource> getMascotaProcesoResource(@PathParam("procesoId") Long procesoId) throws Exception{
+        if (mascotaExtraviadaLogic.getProcesoMascotaExtraviada(procesoId) == null) {
+            throw new WebApplicationException("El recurso /procesosMascotaExtraviada/" + procesoId + " no existe.", 404);
+        }
+        return MascotaProcesoResource.class;        
+    }
 }
