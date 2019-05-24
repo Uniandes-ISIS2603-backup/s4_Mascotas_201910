@@ -57,12 +57,13 @@ public class MascotaEnAdopcionPersistence {
    }
    /**
     * devuelve la lista de los postulados al proceso asociado
-    * @param id
+    * @param id Long del proceso buscado
     * @return 
     */
+   
    public List<UsuarioEntity> postuladosByProceso(Long id){
-       TypedQuery<UsuarioEntity> query = em.createQuery(" Select u from UsuarioEntity u where u.postulacionesMascotaAdopcion != :id" ,UsuarioEntity.class );
-       return query.setParameter("id", id).getResultList();
+       TypedQuery<UsuarioEntity> query = em.createQuery("Select u from UsuarioEntity u where u.id = :id " ,UsuarioEntity.class );
+       return query.setParameter("id", 200).getResultList();
    }
    /**
     * devuelve todos los procesos sin adoptar

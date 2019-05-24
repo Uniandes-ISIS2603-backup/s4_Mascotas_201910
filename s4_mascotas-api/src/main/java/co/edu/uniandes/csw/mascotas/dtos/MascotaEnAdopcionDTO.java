@@ -58,7 +58,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
      * usuarios postulados
      */
     
-    private List<UsuarioDTO> postulados;
+    //private List<UsuarioDTO> postulados;
     /**
      * constructor con un entity como parámetro
      * @param entity 
@@ -92,7 +92,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
             else{
                 this.mascota = null;
             }
-            this.postulados = null;
+           // this.postulados = null;
             
         }
         
@@ -263,14 +263,14 @@ public class MascotaEnAdopcionDTO implements Serializable{
      * @return the postulados
      */
     public List<UsuarioDTO> getPostulados() {
-        return postulados;
+        return null;
     }
 
     /**
      * @param postulados the postulados to set
      */
     public void setPostulados(List<UsuarioDTO> postulados) {
-        this.postulados = postulados;
+       // this.postulados = postulados;
     }
     
 }
