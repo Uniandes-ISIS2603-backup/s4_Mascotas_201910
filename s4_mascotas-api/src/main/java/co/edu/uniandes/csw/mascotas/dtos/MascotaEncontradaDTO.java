@@ -58,7 +58,7 @@ public class MascotaEncontradaDTO implements Serializable{
      * Constructor a partir 
      * @param e 
      */
-    public MascotaEncontradaDTO(MascotaEncontradaEntity e)
+    public MascotaEncontradaDTO(MascotaEncontradaEntity e, boolean shallow)
     {
         if(e!=null)
         {
@@ -67,12 +67,17 @@ public class MascotaEncontradaDTO implements Serializable{
             this.fechaFin = e.getFechaFinalizacion();
             this.fechaInicio = e.getFechaInicializacion();
             this.ubicacion = e.getUbicacion();
-            if(e.getMascota()!=null)
-                this.mascota = new MascotaDTO(e.getMascota());
+            if(!shallow && e.getMascota()!=null)
+                this.mascota = new MascotaDTO(e.getMascota(), true);
             else
                 this.mascota = null;
         }
     }
+    
+    public MascotaEncontradaDTO(MascotaEncontradaEntity e){
+        this(e, false);
+    }
+    
 
     /**
      * Construye una entidad a partir del DTO
