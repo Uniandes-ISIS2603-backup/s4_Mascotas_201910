@@ -71,31 +71,35 @@ public class MascotaExtraviadaDTO implements Serializable{
      * Crea un nuevo DTO con los valores que recibe de la entidad respectiva
      * @param e - la entidad
      */
-    public MascotaExtraviadaDTO(MascotaExtraviadaEntity e){
+    public MascotaExtraviadaDTO(MascotaExtraviadaEntity e, boolean shallow){
         if(e != null){
             this.id = e.getId();
             this.direccion = e.getDireccion();
             this.ciudad = e.getCiudad();
             this.estado = e.getEstado();
             
-            if(e.getRecompensa() != null){
-                this.recompensa = new RecompensaDTO(e.getRecompensa());
+            if(!shallow && e.getRecompensa() != null){
+                this.recompensa = new RecompensaDTO(e.getRecompensa(), true);
             }else{
                 this.recompensa = null;
             }
             
-            if(e.getMascota() != null){
-                this.mascota = new MascotaDTO(e.getMascota());
+            if(!shallow && e.getMascota() != null){
+                this.mascota = new MascotaDTO(e.getMascota(), true);
             }else{
                 this.mascota = null;
             }
             
-            if(e.getUsuario() != null){
+            if(!shallow && e.getUsuario() != null){
                 this.usuario = new UsuarioDTO(e.getUsuario());
             }else{
                 this.usuario = null;
             }
         }
+    }
+    
+    public MascotaExtraviadaDTO(MascotaExtraviadaEntity e){
+        this(e, false);
     }
    
     /**

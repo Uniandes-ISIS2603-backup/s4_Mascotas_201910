@@ -47,7 +47,7 @@ public class MascotaExtraviadaEntity extends BaseEntity implements Serializable{
      * La informaciòn de la mascota relacionada al proceso
      */
     @PodamExclude
-    @OneToOne
+    @OneToOne(mappedBy = "procesoMascotaExtraviada", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     private MascotaEntity mascota;
     
     /**

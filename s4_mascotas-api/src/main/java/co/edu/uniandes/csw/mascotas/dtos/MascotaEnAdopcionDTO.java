@@ -63,7 +63,7 @@ public class MascotaEnAdopcionDTO implements Serializable{
      * constructor con un entity como parámetro
      * @param entity 
      */
-    public MascotaEnAdopcionDTO(MascotaEnAdopcionEntity entity){
+    public MascotaEnAdopcionDTO(MascotaEnAdopcionEntity entity, boolean shallow){
         
         if(entity != null){
             
@@ -74,19 +74,19 @@ public class MascotaEnAdopcionDTO implements Serializable{
             fechaFinal = entity.getFechaFinal();
             adoptada = entity.isAdoptada();
             
-            if(entity.getDuenio() != null){
+            if(!shallow && entity.getDuenio() != null){
                 this.duenio = new UsuarioDTO(entity.getDuenio());
             }else{
                 this.duenio = null;
             }
             
-            if(entity.getCalificacion() != null){
+            if(!shallow && entity.getCalificacion() != null){
                 this.calificacion = new CalificacionDTO(entity.getCalificacion());
             }else{
                 this.calificacion = null;
             }
             
-            if(entity.getMascota() != null){
+            if(!shallow && entity.getMascota() != null){
                 this.mascota = new MascotaDTO(entity.getMascota());
             }
             else{
@@ -97,7 +97,12 @@ public class MascotaEnAdopcionDTO implements Serializable{
         }
         
     
-}
+    }
+    
+    public MascotaEnAdopcionDTO(MascotaEnAdopcionEntity entity){
+        this(entity, false);
+    }
+    
     public MascotaEnAdopcionDTO(){
         //constructor vacío por defecto
     }
