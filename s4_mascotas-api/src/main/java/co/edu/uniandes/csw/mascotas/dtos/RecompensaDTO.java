@@ -61,19 +61,23 @@ public class RecompensaDTO implements Serializable{
      * Crea un nuevo DTO con los valores que recibe de la entidad respectiva
      * @param e - la entidad
      */
-    public RecompensaDTO(RecompensaEntity e){
+    public RecompensaDTO(RecompensaEntity e, boolean shallow){
         if(e != null){
             this.id = e.getId();
             this.medioDePago = e.getMedioDePago();
             this.valor = e.getValor();
             this.estado = e.getEstado();
             
-            if(procesoMascotaExtraviada != null){
+            if(!shallow && procesoMascotaExtraviada != null){
                 this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(e.getProcesoMascotaExtraviada());
             }else{
                 this.procesoMascotaExtraviada = null;
             }
         }
+    }
+    
+    public RecompensaDTO(RecompensaEntity e){
+        this(e, false);
     }
     
     /**

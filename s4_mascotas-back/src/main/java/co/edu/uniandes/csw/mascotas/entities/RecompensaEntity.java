@@ -40,6 +40,7 @@ public class RecompensaEntity extends BaseEntity implements Serializable{
      * El proceso de mascota extraviada asociado
      */
     @PodamExclude
+    @OneToOne
     private MascotaExtraviadaEntity procesoMascotaExtraviada;
     
     /**

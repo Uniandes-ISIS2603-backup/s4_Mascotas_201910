@@ -84,7 +84,7 @@ public class MascotaDTO implements Serializable
      * Constructor que crea un DTO a partir de una entidad <br>
      * @param entity Entidad con la información para crear una nueva instancia de DTO <br>
      */
-    public MascotaDTO(MascotaEntity entity)
+    public MascotaDTO(MascotaEntity entity, boolean shallow)
     {
         if(entity!= null)
         {
@@ -95,20 +95,28 @@ public class MascotaDTO implements Serializable
             this.descripcion = entity.getDescripcion();
             this.fotos = entity.getFotos();
             this.nombre = entity.getNombre();
-            if(entity.getProcesoMascotaEnAdopcion() != null)
-                this.procesoMascotaEnAdopcion = new MascotaEnAdopcionDTO(entity.getProcesoMascotaEnAdopcion());
+            if(!shallow && entity.getProcesoMascotaEnAdopcion() != null)
+                this.procesoMascotaEnAdopcion = new MascotaEnAdopcionDTO(entity.getProcesoMascotaEnAdopcion(), true);
             else
                 this.procesoMascotaEnAdopcion = null;
-            if(entity.getProcesoMascotaEncontrada() != null)
-                this.procesoMascotaEncontrada = new MascotaEncontradaDTO(entity.getProcesoMascotaEncontrada());
+            if(!shallow && entity.getProcesoMascotaEncontrada() != null)
+                this.procesoMascotaEncontrada = new MascotaEncontradaDTO(entity.getProcesoMascotaEncontrada(), true);
             else
                 this.procesoMascotaEncontrada = null;
-            if(entity.getProcesoMascotaExtraviada() != null)
-                this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(entity.getProcesoMascotaExtraviada());
+            if(!shallow && entity.getProcesoMascotaExtraviada() != null){
+                System.out.println("ID: " + this.id + "procesoMascotaExtraviadaId " + entity.getProcesoMascotaExtraviada().getId());
+                this.procesoMascotaExtraviada = new MascotaExtraviadaDTO(entity.getProcesoMascotaExtraviada(), true);
+            }
             else
                 this.procesoMascotaExtraviada = null;
         }
     }
+    
+    public MascotaDTO(MascotaEntity entity){
+        this(entity, false);
+    }
+    
+    
     
     // METODOS
     
@@ -210,9 +218,15 @@ public class MascotaDTO implements Serializable
         entity.setTipo(this.tipo);
         entity.setFotos(this.fotos);
         entity.setNombre(this.nombre);
-        entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada.toEntity());
-        entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion.toEntity());
-        entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada.toEntity());
+        if(this.procesoMascotaEncontrada != null){
+            entity.setProcesoMascotaEncontrada(this.procesoMascotaEncontrada.toEntity());
+        }
+        if(this.procesoMascotaEnAdopcion != null){
+            entity.setProcesoMascotaEnAdopcion(this.procesoMascotaEnAdopcion.toEntity());
+        }        
+        if(this.procesoMascotaExtraviada != null){
+            entity.setProcesoMascotaExtraviada(this.procesoMascotaExtraviada.toEntity());
+        }
         return entity;
     }
 
